@@ -9,16 +9,23 @@ import { isLoggedIn } from "./func/user.func";
 
 // Routes
 import Auth from "./routes/Auth";
+
+// Redux
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 export default function AppRouter() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Router>
-        <Routes>
-          <Route path="/" element={<AutoRedirect />} />
-          {/* Dynamic auth/:authtype */}
-          <Route path="/auth/:authtype" element={<Auth />} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<AutoRedirect />} />
+            {/* Dynamic auth/:authtype */}
+            <Route path="/auth/:authtype" element={<Auth />} />
+          </Routes>
+        </Router>
+      </Provider>
     </MantineProvider>
   );
 }

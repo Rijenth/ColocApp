@@ -1,24 +1,28 @@
-export function login(email: string, password: string) {
-  // TODO: Change the URL to the backend URL
-  return fetch("http://localhost:3001/api/login", {
+import { AnyAction } from "redux";
+export function login(email: string, password: string): AnyAction {
+  let formData = new FormData();
+  formData.append("email", email);
+  formData.append("password", password);
+
+  fetch("http://localhost:3001/api/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
+    body: formData,
   })
     .then((res) => res.json())
     .then((data) => {
+      // the response will be a jwt token
       if (data.token) {
         sessionStorage.setItem("coloc-user", data.token);
-        return true;
+        return { type: "LOGIN_SUCCESS" };
       } else {
-        return false;
+        return { type: "LOGIN_FAILURE" };
       }
+    })
+    .catch((err) => {
+      return { type: "LOGIN_FAILURE" };
     });
+
+  return { type: "LOGIN_REQUEST" };
 }
 
 export function register(
