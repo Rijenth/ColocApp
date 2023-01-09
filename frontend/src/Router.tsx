@@ -14,13 +14,9 @@ export default function AppRouter() {
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <Router>
         <Routes>
-          <Route path="/">
-            <AutoRedirect />
-          </Route>
+          <Route path="/" element={<AutoRedirect />} />
           {/* Dynamic auth/:authtype */}
-          <Route path="/auth/:authtype">
-            <Auth />
-          </Route>
+          <Route path="/auth/:authtype" element={<Auth />} />
         </Routes>
       </Router>
     </MantineProvider>
