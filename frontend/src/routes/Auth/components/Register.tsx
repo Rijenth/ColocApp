@@ -1,8 +1,8 @@
 import { Input, NumberInput, PasswordInput, Select } from "@mantine/core";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { register } from "../../../func/auth.func";
 
-import { register } from "../../../redux/slices/auth.slice";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +10,10 @@ export default function Register() {
   const [age, setAge] = useState(0);
 
   const dispatch = useDispatch();
+
+  const handleSubmit = async () => {
+    dispatch(await register(email, password, gender, age));
+  };
 
   return (
     <>
@@ -24,11 +28,15 @@ export default function Register() {
         onChange={(e) => setPassword(e.currentTarget.value)}
       />
       <Select
+        value={gender}
         data={[
           { label: "Male", value: "Male" },
           { label: "Female", value: "Female" },
           { label: "Hélicoptère d'assaut", value: "onaimeleshelico" },
         ]}
+        onChange={(e) => {
+          console.log(e);
+        }}
       />
       <NumberInput placeholder="Age" value={age} onChange={(e) => setAge(e)} />
       <button

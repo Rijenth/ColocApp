@@ -40,13 +40,17 @@ export async function register(
   email: string,
   password: string,
   firstName: string,
-  lastName: string
+  lastName: string,
+  gender: string,
+  age: number
 ): Promise<AnyAction> {
   let formData = new FormData();
   formData.append("email", email);
   formData.append("password", password);
   formData.append("firstName", firstName);
   formData.append("lastName", lastName);
+  formData.append("gender", gender);
+  formData.append("age", age.toString());
 
   // we fetch the backend to get a jwt
   // then login the user
