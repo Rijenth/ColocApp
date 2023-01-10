@@ -12,5 +12,5 @@ docker-compose up -d --build
 | HA             | Adrien  | @JinSu77   |
 | ARUMAINATHAN   | Rijenth | @Rijenth   |
 | LEVENEUR       | Louis   | @LFLeveeur |
-| ____           | Fabrice | @          |
+| PIVERT         | Fabrice | @Fabpiv    |
 | ____           | Kader   | @          |
