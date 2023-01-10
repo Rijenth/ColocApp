@@ -1,0 +1,22 @@
+.dashboard__items{
+    background: #F8F9FA;
+    border-radius: 8px;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.dashboard__radial-chart {
+
+}
+
+.dashboard__resumes {
+    margin-top: 16px;
+}
+
+.recharts-wrapper, .recharts-wrapper svg  {
+    width: 100% !important;
+}
+
+.recharts-wrapper svg {
+    scale: 1.5;
+}
