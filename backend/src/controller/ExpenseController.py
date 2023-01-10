@@ -36,5 +36,5 @@ class ExpenseController:
         return jsonify({}), 204
     
     def deleteArticle(id):
-        ArticleAction().delete(id)
+        ExpenseModel().delete(id)
         return jsonify({}), 204

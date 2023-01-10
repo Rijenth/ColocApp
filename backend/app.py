@@ -1,6 +1,6 @@
 from flask import (Flask, jsonify, json, request)
 from flask_cors import CORS
-from src.Model.ColocationModel import ColocationModel
+from src.model.ColocationModel import ColocationModel
 
 app=Flask(__name__)
 cors = CORS(app)
