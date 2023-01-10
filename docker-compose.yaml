@@ -20,7 +20,7 @@ services:
         ports:
             - '3000:3000'
         volumes:
-            - ./frontend:/app
+            - ./frontend:/usr/src/app
             # use npm instead of yarn
         command: sh -c "npm rebuild esbuild && yarn dev"
         restart: always

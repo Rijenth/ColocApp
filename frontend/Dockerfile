@@ -7,9 +7,9 @@ COPY package.json yarn.lock ./
 
 RUN yarn install --frozen-lockfile
 
-RUN yarn global add vite
-
 COPY . .
+
+RUN yarn global add vite
 
 EXPOSE 3000
 
