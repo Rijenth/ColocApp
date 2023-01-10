@@ -55,6 +55,8 @@ export async function register(
   // we fetch the backend to get a jwt
   // then login the user
 
+  console.log(formData);
+
   const response = fetch("http://localhost:3001/auth/register", {
     method: "POST",
     body: formData,
