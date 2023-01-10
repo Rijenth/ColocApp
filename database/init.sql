@@ -42,7 +42,7 @@ CREATE TABLE `colocataire` (
 CREATE TABLE `colocation` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
-  `rentDue` varchar(1000) NOT NULL,
+  `rentDue` int NOT NULL,
   `rentPaid` tinyint(1) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
@@ -56,13 +56,14 @@ CREATE TABLE `colocation` (
 
 CREATE TABLE `expense` (
   `id` int NOT NULL,
+  `amount` int NOT NULL,
   `colocataireId` int NOT NULL,
-  `paidBy` varchar(1000) NOT NULL,
+  `paidBy` int NOT NULL,
   `paidFor` enum('loyer','electricite','eau','nourriture','autres') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `description` datetime NOT NULL,
-  `colocation.id` datetime NOT NULL
+  `description` text NOT NULL,
+  `colocation.id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -79,7 +80,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `role` tinyint(1) NOT NULL,
   `picture` text,
-  `income` varchar(1000) NOT NULL
+  `income` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
