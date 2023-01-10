@@ -18,7 +18,7 @@ export async function login(
   });
 
   // we get the jwt from the response
-  const jwt = await response.text();
+  const jwt = await response.json();
 
   // we decode the jwt to get the user id
   const decodedJwt = decodeJwt(jwt);
