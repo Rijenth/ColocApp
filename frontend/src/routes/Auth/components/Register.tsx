@@ -6,46 +6,81 @@ import { register } from "../../../func/auth.func";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("undefined");
   const [age, setAge] = useState(0);
+  const [firtName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-    dispatch(await register(email, password, gender, age));
+    console.log(
+      dispatch(await register(email, password, firtName, lastName, gender, age))
+    );
   };
 
   return (
     <>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.currentTarget.value)}
-      />
-      <PasswordInput
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.currentTarget.value)}
-      />
-      <Select
-        value={gender}
-        data={[
-          { label: "Male", value: "Male" },
-          { label: "Female", value: "Female" },
-          { label: "Hélicoptère d'assaut", value: "onaimeleshelico" },
-        ]}
-        onChange={(e) => {
-          console.log(e);
-        }}
-      />
-      <NumberInput placeholder="Age" value={age} onChange={(e) => setAge(e)} />
-      <button
-        onClick={() => {
-          dispatch(register(email, password, gender, age));
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
         }}
       >
-        Register
-      </button>
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+          required
+        />
+        <Input
+          placeholder="First Name"
+          value={firtName}
+          onChange={(e) => setFirstName(e.currentTarget.value)}
+          required
+        />
+        <Input
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.currentTarget.value)}
+          required
+        />
+        <PasswordInput
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.currentTarget.value)}
+          required
+        />
+        <Select
+          value={gender}
+          data={[
+            { label: "Male", value: "Male" },
+            { label: "Female", value: "Female" },
+            { label: "Hélicoptère d'assaut", value: "onaimeleshelico" },
+            { label: "-----", value: "undefined" },
+          ]}
+          onChange={(e) => {
+            setGender(e as string);
+          }}
+          required
+        />
+        <NumberInput
+          placeholder="Age"
+          value={age}
+          onChange={(e) => {
+            if (e != undefined) {
+              setAge(e);
+            }
+          }}
+          required
+        />
+        <button
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          Register
+        </button>
+      </form>
     </>
   );
 }
