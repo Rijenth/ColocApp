@@ -18,9 +18,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async () => {
+    setLoading(true);
+    dispatch(await login(email, password));
+    setLoading(false);
+  };
+
   return (
     <div>
-      <form onSubmit={() => dispatch(login(email, password))}>
+      <form onSubmit={() => handleSubmit()}>
         <Input
           placeholder="Email"
           value={email}
