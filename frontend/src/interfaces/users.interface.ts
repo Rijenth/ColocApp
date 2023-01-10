@@ -4,4 +4,11 @@ export interface IUser {
     firstName: string,
     lastName: string,
     collocations: string[],
+    debts: IUserDebt[],
+}
+
+export interface IUserDebt {
+    did: string,
+    debt: number,
+    debtTo: string, // User uid
 }
