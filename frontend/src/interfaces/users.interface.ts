@@ -4,8 +4,18 @@ export interface IUser {
     firstName: string,
     lastName: string,
     gender: string,
-    collocations: string[],
-    debts: IUserDebt[],
+    birthdate?: Date
+    phoneNumber?: string,
+    picture?: string,
+}
+
+export interface IUserRegister {
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    gender: string,
+    birthdate?: Date
 }
 
 export interface IUserDebt {
