@@ -1,6 +1,5 @@
 import {
   Input,
-  NumberInput,
   PasswordInput,
   Select,
   Button,
@@ -10,7 +9,8 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { register } from "../../../func/auth.func";
 
 import { showNotification } from "@mantine/notifications";
@@ -19,11 +19,12 @@ import { IconAlertCircle } from "@tabler/icons";
 import { DatePicker } from "@mantine/dates";
 
 export default function Register() {
+  const today = new Date();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordComfirm, setPasswordComfirm] = useState("");
   const [gender, setGender] = useState("undefined");
-  const [birthdate, setBirthDate] = useState<Date>();
+  const [birthdate, setBirthDate] = useState<Date>(today);
   const [firtName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -48,7 +49,6 @@ export default function Register() {
       });
       return;
     }
-
     console.log(
       dispatch(
         await register(email, password, firtName, lastName, gender, birthdate)
