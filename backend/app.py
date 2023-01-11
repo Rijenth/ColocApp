@@ -4,7 +4,6 @@ from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
 
-
 app=Flask(__name__)
 cors = CORS(app)
 app.config['JWT_SECRET_KEY'] = "952zWPh*6aKvy4aP8h6Dx"
@@ -43,23 +42,17 @@ def login():
 
 @app.route('/api/colocation', methods=['GET'])
 def getColoc():
-    colocation = ColocationModel(
-        '1',
-        'ColocataireUser',
-        '185',
-        '1',
-        '24/12/2022',
-        '25/12/2022'
-    )
+    data = {
+        'id': 1,
+        'name': "John",
+        'rentDue': 185,
+        'rentPaid': 185,
+        'createdAt': "24/12/2022",
+        'updatedAt': "25/12/2022"
+    }
+    colocation = ColocationModel(data)
 
-    return jsonify({
-        'id': colocation.id,
-        'name': colocation.name,
-        'rentDue': colocation.rentDue,
-        'rentPaid': colocation.rentPaid,
-        'createdAt': colocation.createdAt,
-        'updatedAt': colocation.updatedAt
-    })
+    return jsonify(colocation.serialize())
 
 @app.route('/api/data', methods=['POST'])
 def data():
