@@ -10,10 +10,21 @@ import Register from "./components/Register";
 import { Center } from "@mantine/core";
 
 import { createStyles } from "@mantine/core";
+import { useEffect } from "react";
+
+import { logout } from "../../func/auth.func";
 
 export default function Auth() {
   const { classes } = useStyle();
   const { authtype } = useParams();
+
+  useEffect(() => {
+    if (authtype === "logout") {
+      logout();
+      window.location.href = "/auth/login";
+    }
+  });
+
   return (
     <main className={classes.main}>
       <Center>{authtype === "login" ? <Login /> : <Register />}</Center>

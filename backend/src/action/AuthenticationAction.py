@@ -7,20 +7,19 @@ class AuthenticationAction(DatabaseActions):
         super().__init__('user')
 
     def register(self, model):
-        query = "INSERT INTO " + self.table + " (username, name, email, password, role, picture, income) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + self.table + " (firstName, lastName, email, password, gender, birthdate) VALUES (%s, %s, %s, %s, %s, %s)"
         value = (
-            model.username,
-            model.name,
+            model.firstName,
+            model.lastName,
             model.email,
             self.hashPassword(model.password), 
-            model.role,
-            model.picture,
-            model.income
+            model.gender,
+            model.birthdate,
         )
         super()._execute(query, value)
     
     def login(self, data): 
-        row = super()._get("username", data["username"])
+        row = super()._get("firstName", data["firstName"])
         if(len(row) == 0):
             return []
         elif(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):

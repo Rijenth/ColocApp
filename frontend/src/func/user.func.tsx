@@ -11,3 +11,12 @@ export function getUser() {
     return decodeJwt(sessionStorage.getItem("coloc-user") as string);
   }
 }
+
+export function authHeader() {
+  let user = getUser();
+  if (user && user.token) {
+    return { Authorization: "Bearer " + user.token };
+  } else {
+    return {};
+  }
+}
