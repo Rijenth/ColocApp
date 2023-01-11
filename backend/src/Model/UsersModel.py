@@ -1,25 +1,30 @@
 from src.model.BasicModel import BasicModel
 from flask import Flask
+from datetime import date
 
 class UsersModel(BasicModel):
     attributes = {
         'id': int,
-        'username': str,
-        'name': str,
+        'firstName': str,
+        'lastName': str,
         'email': str,
         'password': str,
-        'role': bool,
+        'gender': str,
+        'phone': str,
+        'birthdate': date,
         'picture': str,
         'income': int
     }
 
     serializable = {
         'id': int,
-        'username': str,
-        'name': str,
+        'firstName': str,
+        'lastName': str,
         'email': str,
         'password': str,
-        'role': bool,
+        'gender': str,
+        'phone': str,
+        'birthdate': date,
         'picture': str,
         'income': int
     }
