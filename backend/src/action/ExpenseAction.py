@@ -8,7 +8,7 @@ class ExpenseAction(DatabaseActions):
          super().__init__('expense')
 
     def index(self):
-        data = super()._get("colocataireId", (id,))   
+        data = super()._get()   
         return self(data).serializeWithRelationships()
 
     def post(self, model):

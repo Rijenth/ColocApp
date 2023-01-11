@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `colocataire`
+-- Structure de la table `Colocataire`
 --
 
-CREATE TABLE `colocataire` (
+CREATE TABLE `Colocataire` (
   `id` int NOT NULL,
   `userId` int NOT NULL,
   `colocationId` int NOT NULL
@@ -36,10 +36,10 @@ CREATE TABLE `colocataire` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `colocation`
+-- Structure de la table `Colocation`
 --
 
-CREATE TABLE `colocation` (
+CREATE TABLE `Colocation` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `rentDue` int NOT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE `colocation` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `expense`
+-- Structure de la table `Expense`
 --
 
-CREATE TABLE `expense` (
+CREATE TABLE `Expense` (
   `id` int NOT NULL,
   `amount` int NOT NULL,
   `colocataireId` int NOT NULL,
@@ -68,10 +68,10 @@ CREATE TABLE `expense` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Structure de la table `Users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `Users` (
   `id` int NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
@@ -89,30 +89,30 @@ CREATE TABLE `user` (
 --
 
 --
--- Index pour la table `colocataire`
+-- Index pour la table `Colocataire`
 --
-ALTER TABLE `colocataire`
+ALTER TABLE `Colocataire`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_user_user` (`userId`),
   ADD KEY `fk_colocation` (`colocationId`);
 
 --
--- Index pour la table `colocation`
+-- Index pour la table `Colocation`
 --
-ALTER TABLE `colocation`
+ALTER TABLE `Colocation`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `expense`
+-- Index pour la table `Expense`
 --
-ALTER TABLE `expense`
+ALTER TABLE `Expense`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_expense_user` (`colocataireId`);
 
 --
--- Index pour la table `user`
+-- Index pour la table `User`
 --
-ALTER TABLE `user`
+ALTER TABLE `Users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -120,27 +120,27 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT pour la table `colocataire`
+-- AUTO_INCREMENT pour la table `Colocataire`
 --
-ALTER TABLE `colocataire`
+ALTER TABLE `Colocataire`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `colocation`
+-- AUTO_INCREMENT pour la table `Colocation`
 --
-ALTER TABLE `colocation`
+ALTER TABLE `Colocation`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `expense`
+-- AUTO_INCREMENT pour la table `Expense`
 --
-ALTER TABLE `expense`
+ALTER TABLE `Expense`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
-ALTER TABLE `user`
+ALTER TABLE `Users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -148,18 +148,18 @@ ALTER TABLE `user`
 --
 
 --
--- Contraintes pour la table `colocataire`
+-- Contraintes pour la table `Colocataire`
 --
-ALTER TABLE `colocataire`
-  ADD CONSTRAINT `fk_colocation` FOREIGN KEY (`colocationId`) REFERENCES `colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Colocataire`
+  ADD CONSTRAINT `fk_colocation` FOREIGN KEY (`colocationId`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user_user` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `expense`
+-- Contraintes pour la table `Expense`
 --
-ALTER TABLE `expense`
-  ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-  ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocation.id`) REFERENCES `colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Expense`
+  ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `Colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocation.id`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 COMMIT;
 

@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
+from src.model.ExpenseModel import ExpenseModel
+from src.controller.ExpenseController import ExpenseController
 from datetime import datetime
 
 app=Flask(__name__)
@@ -66,3 +68,25 @@ def data():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+@app.route('/api/expense', methods=['GET'])
+def indexExpense():
+   return ExpenseController.indexExpense()
+
+@app.route('/api/expense/<id>', methods=['GET'])
+def showColocExpense(id):
+       return ExpenseController.showAllExpense(id)
+       # return Faut lui passer l'id de la colocation
+
+@app.route('/api/expense', methods=['POST'])
+def createExpense():
+    data = request.get_json()
+    return ExpenseController.newExpense(data)
+@app.route('/api/expense/<id>', methods=['PUT'])
+def updateExpense(id):
+    data = request.get_json()
+    return ExpenseController.updateExpense(id, data)
+    
+@app.route('/api/expense/<id>', methods=['DELETE']) 
+def deleteExpense(id):
+    return ExpenseController.deleteExpense(id)

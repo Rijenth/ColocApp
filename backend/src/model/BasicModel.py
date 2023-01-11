@@ -1,3 +1,4 @@
+from src.action.RelationshipActions import RelationshipActions
 class BasicModel():
     
     attributes = {}

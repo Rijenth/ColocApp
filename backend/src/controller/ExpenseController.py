@@ -10,7 +10,7 @@ class ExpenseController:
     def indexExpense():
         return jsonify(ExpenseAction().index()), 200
 
-    def showAllExpense(id):
+    def showColocExpense(id):
         try:
             expense = ExpenseAction().getExpenseColoc(id)
         except Exception as e:
@@ -46,6 +46,6 @@ class ExpenseController:
             return jsonify({}), 422
         return jsonify({}), 204
     
-    def deleteArticle(id):
+    def deleteExpense(id):
         ExpenseAction().delete(id)
         return jsonify({}), 204
