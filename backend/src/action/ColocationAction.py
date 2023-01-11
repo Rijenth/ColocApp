@@ -1,5 +1,5 @@
 from src.action.DatabaseActions import DatabaseActions
-from src.model.ColocationModel import ColocationModel
+from datetime import date
 
 class ColocationAction(DatabaseActions):
     def __init__(self):
@@ -19,21 +19,20 @@ class ColocationAction(DatabaseActions):
             model.name,
             model.rentDue,
             model.rentPaid,
-            model.createdAt,
-            model.updatedAt
+            date.today().strftime("%Y-%m-%d"),
+            date.today().strftime("%Y-%m-%d")
         )
         super()._execute(query, value)
 
-    def update(self, model, id):
-        query = "UPDATE" + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt ) VALUES (%s, %s, %s, %s, %s)"
+    def update(self, id, model):
+        query = "UPDATE " + self.table + " SET name = %s, rentDue = %s, rentPaid = %s WHERE id = %s"
         value = (
             model.name,
             model.rentDue,
             model.rentPaid,
-            model.createdAt,
-            model.updatedAt
+            id
         )
-        super()._execute(query, value, id)
+        super()._execute(query, value)
 
     def delete(self, id):
         query = "DELETE FROM " + self.table + " WHERE id = %s"

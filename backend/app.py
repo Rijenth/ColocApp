@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
+from src.controller.ColocationController import ColocationController
 
 app=Flask(__name__)
 cors = CORS(app)
@@ -34,25 +35,52 @@ def login():
         data[key] = value.strip()
     return UsersController.login(data)
 
+
+###                ###
+###   COLOCATION   ###
+###                ### 
+
+###     INDEX      ###
+@app.route('/api/colocation', methods=['GET'])
+def indexColocation():
+    return ColocationController.indexColocation()
+
+###      SHOW      ###
+@app.route('/api/colocation/<string:id>', methods=['GET'])
+def showColocation(id):
+    int(id)
+    return ColocationController.showColocation(int(id))
+
+###     CREATE     ###
+# { "name": "nameCreate", "rentDue": 100, "rentPaid": 0 }
+@app.route('/api/colocation', methods=['POST'])
+def postColocation():
+    data = request.get_json()
+    return ColocationController.createColocation(data)
+
+###     UPDATE     ###
+# { "name": "nameEdit", "rentDue": 123, "rentPaid": 1 }
+@app.route('/api/colocation/<string:id>', methods=['PUT'])
+def updateColocation(id):
+    data = request.get_json()
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ColocationController.updateColocation(int(id), data)
+
+###     DELETE     ###
+@app.route('/api/colocation/<string:id>', methods=['DELETE'])
+def deleteColocation(id):
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ColocationController.deleteColocation(int(id))
+    
 ###                ###
 ###                ###
 ###                ### 
-
-
-
-@app.route('/api/colocation', methods=['GET'])
-def getColoc():
-    data = {
-        'id': 1,
-        'name': "John",
-        'rentDue': 185,
-        'rentPaid': 185,
-        'createdAt': "24/12/2022",
-        'updatedAt': "25/12/2022"
-    }
-    colocation = ColocationModel(data)
-
-    return jsonify(colocation.serialize())
 
 @app.route('/api/data', methods=['POST'])
 def data():
