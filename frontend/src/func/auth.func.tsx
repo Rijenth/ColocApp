@@ -1,21 +1,27 @@
 import { AnyAction } from "redux";
 import { Alogin, Aregister, Alogout } from "../redux/reducers/auth.reducers";
 import { decodeJwt } from "jose";
-import { IUser } from "../interfaces/users.interface";
+import { IUser, IUserRegister } from "../interfaces/users.interface";
 
 export async function login(
   email: string,
   password: string
 ): Promise<AnyAction> {
-  let formData = new FormData();
-  formData.append("email", email);
-  formData.append("password", password);
+  let body: { email: string; password: string } = {
+    email: email,
+    password: password,
+  };
 
   // we fetch the backend to get a jwt
-  const response = await fetch("http://localhost:3001/auth/login", {
+  const response = await fetch("http://localhost:5000/api/auth/login", {
     method: "POST",
-    body: formData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
+
+  console.log(response);
 
   // we get the jwt from the response
   const jwt = await response.json();
@@ -42,25 +48,27 @@ export async function register(
   firstName: string,
   lastName: string,
   gender: string,
-  age: number
+  birthdate?: Date
 ): Promise<AnyAction> {
-  let formData = new FormData();
-  formData.append("email", email);
-  formData.append("password", password);
-  formData.append("firstName", firstName);
-  formData.append("lastName", lastName);
-  formData.append("gender", gender);
-  formData.append("age", age.toString());
+  // the backend expect a json
+  let body: IUserRegister = {
+    email: email,
+    password: password,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    birthdate: birthdate,
+  };
 
-  // we fetch the backend to get a jwt
-  // then login the user
-
-  console.log(formData);
-
-  const response = fetch("http://localhost:3001/auth/register", {
+  const response = fetch("http://localhost:5000/api/auth/register", {
     method: "POST",
-    body: formData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
+
+  console.log(response);
 
   const jwt = await (await response).json();
 
@@ -72,6 +80,19 @@ export async function register(
     state: {
       isAuthenticated: true,
       user: decodedJwt.payload as IUser,
+    },
+    action: {
+      payload: null,
+    },
+  });
+}
+
+export function logout(): AnyAction {
+  sessionStorage.removeItem("coloc-user");
+  return Alogout({
+    state: {
+      isAuthenticated: false,
+      user: null,
     },
     action: {
       payload: null,
