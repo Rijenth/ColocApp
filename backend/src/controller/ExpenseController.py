@@ -41,7 +41,7 @@ class ExpenseController:
         # date de mise à jour ?
         try:
             expense = ExpenseModel(data)
-            ExpenseAction().post(expense)
+            ExpenseAction().update(expense)
         except Exception as e:
             return jsonify({}), 422
         return jsonify({}), 204
