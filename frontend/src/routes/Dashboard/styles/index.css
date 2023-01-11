@@ -3,6 +3,18 @@
     border-radius: 8px;
     padding: 12px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard__items .mantine-92opmx {
+    width: 100%;
+}
+
+.dashboard__number {
+    text-align: center;
+    font-size: 5rem;
 }
 
 .dashboard__radial-chart {

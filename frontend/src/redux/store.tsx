@@ -1,5 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// TODO: Add reducers
+
+import addResumesReducer from "./reducers/dashboard.reducers";
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    addResumes: addResumesReducer,
+  },
 });
+
+

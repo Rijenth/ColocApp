@@ -8,6 +8,7 @@ import HeaderTabs from "../../components/HeaderTabs";
 
 // inner components
 import Resumes from "./components/Resumes";
+import CreateResume from "./components/CreateResume";
 import RadialChart from "./components/RadialChart";
 
 // styles
@@ -15,9 +16,7 @@ import "./styles/index.css";
 
 export default function Dashboard() {
     const data = [
-        { name: "John Doe", email: "john.doe@gmail.com", company: "Google" },
-        { name: "John Doe", email: "john.doe@gmail.com", company: "Google" },
-        { name: "John Doe", email: "john.doe@gmail.com", company: "Google" }
+        { sum: "100", why: "why", category: "category", date: "date" },
     ];
 
     const theme = useMantineTheme();
@@ -33,11 +32,14 @@ export default function Dashboard() {
                         <RadialChart />
                     </div>
                     <div className="dashboard__items">
-                        <RadialChart />
+                        <h1 className="dashboard__number">10</h1>
                     </div>
                 </SimpleGrid>
                 <div className="dashboard__items dashboard__resumes">
                     <Resumes data={data} />
+                </div>
+                <div className="dashboard__items dashboard__resumes">
+                    <CreateResume />
                 </div>
             </Container>
         </>
