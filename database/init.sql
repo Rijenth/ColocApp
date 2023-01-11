@@ -74,13 +74,14 @@ CREATE TABLE `expense` (
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` tinyint(1) NOT NULL,
-  `picture` text,
-  `income` int NOT NULL
+  `gender` varchar(255) NOT NULL,
+  `phone` varchar(255) NULL,
+  `birthdate` DATETIME NOT NULL,
+  `picture` text NULL,
+  `income` int  NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
