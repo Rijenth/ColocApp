@@ -1,45 +1,81 @@
-import { AnyAction } from "redux";
-import { Alogin, Aregister, Alogout } from "../redux/reducers/auth.reducers";
 import { decodeJwt } from "jose";
 import { IUser, IUserRegister } from "../interfaces/users.interface";
 
-export async function login(
-  email: string,
-  password: string
-): Promise<AnyAction> {
-  let body: { email: string; password: string } = {
-    email: email,
-    password: password,
+export async function login(email: string, password: string) {
+  return (
+    dispatch: (arg0: {
+      type: string;
+      user?: { email: string } | IUser;
+      error?: string;
+    }) => void
+  ) => {
+    dispatch(request({ email }));
+
+    let body: { email: string; password: string } = {
+      email: email,
+      password: password,
+    };
+
+    // we fetch the backend to get a jwt
+
+    fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then(
+        (response) => {
+          if (!response.ok) {
+            return Promise.reject(response.statusText);
+          }
+
+          return response.json();
+        },
+        (error) => {
+          dispatch(failure(error.toString()));
+          return Promise.reject(error);
+        }
+      )
+      .then((jwt) => {
+        // we decode the jwt to get the user id
+        const decodedJwt = decodeJwt(jwt);
+
+        // we create a session and change the store
+        sessionStorage.setItem("coloc-user", jwt);
+        dispatch(success(decodedJwt.payload as IUser));
+      });
   };
 
-  // we fetch the backend to get a jwt
-  const response = await fetch("http://localhost:5000/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  function request(user: { email: string }) {
+    return { type: "LOGIN_REQUEST", user };
+  }
 
-  console.log(response);
+  function success(user: IUser) {
+    return { type: "LOGIN_SUCCESS", user };
+  }
 
-  // we get the jwt from the response
-  const jwt = await response.json();
+  function failure(error: string) {
+    return { type: "LOGIN_FAILURE", error };
+  }
+}
 
-  // we decode the jwt to get the user id
-  const decodedJwt = decodeJwt(jwt);
+export async function logout() {
+  return (
+    dispatch: (arg0: {
+      type: string;
+      user?: { email: string } | IUser;
+      error?: string;
+    }) => void
+  ) => {
+    sessionStorage.removeItem("coloc-user");
+    dispatch(success());
+  };
 
-  // we create a session and change the store
-  sessionStorage.setItem("coloc-user", jwt);
-  return Alogin({
-    state: {
-      isAuthenticated: true,
-      user: decodedJwt.payload as IUser,
-    },
-    action: {
-      payload: null,
-    },
-  });
+  function success() {
+    return { type: "LOGOUT_SUCCESS" };
+  }
 }
 
 export async function register(
@@ -49,8 +85,7 @@ export async function register(
   lastName: string,
   gender: string,
   birthdate?: Date
-): Promise<AnyAction> {
-  // the backend expect a json
+): Promise<any> {
   let body: IUserRegister = {
     email: email,
     password: password,
@@ -60,42 +95,51 @@ export async function register(
     birthdate: birthdate,
   };
 
-  const response = fetch("http://localhost:5000/api/auth/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  return (
+    dispatch: (arg0: {
+      type: string;
+      user?: { email: string } | IUser;
+      error?: string;
+    }) => void
+  ) => {
+    fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        console.log("response is ready");
+        console.table(response);
+        if (!response.ok) {
+          return Promise.reject(response.statusText);
+        }
 
-  console.log(response);
+        return response.json();
+      })
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        return Promise.reject(error);
+      })
+      .then((jwt) => {
+        // we decode the jwt to get the user id
+        const decodedJwt = decodeJwt(jwt);
 
-  const jwt = await (await response).json();
+        sessionStorage.setItem("coloc-user", jwt);
+        dispatch(success(decodedJwt.payload as IUser));
+      });
+  };
 
-  // we decode the jwt to get the user id
-  const decodedJwt = decodeJwt(jwt);
+  function request(user: { email: string }) {
+    return { type: "REGISTER_REQUEST", user };
+  }
 
-  sessionStorage.setItem("coloc-user", jwt);
-  return Aregister({
-    state: {
-      isAuthenticated: true,
-      user: decodedJwt.payload as IUser,
-    },
-    action: {
-      payload: null,
-    },
-  });
-}
+  function failure(error: string) {
+    return { type: "REGISTER_FAILURE", error };
+  }
 
-export function logout(): AnyAction {
-  sessionStorage.removeItem("coloc-user");
-  return Alogout({
-    state: {
-      isAuthenticated: false,
-      user: null,
-    },
-    action: {
-      payload: null,
-    },
-  });
+  function success(user: IUser) {
+    return { type: "REGISTER_SUCCESS", user };
+  }
 }

@@ -13,7 +13,7 @@ class UsersController:
             user = UsersModel(data)
             AuthenticationAction().register(user)
         except Exception as e:
-            return jsonify({"message" : "Une erreur est survenue"}), 422
+            return jsonify({"message" : "Erreur de création du model et du register"}), 422
         return jsonify({}), 201
 
     def login(data):

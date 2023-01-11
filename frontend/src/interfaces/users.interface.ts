@@ -4,15 +4,9 @@ export interface IUser {
     firstName: string,
     lastName: string,
     gender: string,
-    birthdate: Date,
-    collocations: string[],
-    debts: IUserDebt[],
-}
-
-export interface IUserDebt {
-    did: string,
-    debt: number,
-    debtTo: string, // User uid
+    birthdate?: Date
+    phoneNumber?: string,
+    picture?: string,
 }
 
 export interface IUserRegister {
@@ -22,4 +16,10 @@ export interface IUserRegister {
     lastName: string,
     gender: string,
     birthdate?: Date
+}
+
+export interface IUserDebt {
+    did: string,
+    debt: number,
+    debtTo: string, // User uid
 }

@@ -1,31 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../interfaces/users.interface";
+import { IUserRegister } from "../../interfaces/users.interface";
 
-interface AuthState {
-  isAuthenticated: boolean;
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
+const initialState: IUserRegister = {
+  email: "",
+  firstName: "",
+  lastName: "",
+  gender: "",
+  birthdate: new Date(),
+  password: "",
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    Alogin: (state, action) => {
-      state.isAuthenticated = true;
-      action.payload = null;
+    // Login Reducers
+    loginRequest: (state, action) => {
+      state.email = action.payload.email;
+      state.password = action.payload.password;
     },
-    Aregister: (state, action) => {
-      state.isAuthenticated = true;
-      action.payload = null;
+    loginSuccess: (state, action) => {
+      state = action.payload;
     },
-    Alogout: (state, action) => {
-      state.isAuthenticated = false;
-      action.payload = null;
+    loginFail: (state, action) => {
+      state = action.payload;
+    },
+    // Logout Reducers
+    logout: (state) => {
+      state = initialState;
+    },
+    // Register Reducers
+    registerRequest: (state, action) => {
+      state.email = action.payload.email;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.gender = action.payload.gender;
+      state.birthdate = action.payload.birthdate;
+      state.password = action.payload.password;
+    },
+    registerSuccess: (state) => {
+      state = initialState;
+    },
+    registerFail: (state, action) => {
+      state = action.payload;
     },
   },
 });
-
-export const { Alogin, Aregister, Alogout } = authSlice.actions;
