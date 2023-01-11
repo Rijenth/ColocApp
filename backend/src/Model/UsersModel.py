@@ -11,7 +11,7 @@ class UsersModel(BasicModel):
         'password': str,
         'gender': str,
         'phone': str,
-        'birthdate': date,
+        'birthdate': str,
         'picture': str,
         'income': int
     }
@@ -24,7 +24,7 @@ class UsersModel(BasicModel):
         'password': str,
         'gender': str,
         'phone': str,
-        'birthdate': date,
+        'birthdate': str,
         'picture': str,
         'income': int
     }
