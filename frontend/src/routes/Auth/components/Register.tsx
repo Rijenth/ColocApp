@@ -16,21 +16,43 @@ import { register } from "../../../func/auth.func";
 import { showNotification } from "@mantine/notifications";
 
 import { IconAlertCircle } from "@tabler/icons";
+import { DatePicker } from "@mantine/dates";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordComfirm, setPasswordComfirm] = useState("");
   const [gender, setGender] = useState("undefined");
-  const [age, setAge] = useState(0);
+  const [birthdate, setBirthDate] = useState<Date>();
   const [firtName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
+    if (password !== passwordComfirm) {
+      showNotification({
+        title: "Error",
+        message: "Password and password comfirmation are not the same",
+        color: "red",
+        icon: <IconAlertCircle />,
+      });
+      return;
+    }
+    if (emailRegex.test(email) === false) {
+      showNotification({
+        title: "Error",
+        message: "Email is not valid",
+        color: "red",
+        icon: <IconAlertCircle />,
+      });
+      return;
+    }
+
     console.log(
-      dispatch(await register(email, password, firtName, lastName, gender, age))
+      dispatch(
+        await register(email, password, firtName, lastName, gender, birthdate)
+      )
     );
   };
 
@@ -52,7 +74,9 @@ export default function Register() {
           className={classes.formInput}
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
+          onChange={(e) => {
+            setEmail(e.currentTarget.value);
+          }}
           required
         />
         <Input
@@ -111,13 +135,13 @@ export default function Register() {
           }}
           required
         />
-        <NumberInput
+        <DatePicker
           className={classes.formInput}
-          placeholder="Age"
-          value={age}
+          placeholder="Birthdate"
+          value={birthdate}
           onChange={(e) => {
-            if (e != undefined) {
-              setAge(e);
+            if (e != null || e != undefined) {
+              setBirthDate(e);
             }
           }}
           required
@@ -152,8 +176,8 @@ const useStyle = createStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
     flexDirection: "column",
-    border: "1px solid #ccc",
     borderRadius: "18px",
+    boxShadow: "0 0 10px #ccc",
   },
   registerFormWrapper: {
     display: "flex",

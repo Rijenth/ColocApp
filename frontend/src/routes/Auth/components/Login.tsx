@@ -85,8 +85,8 @@ const useStyle = createStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
     flexDirection: "column",
-    border: "1px solid #ccc",
     borderRadius: "18px",
+    boxShadow: "0 0 10px #ccc",
   },
   loginFormWrapper: {
     display: "flex",

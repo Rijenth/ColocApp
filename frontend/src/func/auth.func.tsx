@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { Alogin, Aregister, Alogout } from "../redux/reducers/auth.reducers";
 import { decodeJwt } from "jose";
-import { IUser } from "../interfaces/users.interface";
+import { IUser, IUserRegister } from "../interfaces/users.interface";
 
 export async function login(
   email: string,
@@ -15,7 +15,10 @@ export async function login(
   // we fetch the backend to get a jwt
   const response = await fetch("http://localhost:5000/api/auth/login", {
     method: "POST",
-    ...body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
 
   console.log(response);
@@ -45,21 +48,24 @@ export async function register(
   firstName: string,
   lastName: string,
   gender: string,
-  age: number
+  birthdate?: Date
 ): Promise<AnyAction> {
   // the backend expect a json
-  let body = {
+  let body: IUserRegister = {
     email: email,
     password: password,
     firstName: firstName,
     lastName: lastName,
     gender: gender,
-    age: age,
+    birthdate: birthdate,
   };
 
   const response = fetch("http://localhost:5000/api/auth/register", {
     method: "POST",
-    ...body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
 
   console.log(response);
