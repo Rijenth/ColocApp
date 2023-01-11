@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
+from datetime import datetime
 
 
 app=Flask(__name__)
@@ -26,6 +27,10 @@ def register():
             data[key] = value
         else :
             data[key] = value.strip()
+    date_string = data['birthday']
+    date_object = datetime.strptime(date_string, "%Y-%m-%d")
+    formatted_date = date_object.strftime("%Y-%m-%d")
+    data['birthday'] = formatted_date
     return UsersController.register(data)
 
 @app.route('/api/auth/login', methods=['POST'])

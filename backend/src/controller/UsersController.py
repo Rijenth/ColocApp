@@ -13,13 +13,13 @@ class UsersController:
             user = UsersModel(data)
             AuthenticationAction().register(user)
         except Exception as e:
-            return jsonify({"message" : "Erreur de création du model et du register"}), 422
+            return jsonify({"type" : "error", "message" : e}), 422
         return jsonify({}), 201
 
     def login(data):
         row = AuthenticationAction().login(data)
         if(row == []):
-            return jsonify({"message" : "Wrong Credentials"}), 403
+            return jsonify({"type" : "error", "message" : "Wrong Credentials"}), 403
         user =  UsersModel(row).serialize()
         return jsonify(
             {
