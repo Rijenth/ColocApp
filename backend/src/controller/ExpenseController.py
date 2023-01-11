@@ -1,16 +1,27 @@
 from flask import Flask, jsonify
 from datetime import date
 from src.model.ExpenseModel import ExpenseModel
+from src.action.ExpenseAction import ExpenseAction
+
 class ExpenseController:
     def __init__(self, request):
         self.request = request
 
     def indexExpense():
-        return jsonify(ArticleAction().index()), 200
+        return jsonify(ExpenseAction().index()), 200
 
-    def showExpense(id):
+    def showAllExpense(id):
         try:
-            expense = ExpenseModel().show(id)
+            expense = ExpenseAction().getExpenseColoc(id)
+        except Exception as e:
+            return jsonify({}), 404
+        if len(expense) == 0:
+            return jsonify({}), 404
+        return jsonify([expense]), 200
+
+    def showUserExpense(id):
+        try:
+            expense = ExpenseAction().getExpenseUser(id)
         except Exception as e:
             return jsonify({}), 404
         if len(expense) == 0:
@@ -21,7 +32,7 @@ class ExpenseController:
         data['date'] = date.today().strftime("%Y-%m-%d")
         try:
             expense = ExpenseModel(data)
-            ExpenseModel().post(expense)
+            ExpenseAction().post(expense)
         except Exception as e:
             return jsonify({}), 422
         return jsonify({}), 201
@@ -30,11 +41,11 @@ class ExpenseController:
         # date de mise à jour ?
         try:
             expense = ExpenseModel(data)
-            ExpenseModel().post(expense)
+            ExpenseAction().post(expense)
         except Exception as e:
             return jsonify({}), 422
         return jsonify({}), 204
     
     def deleteArticle(id):
-        ExpenseModel().delete(id)
+        ExpenseAction().delete(id)
         return jsonify({}), 204

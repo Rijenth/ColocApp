@@ -660,6 +660,11 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.2.1.tgz#812edd4104a15a493dda1ccac0b352270d7a188c"
   integrity sha512-XiY0IsyHR+DXYS5vBxpoBe/8veTeoRpMHP+vDosLZxL5bnpetzI0igkxkLZS235ldLzyfkxF+2divEwWHP3vMQ==
 
+"@tabler/icons@^1.119.0":
+  version "1.119.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.119.0.tgz#8c590bc5a563c8673a78ccd451bedabd584b376e"
+  integrity sha512-Fk3Qq4w2SXcTjc/n1cuL5bccPkylrOMo7cYpQIf/yw6zP76LQV9dtLcHQUjFiUnaYuswR645CnURIhlafyAh9g==
+
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
