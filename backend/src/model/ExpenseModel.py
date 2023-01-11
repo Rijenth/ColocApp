@@ -3,8 +3,6 @@ from flask import Flask
 from datetime import date
 
 class ExpenseModel(BasicModel):
-    table = "expense"
-    
     attributes = {
             'id': int,
             'amount': int,
@@ -17,7 +15,7 @@ class ExpenseModel(BasicModel):
         }
 
     def __init__(self, data):
-        super(self).__init__(data)
+        super().__init__(data)
        
 
     def Colocataire(self):
