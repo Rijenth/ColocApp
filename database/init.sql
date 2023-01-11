@@ -58,7 +58,6 @@ CREATE TABLE `expense` (
   `id` int NOT NULL,
   `amount` int NOT NULL,
   `colocataireId` int NOT NULL,
-  `paidBy` int NOT NULL,
   `paidFor` enum('loyer','electricite','eau','nourriture','autres') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
@@ -160,6 +159,8 @@ ALTER TABLE `colocataire`
 --
 ALTER TABLE `expense`
   ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocation.id`) REFERENCES `colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
