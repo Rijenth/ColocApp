@@ -5,6 +5,7 @@ from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
 from datetime import datetime
 
+from src.controller.ColocationController import ColocationController
 
 app=Flask(__name__)
 cors = CORS(app)
@@ -37,11 +38,10 @@ def login():
     return UsersController.login(data)
 
 ###                ###
-###                ###
+###   COLOCATION   ###
 ###                ### 
 
-
-
+###     INDEX      ###
 @app.route('/api/colocation', methods=['GET'])
 def getColoc():
     colocation = ColocationModel(
