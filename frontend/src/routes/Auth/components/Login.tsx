@@ -11,6 +11,7 @@ import {
   createStyles,
   Title,
   Divider,
+  PasswordInput,
 } from "@mantine/core";
 
 // Functions
@@ -50,7 +51,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.currentTarget.value)}
             required
           />
-          <Input
+          <PasswordInput
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}

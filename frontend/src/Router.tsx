@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {NotificationsProvider} from "@mantine/notifications";
-import {ModalsProvider} from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
+import { ModalsProvider } from "@mantine/modals";
 // UI
 import { MantineProvider } from "@mantine/core";
 import { Loader } from "@mantine/core";
@@ -12,8 +12,7 @@ import { isLoggedIn } from "./func/user.func";
 // Routes
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
-import Dashboard from "./routes/Dashboard";
-
+// import Dashboard from "./routes/Dashboard";
 
 // Redux
 import { Provider } from "react-redux";
@@ -24,19 +23,18 @@ export default function AppRouter() {
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <NotificationsProvider>
         <ModalsProvider>
-      <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<AutoRedirect />} />
-            {/* Dynamic auth/:authtype */}
-            <Route path="/auth/:authtype" element={<Auth />} />
-            <Route path="/dashboard/*" element={<Dashboard />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </Provider>
+          <Provider store={store}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<AutoRedirect />} />
+                <Route path="/auth/:authtype" element={<Auth />} />
+                {/*                 <Route path="/dashboard/:type" element={<Dashboard />} /> */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Router>
+          </Provider>
         </ModalsProvider>
-        </NotificationsProvider>
+      </NotificationsProvider>
     </MantineProvider>
   );
 }
