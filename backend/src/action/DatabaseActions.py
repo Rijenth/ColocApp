@@ -33,7 +33,7 @@ class DatabaseActions:
             self.cursor.execute("SELECT * FROM " + self.table)
         result = self.cursor.fetchall()
         self.connection.close()
-        if(result == []):
+        if(not result):
             return result
         return self._format(result)
 

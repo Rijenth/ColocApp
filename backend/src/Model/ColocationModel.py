@@ -1,17 +1,24 @@
-class ColocationModel:
+from src.model.BasicModel import BasicModel
+from datetime import date
+
+class ColocationModel(BasicModel):
     attributes = {
-        'id',
-        'name',
-        'rentDue',
-        'rentPaid',
-        'createdAt',
-        'updatedAt'
+        'id': int,
+        'name': str,
+        'rentDue': int,
+        'rentPaid': int,
+        'createdAt': str,
+        'updatedAt': str
     }
 
-    def __init__(self, id ,name, rentDue, rentPaid, createdAt, updatedAt):
-        self.id = id,
-        self.name = name,
-        self.rentDue = rentDue,
-        self.rentPaid = rentPaid,
-        self.createdAt = createdAt,
-        self.updatedAt = updatedAt
+    serializable = {
+        'id': int,
+        'name': str,
+        'rentDue': int,
+        'rentPaid': int,
+        'createdAt': str,
+        'updatedAt': str
+    }
+
+    def __init__(self, data):
+        super().__init__(data)
