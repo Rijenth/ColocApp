@@ -6,14 +6,14 @@ class ColocationAction(DatabaseActions):
         super().__init__('colocation')
 
     def index(self):
-        result = super().index()
+        result = super()._index()
         return result
 
-    def _get(self, id):
+    def show(self, id):
         result = super()._get('id', id)
         return result
 
-    def create(self, model):
+    def post(self, model):
         query = "INSERT INTO " + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt ) VALUES (%s, %s, %s, %s, %s)"
         value = (
             model.name,
