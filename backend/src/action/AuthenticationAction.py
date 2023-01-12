@@ -7,8 +7,9 @@ class AuthenticationAction(DatabaseActions):
         super().__init__('Users')
 
     def register(self, model):
-        query = "INSERT INTO " + self.table + " (firstName, lastName, email, password, gender, birthdate) VALUES (%s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + self.table + " (uid, firstName, lastName, email, password, gender, birthdate) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         value = (
+            model.uid,
             model.firstName,
             model.lastName,
             model.email,

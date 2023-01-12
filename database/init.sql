@@ -73,6 +73,7 @@ CREATE TABLE `Expense` (
 
 CREATE TABLE `Users` (
   `id` int NOT NULL,
+  `uid` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
