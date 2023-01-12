@@ -4,7 +4,7 @@ from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
 from datetime import datetime
-
+from src.controller.ExpenseController import ExpenseController
 from src.controller.ColocationController import ColocationController
 
 app=Flask(__name__)
