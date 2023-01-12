@@ -1,6 +1,7 @@
 from src.model.BasicModel import BasicModel
 from flask import Flask
 from datetime import date
+import uuid
 
 class UsersModel(BasicModel):
     attributes = {
@@ -31,3 +32,10 @@ class UsersModel(BasicModel):
 
     def __init__(self, data):
         super().__init__(data)
+
+    def getUuid(self):
+        return uuid.uuid1(self.id)
+
+    def getIdFromUuid(self, uuid):
+        return uuid.int & (2**32-1)
+
