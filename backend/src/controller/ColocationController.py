@@ -3,11 +3,12 @@ from src.model.ColocationModel import ColocationModel
 from flask import Flask, jsonify
 
 class ColocationController:
-    def __init__(self, request):
-        self.request = request
-
     def indexColocation():
-        return jsonify(ColocationAction().index()), 
+        try:
+            coloc = ColocationAction().index()
+        except Exception as e:
+            return jsonify({'type':"error", 'message': e})
+        return coloc, 200,
         
     def showColocation(id):
         try:
@@ -23,15 +24,15 @@ class ColocationController:
             colocation = ColocationModel(data)
             ColocationAction().post(colocation)
         except Exception as e:
-            return jsonify({"message" : "Une erreur est survenue sur la création"}), 422
+            return jsonify({"message" : "Une erreur est survenue dans create"}), 422
         return jsonify({"message" : "Colocation create !"}), 201
 
     def updateColocation(id, data):
         try:
             colocation = ColocationModel(data)
-            ColocationAction().update(colocation)
+            ColocationAction().update(id, colocation)
         except Exception as e:
-            return jsonify({"message" : "Une erreur est survenue"}), 422
+            return jsonify({"message" : e}), 422
         return jsonify({"message" : "Colocation update !"}), 201
 
     def deleteColocation(id):
