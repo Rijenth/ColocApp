@@ -2,3 +2,4 @@
 backend/src/model/__pycache__/*
 backend/src/controller/__pycache__/*
 backend/src/action/__pycache__/**
+deprecated frontend

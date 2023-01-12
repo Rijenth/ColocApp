@@ -16,7 +16,6 @@ import { DatePicker } from "@mantine/dates";
 
 // React
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useToggle } from "@mantine/hooks";
 
 // Interfaces
