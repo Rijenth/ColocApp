@@ -26,8 +26,8 @@ export default function AppRouter() {
               <Route path="/auth/:authtype" element={<Auth />} />
               <Route path="/account" element={<Account />} />
               <Route path="/account/:action" element={<Account />} />
-              <Route path="/dashboard/" element={<Dashboard />} />
-              {/* <Route path="/Dashboard/:type" element={<Dashboard />} /> */}
+              {/* <Route path="/dashboard/" element={<Dashboard />} /> */}
+              {/* <Route path="/dashboard/:type" element={<Dashboard />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
@@ -40,7 +40,7 @@ export default function AppRouter() {
 const AutoRedirect = () => {
   useEffect(() => {
     if (isLoggedIn()) {
-      window.location.href = "/Dashboard";
+      window.location.href = "/dashboard";
     } else {
       window.location.href = "/auth/login";
     }
