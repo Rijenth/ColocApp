@@ -18,7 +18,7 @@ class UsersController:
             {
                 'token' : create_access_token(
                     identity = {
-                        "uid" : user.getUuid(), 
+                        "uid" : user.uid,
                         "firstName" : user.firstName, 
                         "lastName" : user.lastName, 
                         "email" : user.email, 
@@ -37,7 +37,7 @@ class UsersController:
             {
                 'token' : create_access_token(
                     identity = {
-                        "uid" : user.getUuid(), 
+                        "uid" : user.uid, 
                         "firstName" : user.firstName, 
                         "lastName" : user.lastName, 
                         "email" : user.email, 
