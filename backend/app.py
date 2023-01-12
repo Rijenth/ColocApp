@@ -64,15 +64,12 @@ def data():
     data = request.get_json()
     return jsonify({'message': 'Data received!', 'data': data})
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
 
 # Path: backend\src\controller\ExpenseController.py
 # Get all expenses
 @app.route('/api/expense', methods=['GET'])
 def indexExpense():
-   return ExpenseController.indexExpense()
-
+        return ExpenseController.indexExpense()
 # Get all expense of a colocation
 @app.route('/api/expense/colocation/<id>', methods=['GET'])
 def showColocExpense(id):
@@ -81,7 +78,7 @@ def showColocExpense(id):
 
 # Get all expense of a user
 @app.route('/api/expense/user/<id>', methods=['GET'])
-def showColocExpense(id):
+def showExpense(id):
        return ExpenseController.showColocExpense(id)
        # return Faut lui passer l'id de l'user
 
@@ -101,3 +98,6 @@ def updateExpense(id):
 @app.route('/api/expense/<id>', methods=['DELETE']) 
 def deleteExpense(id):
     return ExpenseController.deleteExpense(id)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)

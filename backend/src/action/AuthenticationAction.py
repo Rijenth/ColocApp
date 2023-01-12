@@ -4,7 +4,7 @@ import bcrypt
 
 class AuthenticationAction(DatabaseActions):
     def __init__(self):
-        super().__init__('user')
+        super().__init__('Users')
 
     def register(self, model):
         query = "INSERT INTO " + self.table + " (firstName, lastName, email, password, gender, birthdate) VALUES (%s, %s, %s, %s, %s, %s)"

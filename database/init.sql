@@ -62,7 +62,7 @@ CREATE TABLE `Expense` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `description` text NOT NULL,
-  `colocation.id` int NOT NULL
+  `colocationId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -108,7 +108,7 @@ ALTER TABLE `Colocation`
 ALTER TABLE `Expense`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_expense_user` (`colocataireId`);
-
+  ADD KEY `fk_expense_coloc` (`colocationId`);
 --
 -- Index pour la table `User`
 --
@@ -159,7 +159,7 @@ ALTER TABLE `Colocataire`
 --
 ALTER TABLE `Expense`
   ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `Colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-  ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocation.id`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocationId`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 COMMIT;
 
