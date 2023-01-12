@@ -16,7 +16,7 @@ import "./styles/index.css";
 
 export default function Dashboard() {
     const data = [
-        { sum: "100", why: "why", category: "category", date: "date" },
+        { sum: "100", who: "who", why: 'why', category: "category", date: "date" },
     ];
 
     const theme = useMantineTheme();

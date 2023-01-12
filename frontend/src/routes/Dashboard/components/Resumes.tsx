@@ -32,8 +32,9 @@ export default function Resumes({ data }: TableScrollAreaProps) {
     const [scrolled, setScrolled] = useState(false);
 
     const rows = data.map((row) => (
-        <tr key={row.sum}>
+        <tr key={row.date}>
             <td>{row.sum}</td>
+            <td>{row.who}</td>
             <td>{row.why}</td>
             <td>{row.category}</td>
             <td>{row.date}</td>
@@ -46,6 +47,7 @@ export default function Resumes({ data }: TableScrollAreaProps) {
                     <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
                     <tr>
                         <th>Sum</th>
+                        <th>Who</th>
                         <th>Why</th>
                         <th>Category</th>
                         <th>Date</th>
