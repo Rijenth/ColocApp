@@ -53,8 +53,9 @@ class UsersController:
                         "firstName" : user.firstName, 
                         "lastName" : user.lastName, 
                         "email" : user.email, 
-                        "phone" : (user.phone) if user.phone else None, 
-                        "picture" : (user.picture) if user.picture else None
+                        "phone" : user.phone,
+                        "picture" : user.picture,
+                        "income" : user.income
                         })
             }
         ), 200   

@@ -23,7 +23,7 @@ class AuthenticationAction(DatabaseActions):
         super()._execute(query, value)
     
     def login(self, data): 
-        row = super()._get("firstName", data["firstName"])
+        row = super()._get("email", data["email"])
         if(len(row) == 0):
             return []
         elif(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):
