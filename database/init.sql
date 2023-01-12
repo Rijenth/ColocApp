@@ -27,6 +27,8 @@ SET time_zone = "+00:00";
 -- Structure de la table `Colocataire`
 --
 
+DROP TABLE IF EXISTS `Colocataire`;
+
 CREATE TABLE `Colocataire` (
   `id` int NOT NULL,
   `userId` int NOT NULL,
@@ -38,6 +40,8 @@ CREATE TABLE `Colocataire` (
 --
 -- Structure de la table `Colocation`
 --
+
+DROP TABLE IF EXISTS `Colocation`;
 
 CREATE TABLE `Colocation` (
   `id` int NOT NULL,
@@ -53,6 +57,7 @@ CREATE TABLE `Colocation` (
 --
 -- Structure de la table `Expense`
 --
+DROP TABLE IF EXISTS `Expense`;
 
 CREATE TABLE `Expense` (
   `id` int NOT NULL,
@@ -70,6 +75,7 @@ CREATE TABLE `Expense` (
 --
 -- Structure de la table `Users`
 --
+DROP TABLE IF EXISTS `Users`;
 
 CREATE TABLE `Users` (
   `id` int NOT NULL,
@@ -79,10 +85,10 @@ CREATE TABLE `Users` (
   `email` varchar(255) UNIQUE NOT NULL,
   `password` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
-  `phone` varchar(255) NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `birthdate` varchar(255) NOT NULL,
-  `picture` text NULL,
-  `income` int  NULL
+  `picture` text DEFAULT NULL,
+  `income` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -108,7 +114,7 @@ ALTER TABLE `Colocation`
 --
 ALTER TABLE `Expense`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_expense_user` (`colocataireId`);
+  ADD KEY `fk_expense_user` (`colocataireId`),
   ADD KEY `fk_expense_coloc` (`colocationId`);
 --
 -- Index pour la table `User`

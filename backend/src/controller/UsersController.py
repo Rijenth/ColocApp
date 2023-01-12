@@ -12,12 +12,10 @@ class UsersController:
         data.setdefault('phone', "")
         data.setdefault('picture', "")
         data.setdefault('income', 0)
+        user = UsersModel(data)
 
-        try :
-            user = UsersModel(data)
-            AuthenticationAction().register(user)
-        except Exception as e:
-            return jsonify({"type" : "error", "message" : e}), 422
+        if(AuthenticationAction().register(user) == False):
+            return jsonify({"type" : "error", "message" : "Database wasn't able to create this user"}), 422
 
         identity = {
             "uid" : user.uid,
@@ -34,6 +32,7 @@ class UsersController:
             
         return jsonify(
             {
+                'type' : 'success',
                 'token' : create_access_token(
                     identity = identity
                 )
