@@ -91,19 +91,18 @@ def data():
     return jsonify({'message': 'Data received!', 'data': data})
 
 
-# Path: backend\src\controller\ExpenseController.py
 # Get all expenses
 @app.route('/api/expense', methods=['GET'])
 def indexExpense():
         return ExpenseController.indexExpense()
-        
+
 # Get all expense of a colocation
 @app.route('/api/expense/colocation/<string:id>', methods=['GET'])
 def showColocExpense(id):
     try:
         int(id)
     except Exception as e:
-        return jsonify({"message": "error"}), 422
+        return jsonify({"type": "error"}), 422
     return ExpenseController.showColocExpense(int(id))
 
 # Get all expense of a user
@@ -112,23 +111,25 @@ def showExpense(id):
     try:
         int(id)
     except Exception as e:
-        return jsonify({"message": "error"}), 422
+        return jsonify({"type": "error"}), 422
     return ExpenseController.showColocExpense(int(id))
 
 # Create a new expense
+# { "amount": "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre', "createdAt","updateAt","desccription" ,"colocationId" }
 @app.route('/api/expense', methods=['POST'])
 def createExpense():
     data = request.get_json()
     return ExpenseController.newExpense(data)
 
 # Update a expense
+# { "amount": "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre', "createdAt","updateAt","desccription" ,"colocationId" }
 @app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
     try:
         int(id)
     except Exception as e:
-        return jsonify({"message": "error"}), 422
+        return jsonify({"type": "error"}), 422
     return ExpenseController.updateExpense(int (id), data)
 
 # Delete a expense
@@ -137,7 +138,7 @@ def deleteExpense(id):
     try:
         int(id)
     except Exception as e:
-        return jsonify({"message": "error"}), 422
+        return jsonify({"type": "error"}), 422
     return ExpenseController.deleteExpense(int(id))
 
 if __name__ == '__main__':
