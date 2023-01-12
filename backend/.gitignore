@@ -1,0 +1,5 @@
+.idea
+backend/pycache*
+backend/src/model/pycache/*
+backend/src/action/pycache/*
+backend/src/controller/pycache/*
