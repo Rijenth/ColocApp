@@ -5,7 +5,7 @@ import pymysql
 
 class ExpenseAction(DatabaseActions):
     def __init__(self):
-         super().__init__('expense')
+         super().__init__('Expense')
 
     def index(self):
         data = super()._get()   

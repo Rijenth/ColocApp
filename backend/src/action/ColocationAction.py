@@ -3,7 +3,7 @@ from src.model.ColocationModel import ColocationModel
 
 class ColocationAction(DatabaseActions):
     def __init__(self):
-        super().__init__('colocation')
+        super().__init__('Colocation')
 
     def index(self):
         result = super()._index()
