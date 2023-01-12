@@ -12,7 +12,7 @@ class ExpenseController:
             expense = ExpenseAction().index()
         except Exception as e:
             return jsonify({'type':"error", 'message': e})
-        return expense, 200
+        return jsonify([expense]), 200
 
     def showColocExpense(id):
         try:

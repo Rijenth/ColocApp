@@ -4,12 +4,9 @@ from datetime import date
 
 class ExpenseModel(BasicModel):
     attributes = {
-            'id': int,
             'amount': int,
             'colocataireId': int,
             'paidFor': enumerate(['loyer', 'electricite', 'eau', 'nourriture', 'autre']),
-            'createdAt': str,
-            'updatedAt': str,
             'description': str,
             'colocation.id': int,
         }
