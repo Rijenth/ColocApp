@@ -1,4 +1,4 @@
-import { createStyles, Select, TextInput, Button } from '@mantine/core';
+import { createStyles, Select, TextInput, Button, Modal, Group } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
 import {useDispatch, useSelector} from "react-redux";
@@ -27,16 +27,22 @@ const useStyles = createStyles((theme) => ({
 export default function CreateResume() {
     // You can add these classes as classNames to any Mantine input, it will work the same
     const { classes } = useStyles();
+    const [opened, setOpened] = useState(false);
     const dispatch = useDispatch();
     const [payload, setPayload] = useState({
         sum: '',
         why: '',
-        date: new Date(),
-        tag: '',
+        category: '',
+        date: '',
     });
 
     return (
-        <div>
+        <>
+        <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            title="Create Resume"
+        >
             <TextInput
                 label="Sum" placeholder="10.99 $"
                 classNames={classes}
@@ -58,11 +64,11 @@ export default function CreateResume() {
                 style={{ marginTop: 20, zIndex: 2 }}
                 data={['Rent', 'Food', 'Transport', 'Wifi', 'Water', 'Electricity', 'Other']}
                 placeholder="Pick one"
-                label="Tag"
+                label="Category"
                 classNames={classes}
                 required={true}
-                value={payload.tag}
-                onChange={(e) => setPayload({...payload, tag: e})}
+                value={payload.category}
+                onChange={(e) => setPayload({...payload, category: e})}
             />
 
             <DatePicker
@@ -73,14 +79,20 @@ export default function CreateResume() {
                 clearable={false}
                 required={true}
                 value={payload.date}
-                onChange={(e) => setPayload({...payload, date: e})}
+                onChange={(e) => setPayload({...payload, date: e.toISOString()})}
             />
 
-            <Button style={{ marginTop: 20 }} color="blue" onClick={() => dispatch({type: 'ADD_RESUME', payload: payload})}>
-                Create
-            </Button><Button style={{ marginTop: 20 }} color="blue" onClick={() => console.log(payload)}>
+            <Button style={{ marginTop: 20 }} color="blue" onClick={() => dispatch({type: 'CREATE_RESUME_REQUEST', payload})}>
                 Create
             </Button>
-        </div>
+            <Button style={{ marginTop: 20 }} color="blue" onClick={() => console.log(payload)}>
+                Create
+            </Button>
+        </Modal>
+
+        <Group position="center">
+            <Button onClick={() => setOpened(true)}>Open Modal</Button>
+        </Group>
+    </>
     );
 }
