@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from src.action.AuthenticationAction import AuthenticationAction
 from src.model.UsersModel import UsersModel
 from flask_jwt_extended import create_access_token
+from src.action.UsersAction import UsersAction
 
 class UsersController:
     def __init__(self, request):
@@ -59,3 +60,27 @@ class UsersController:
                         })
             }
         ), 200   
+
+    def indexUser():
+        return jsonify(UsersAction().index()), 200
+
+    def showUser(id):
+        try:
+            user = UsersAction().show(id)
+        except Exception as e:
+            return jsonify({'type' : 'error', 'message' : 'Database error'}), 404
+        if user == None or len(user) == 0:
+            return jsonify({'type' : 'error', 'message' : 'User not found'}), 404
+        return jsonify(UsersModel(user).serialize()), 200
+
+    def updateUser(id, data):
+        try:
+            user = UsersModel(data)
+            UsersAction().update(id, user)
+        except Exception as e:
+            return jsonify({'type' : 'error', "message": e}), 422
+        return jsonify({}), 204
+
+    def deleteUser(id):
+        UsersAction().delete(id)
+        return jsonify({'type' : 'success'}), 204
