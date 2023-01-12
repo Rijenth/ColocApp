@@ -23,7 +23,6 @@ class UsersController:
         user =  UsersModel(row).serialize()
         return jsonify(
             {
-                'token' : create_access_token(identity={"username" : user['username'], "id" : user['id']}), 
-                "user" : user
+                'token' : create_access_token(identity={"username" : user['username'], "id" : user.getUuid()})
             }
         ), 200
