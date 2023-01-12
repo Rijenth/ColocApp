@@ -37,9 +37,8 @@ export default function Account() {
   const [editabled, toggleEditabled] = useToggle([false, true]);
 
   useEffect(() => {
-    if (getUser() !== null) {
-      console.log(getUser());
-    }
+    const jwt = getUser();
+    console.table(jwt);
   }, []);
 
   const { classes } = useStyles();
@@ -57,14 +56,9 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="Email"
           disabled={!editabled}
-        />
-        <Text className={classes.text} size="md">
-          Password
-        </Text>
-        <Input
-          className={classes.accountFormInput}
-          placeholder="Password"
-          disabled={!editabled}
+          onChange={(e) => {
+            setUser({ ...user, email: e.target.value });
+          }}
         />
         <Text className={classes.text} size="md">
           First Name
@@ -73,6 +67,9 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="First Name"
           disabled={!editabled}
+          onChange={(e) => {
+            setUser({ ...user, firstName: e.target.value });
+          }}
         />
         <Text className={classes.text} size="md">
           Last Name
@@ -81,6 +78,9 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="Last Name"
           disabled={!editabled}
+          onChange={(e) => {
+            setUser({ ...user, lastName: e.target.value });
+          }}
         />
         <Select
           className={classes.accountFormInput}
@@ -91,6 +91,9 @@ export default function Account() {
             { label: "-----", value: "undefined" },
           ]}
           disabled={!editabled}
+          onChange={(e) => {
+            setUser({ ...user, gender: e as string });
+          }}
           required
         />
         <Text className={classes.text} size="md">
@@ -99,6 +102,9 @@ export default function Account() {
         <DatePicker
           className={classes.accountFormInput}
           disabled={!editabled}
+          onChange={(e) => {
+            setUser({ ...user, birthdate: e as Date });
+          }}
         />
         <Text className={classes.text} size="md">
           Avatar
@@ -107,7 +113,12 @@ export default function Account() {
           icon={<IconUpload size={14} />}
           className={classes.accountFormInput}
           disabled={!editabled}
+          onChange={(e) => {
+            // todo : create an upload function based on user uid
+            console.log(e);
+          }}
         />
+
         <Button.Group className={classes.accountFormButtonGroup}>
           <Button
             className={classes.accountFormButton}
