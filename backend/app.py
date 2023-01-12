@@ -96,17 +96,24 @@ def data():
 @app.route('/api/expense', methods=['GET'])
 def indexExpense():
         return ExpenseController.indexExpense()
+        
 # Get all expense of a colocation
 @app.route('/api/expense/colocation/<string:id>', methods=['GET'])
 def showColocExpense(id):
-       return ExpenseController.showColocExpense(id)
-       # return Faut lui passer l'id de la colocation
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ExpenseController.showColocExpense(int(id))
 
 # Get all expense of a user
 @app.route('/api/expense/user/<string:id>', methods=['GET'])
 def showExpense(id):
-       return ExpenseController.showColocExpense(id)
-       # return Faut lui passer l'id de l'user
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ExpenseController.showColocExpense(int(id))
 
 # Create a new expense
 @app.route('/api/expense', methods=['POST'])
@@ -118,12 +125,20 @@ def createExpense():
 @app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
-    return ExpenseController.updateExpense(id, data)
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ExpenseController.updateExpense(int (id), data)
 
 # Delete a expense
 @app.route('/api/expense/<string:id>', methods=['DELETE']) 
 def deleteExpense(id):
-    return ExpenseController.deleteExpense(id)
+    try:
+        int(id)
+    except Exception as e:
+        return jsonify({"message": "error"}), 422
+    return ExpenseController.deleteExpense(int(id))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
