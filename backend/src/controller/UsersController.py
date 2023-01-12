@@ -32,7 +32,7 @@ class UsersController:
         row = AuthenticationAction().login(data)
         if(row == []):
             return jsonify({"type" : "error", "message" : "Wrong Credentials"}), 403
-        user =  UsersModel(row).serialize()
+        user =  UsersModel(row)
         return jsonify(
             {
                 'token' : create_access_token(
