@@ -44,8 +44,8 @@ class ExpenseController:
             ExpenseAction().update(expense)
         except Exception as e:
             return jsonify({}), 422
-        return jsonify({}), 204
+        return jsonify({"message" : "Colocation update !"}), 204
     
     def deleteExpense(id):
         ExpenseAction().delete(id)
-        return jsonify({}), 204
+        return jsonify({"message" : "Expense delete"}), 204

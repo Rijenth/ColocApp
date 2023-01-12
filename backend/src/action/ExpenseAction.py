@@ -8,12 +8,20 @@ class ExpenseAction(DatabaseActions):
          super().__init__('Expense')
 
     def index(self):
-        data = super()._get()   
-        return self(data).serializeWithRelationships()
+        result = super()._index()
+        return result
 
     def post(self, model):
         query= "INSERT INTO " + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocation.id ) VALUES (%s, %s, %s, %s, %s)"
-        value = (model.amount, model.colocataireId, model.paidFor, model.createdAt, model.updatedAt ,model.description, model.colocation.id )
+        value = (
+            model.amount,
+            model.colocataireId,
+            model.paidFor,
+            model.createdAt,
+            model.updatedAt ,
+            model.description, 
+            model.colocation.id
+        )
         super()._execute(query, value)
 
     def getExpenseUser(self, id):
@@ -26,8 +34,16 @@ class ExpenseAction(DatabaseActions):
 
     def update(self , model, id):
         query= "UPDATE" + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocation.id ) VALUES (%s, %s, %s, %s, %s)"
-        value = (model.amount, model.colocataireId, model.paidFor, model.createdAt, model.updatedAt ,model.description, model.colocation.id )
-        super()._execute(query, value)
+        value = (
+            model.amount, 
+            model.colocataireId, 
+            model.paidFor, 
+            model.createdAt, 
+            model.updatedAt ,
+            model.description, 
+            model.colocation.id 
+        )
+        super()._execute(query, value, id)
 
     def delete(self, id):
         query = "DELETE FROM " + self.table + " WHERE id = %s"
