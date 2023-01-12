@@ -168,6 +168,22 @@ ALTER TABLE `Expense`
   ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `Colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocationId`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Déchargement des données de la table `Users`
+--
+
+INSERT INTO `Users` (`id`, `uid`, `firstName`, `lastName`, `email`, `password`, `gender`, `phone`, `birthdate`, `picture`, `income`) VALUES
+(1, 'eocl4nj1ve0lrtqu4hr8p', 'kader', 'bakayoko', 'admin@admin.fr', '$2b$12$yBmo/dXzl/ywko40fCSV0OjKcsvanzgljQ3y5oo8U/WdiPhMBeQ/y', 'onaimeleshelico', '', 'Sat Jan 14 2023 00:00:00 GMT+0100 (Central European Standard Time)', '', 0),
+(2, 'd4s1jg5u8sipkex36ddln', 'Philippe', 'Terrence', 'jinsu@live.fr', '$2b$12$gqeFluWgMT1zhBrcFuOnbe57LnRjHUmTpfFJaSAkCOUcZJ5GU/Bnm', 'Male', '', 'Mon Jan 02 2023 00:00:00 GMT+0100 (Central European Standard Time)', '', 0);
+
+--
+-- Déchargement des données de la table `Colocation`
+--
+
+INSERT INTO `Colocation` (`id`, `name`, `rentDue`, `rentPaid`, `createdAt`, `updatedAt`) VALUES
+(1, 'La coloc des 3000', 1500, 0, '2023-01-12 20:31:13', '2023-01-12 20:31:13'),
+(2, 'La coloc du bat 5', 999, 0, '2023-01-12 20:31:38', '2023-01-12 20:31:38');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
