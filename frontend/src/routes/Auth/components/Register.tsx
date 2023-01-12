@@ -8,8 +8,7 @@ import {
   Divider,
   Tooltip,
 } from "@mantine/core";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { register } from "../../../func/auth.func";
 
@@ -27,8 +26,6 @@ export default function Register() {
   const [birthdate, setBirthDate] = useState<Date>(today);
   const [firtName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
-  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     if (password !== passwordComfirm) {
@@ -50,9 +47,7 @@ export default function Register() {
       return;
     }
     console.log(
-      dispatch(
-        await register(email, password, firtName, lastName, gender, birthdate)
-      )
+      await register(email, password, firtName, lastName, gender, birthdate)
     );
   };
 

@@ -13,30 +13,24 @@ import { isLoggedIn } from "./func/user.func";
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
 import Account from "./routes/Account";
-import Dashboard from "./routes/Dashboard";
-
-// Redux
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+// import Dashboard from "./routes/Dashboard";
 
 export default function AppRouter() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <NotificationsProvider>
         <ModalsProvider>
-          <Provider store={store}>
-            <Router>
-              <Routes>
-                <Route path="/" element={<AutoRedirect />} />
-                <Route path="/auth/:authtype" element={<Auth />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/account/:action" element={<Account />} />
-                <Route path="/dashboard/" element={<Dashboard />} />
-                {/*                 <Route path="/dashboard/:type" element={<Dashboard />} /> */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Router>
-          </Provider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<AutoRedirect />} />
+              <Route path="/auth/:authtype" element={<Auth />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/account/:action" element={<Account />} />
+              {/* <Route path="/dashboard/" element={<Dashboard />} /> */}
+              {/* <Route path="/dashboard/:type" element={<Dashboard />} /> */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Router>
         </ModalsProvider>
       </NotificationsProvider>
     </MantineProvider>
