@@ -86,15 +86,14 @@ export async function register(
   gender: string,
   birthdate?: Date
 ): Promise<any> {
-  let body: IUserRegister = {
+  let body = {
     email: email,
     password: password,
     firstName: firstName,
     lastName: lastName,
     gender: gender,
-    birthdate: birthdate,
+    birthdate: birthdate?.toString(),
   };
-
   return (
     dispatch: (arg0: {
       type: string;

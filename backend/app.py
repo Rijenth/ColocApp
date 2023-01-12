@@ -28,10 +28,6 @@ def register():
             data[key] = value
         else :
             data[key] = value.strip()
-    date_string = data['birthday']
-    date_object = datetime.strptime(date_string, "%Y-%m-%d")
-    formatted_date = date_object.strftime("%Y-%m-%d")
-    data['birthday'] = formatted_date
     return UsersController.register(data)
 
 @app.route('/api/auth/login', methods=['POST'])
