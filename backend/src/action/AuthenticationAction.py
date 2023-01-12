@@ -7,7 +7,7 @@ class AuthenticationAction(DatabaseActions):
         super().__init__('Users')
 
     def register(self, model):
-        query = "INSERT INTO " + self.table + " (uid, firstName, lastName, email, password, gender, birthdate) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + self.table + " (uid, firstName, lastName, email, password, gender, birthdate, phone, picture, income) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         value = (
             model.uid,
             model.firstName,
@@ -16,6 +16,9 @@ class AuthenticationAction(DatabaseActions):
             self.hashPassword(model.password), 
             model.gender,
             model.birthdate,
+            model.phone,
+            model.picture,
+            model.income
         )
         super()._execute(query, value)
     
