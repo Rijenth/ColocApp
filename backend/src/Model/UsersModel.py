@@ -6,6 +6,7 @@ import uuid
 class UsersModel(BasicModel):
     attributes = {
         'id': int,
+        'uid': str,
         'firstName': str,
         'lastName': str,
         'email': str,
@@ -19,6 +20,7 @@ class UsersModel(BasicModel):
 
     serializable = {
         'id': int,
+        'uid': str,
         'firstName': str,
         'lastName': str,
         'email': str,

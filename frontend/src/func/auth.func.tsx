@@ -78,6 +78,13 @@ export async function logout() {
   }
 }
 
+const generateRandomUid = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
+
 export async function register(
   email: string,
   password: string,
@@ -86,15 +93,15 @@ export async function register(
   gender: string,
   birthdate?: Date
 ): Promise<any> {
-  let body: IUserRegister = {
+  let body = {
+    uid: generateRandomUid(),
     email: email,
     password: password,
     firstName: firstName,
     lastName: lastName,
     gender: gender,
-    birthdate: birthdate,
+    birthdate: birthdate?.toString(),
   };
-
   return (
     dispatch: (arg0: {
       type: string;

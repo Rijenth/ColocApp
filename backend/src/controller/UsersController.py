@@ -14,15 +14,43 @@ class UsersController:
             AuthenticationAction().register(user)
         except Exception as e:
             return jsonify({"type" : "error", "message" : e}), 422
-        return jsonify({}), 201
+
+        identity = {
+            "uid" : user.uid,
+            "firstName" : user.firstName, 
+            "lastName" : user.lastName, 
+            "email" : user.email
+        }
+
+        if(user.phone):
+            identity['phone'] = user.phone
+
+        if(user.picture):
+            identity['picture'] = user.picture
+            
+        return jsonify(
+            {
+                'token' : create_access_token(
+                    identity = identity
+                )
+            }
+        ), 200            
 
     def login(data):
         row = AuthenticationAction().login(data)
         if(row == []):
             return jsonify({"type" : "error", "message" : "Wrong Credentials"}), 403
-        user =  UsersModel(row).serialize()
+        user =  UsersModel(row)
         return jsonify(
             {
-                'token' : create_access_token(identity={"username" : user['username'], "id" : user.getUuid()})
+                'token' : create_access_token(
+                    identity = {
+                        "uid" : user.uid, 
+                        "firstName" : user.firstName, 
+                        "lastName" : user.lastName, 
+                        "email" : user.email, 
+                        "phone" : (user.phone) if user.phone else None, 
+                        "picture" : (user.picture) if user.picture else None
+                        })
             }
-        ), 200
+        ), 200   

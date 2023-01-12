@@ -3,9 +3,8 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
-from src.model.ExpenseModel import ExpenseModel
-from src.controller.ExpenseController import ExpenseController
 from datetime import datetime
+
 
 app=Flask(__name__)
 cors = CORS(app)
@@ -28,10 +27,6 @@ def register():
             data[key] = value
         else :
             data[key] = value.strip()
-    date_string = data['birthday']
-    date_object = datetime.strptime(date_string, "%Y-%m-%d")
-    formatted_date = date_object.strftime("%Y-%m-%d")
-    data['birthday'] = formatted_date
     return UsersController.register(data)
 
 @app.route('/api/auth/login', methods=['POST'])
@@ -45,19 +40,27 @@ def login():
 ###                ###
 ###                ### 
 
+
+
 @app.route('/api/colocation', methods=['GET'])
 def getColoc():
-    data = {
-        'id': 1,
-        'name': "John",
-        'rentDue': 185,
-        'rentPaid': 185,
-        'createdAt': "24/12/2022",
-        'updatedAt': "25/12/2022"
-    }
-    colocation = ColocationModel(data)
+    colocation = ColocationModel(
+        '1',
+        'ColocataireUser',
+        '185',
+        '1',
+        '24/12/2022',
+        '25/12/2022'
+    )
 
-    return jsonify(colocation.serialize())
+    return jsonify({
+        'id': colocation.id,
+        'name': colocation.name,
+        'rentDue': colocation.rentDue,
+        'rentPaid': colocation.rentPaid,
+        'createdAt': colocation.createdAt,
+        'updatedAt': colocation.updatedAt
+    })
 
 @app.route('/api/data', methods=['POST'])
 def data():
