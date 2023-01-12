@@ -159,7 +159,7 @@ ALTER TABLE `Colocataire`
 -- Contraintes pour la table `Expense`
 --
 ALTER TABLE `Expense`
-  ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `Colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_expense_user` FOREIGN KEY (`colocataireId`) REFERENCES `Colocataire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_expense_coloc` FOREIGN KEY (`colocationId`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 COMMIT;

@@ -2,6 +2,7 @@ from flask import (Flask, jsonify, json, request)
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
+from src.controller.ExpenseController import ExpenseController
 from src.model.ColocationModel import ColocationModel
 from datetime import datetime
 
@@ -74,13 +75,13 @@ def data():
 def indexExpense():
         return ExpenseController.indexExpense()
 # Get all expense of a colocation
-@app.route('/api/expense/colocation/<id>', methods=['GET'])
+@app.route('/api/expense/colocation/<string:id>', methods=['GET'])
 def showColocExpense(id):
        return ExpenseController.showColocExpense(id)
        # return Faut lui passer l'id de la colocation
 
 # Get all expense of a user
-@app.route('/api/expense/user/<id>', methods=['GET'])
+@app.route('/api/expense/user/<string:id>', methods=['GET'])
 def showExpense(id):
        return ExpenseController.showColocExpense(id)
        # return Faut lui passer l'id de l'user
@@ -92,13 +93,13 @@ def createExpense():
     return ExpenseController.newExpense(data)
 
 # Update a expense
-@app.route('/api/expense/<id>', methods=['PUT'])
+@app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
     return ExpenseController.updateExpense(id, data)
 
 # Delete a expense
-@app.route('/api/expense/<id>', methods=['DELETE']) 
+@app.route('/api/expense/<string:id>', methods=['DELETE']) 
 def deleteExpense(id):
     return ExpenseController.deleteExpense(id)
 

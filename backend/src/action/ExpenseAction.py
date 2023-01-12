@@ -25,11 +25,11 @@ class ExpenseAction(DatabaseActions):
         super()._execute(query, value)
 
     def getExpenseUser(self, id):
-        data = super()._get("colocataireId", (id,))   
+        data = super()._get("colocataireId", (id))   
         return self(data).serializeWithRelationships()
 
     def getExpenseColoc(self, id):
-        data = super()._get("colocation.id", (id,))   
+        data = super()._get("colocation.id", (id))   
         return self(data).serializeWithRelationships()
 
     def update(self , model, id):
