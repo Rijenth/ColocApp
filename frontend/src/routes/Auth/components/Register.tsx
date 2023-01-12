@@ -46,9 +46,7 @@ export default function Register() {
       });
       return;
     }
-    console.log(
-      await register(email, password, firtName, lastName, gender, birthdate)
-    );
+    register(email, password, firtName, lastName, gender, birthdate);
   };
 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;

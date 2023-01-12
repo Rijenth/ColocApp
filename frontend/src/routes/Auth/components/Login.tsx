@@ -16,8 +16,6 @@ import {
 // Functions
 import { login } from "../../../func/auth.func";
 
-// TODO: use redux somewhere (dispatch)
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
