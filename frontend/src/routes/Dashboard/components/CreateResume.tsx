@@ -35,7 +35,6 @@ export default function CreateResume() {
   // You can add these classes as classNames to any Mantine input, it will work the same
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
-  const dispatch = useDispatch();
   const [payload, setPayload] = useState({
     sum: "",
     why: "",
@@ -107,15 +106,8 @@ export default function CreateResume() {
           style={{ marginTop: 20 }}
           color="blue"
           onClick={() =>
-            console.log(dispatch({ type: "CREATE_RESUME_REQUEST", payload }))
+            console.log(payload)
           }
-        >
-          Create
-        </Button>
-        <Button
-          style={{ marginTop: 20 }}
-          color="blue"
-          onClick={() => console.log(payload)}
         >
           Create
         </Button>
