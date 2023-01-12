@@ -9,6 +9,10 @@ class UsersController:
         self.request = request
 
     def register(data):
+        data.setdefault('phone', "")
+        data.setdefault('picture', "")
+        data.setdefault('income', 0)
+
         try :
             user = UsersModel(data)
             AuthenticationAction().register(user)
