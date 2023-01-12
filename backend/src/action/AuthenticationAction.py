@@ -30,10 +30,13 @@ class AuthenticationAction(DatabaseActions):
     
     def login(self, data): 
         row = super()._get("email", data["email"])
-        if(len(row) == 0):
+
+        if(row == None or len(row) == 0):
             return []
-        elif(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):
+
+        if(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):
             return []
+            
         return row
    
 

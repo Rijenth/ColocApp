@@ -46,6 +46,7 @@ class UsersController:
         user =  UsersModel(row)
         return jsonify(
             {
+                'type' : 'success',
                 'token' : create_access_token(
                     identity = {
                         "uid" : user.uid, 
