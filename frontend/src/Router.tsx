@@ -13,7 +13,7 @@ import { isLoggedIn } from "./func/user.func";
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
 import Account from "./routes/Account";
-//import Dashboard from "./routes/Dashboard";
+import Dashboard from "./routes/Dashboard";
 
 export default function AppRouter() {
   return (
@@ -26,7 +26,7 @@ export default function AppRouter() {
               <Route path="/auth/:authtype" element={<Auth />} />
               <Route path="/account" element={<Account />} />
               <Route path="/account/:action" element={<Account />} />
-              {/* <Route path="/dashboard/" element={<Dashboard />} /> */}
+              <Route path="/dashboard/" element={<Dashboard />} />
               {/* <Route path="/Dashboard/:type" element={<Dashboard />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
