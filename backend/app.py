@@ -69,24 +69,37 @@ def data():
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 
+# Path: backend\src\controller\ExpenseController.py
+# Get all expenses
 @app.route('/api/expense', methods=['GET'])
 def indexExpense():
    return ExpenseController.indexExpense()
 
-@app.route('/api/expense/<id>', methods=['GET'])
+# Get all expense of a colocation
+@app.route('/api/expense/colocation/<id>', methods=['GET'])
 def showColocExpense(id):
-       return ExpenseController.showAllExpense(id)
+       return ExpenseController.showColocExpense(id)
        # return Faut lui passer l'id de la colocation
 
+# Get all expense of a user
+@app.route('/api/expense/user/<id>', methods=['GET'])
+def showColocExpense(id):
+       return ExpenseController.showColocExpense(id)
+       # return Faut lui passer l'id de l'user
+
+# Create a new expense
 @app.route('/api/expense', methods=['POST'])
 def createExpense():
     data = request.get_json()
     return ExpenseController.newExpense(data)
+
+# Update a expense
 @app.route('/api/expense/<id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
     return ExpenseController.updateExpense(id, data)
-    
+
+# Delete a expense
 @app.route('/api/expense/<id>', methods=['DELETE']) 
 def deleteExpense(id):
     return ExpenseController.deleteExpense(id)
