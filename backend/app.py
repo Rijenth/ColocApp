@@ -39,8 +39,6 @@ def login():
 ###                ###
 ###                ### 
 
-
-
 @app.route('/api/colocation', methods=['GET'])
 def getColoc():
     colocation = ColocationModel(
