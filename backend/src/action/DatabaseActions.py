@@ -46,8 +46,8 @@ class DatabaseActions:
             self.cursor.execute(query, (value,))
         result = self.cursor.fetchone()
         self.connection.close()
-        if(result == None):
-            return []
+        if(not result):
+            return result
         return self._format(result)
 
     def _execute(self, query, value):

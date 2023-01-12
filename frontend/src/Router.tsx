@@ -12,6 +12,7 @@ import { isLoggedIn } from "./func/user.func";
 // Routes
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
+import Account from "./routes/Account";
 // import Dashboard from "./routes/Dashboard";
 
 // Redux
@@ -28,6 +29,8 @@ export default function AppRouter() {
               <Routes>
                 <Route path="/" element={<AutoRedirect />} />
                 <Route path="/auth/:authtype" element={<Auth />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/account/:action" element={<Account />} />
                 {/*                 <Route path="/dashboard/:type" element={<Dashboard />} /> */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
