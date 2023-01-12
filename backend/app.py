@@ -3,9 +3,8 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from src.controller.UsersController import UsersController
 from src.model.ColocationModel import ColocationModel
-from src.model.ExpenseModel import ExpenseModel
-from src.controller.ExpenseController import ExpenseController
 from datetime import datetime
+
 
 app=Flask(__name__)
 cors = CORS(app)
@@ -41,19 +40,27 @@ def login():
 ###                ###
 ###                ### 
 
+
+
 @app.route('/api/colocation', methods=['GET'])
 def getColoc():
-    data = {
-        'id': 1,
-        'name': "John",
-        'rentDue': 185,
-        'rentPaid': 185,
-        'createdAt': "24/12/2022",
-        'updatedAt': "25/12/2022"
-    }
-    colocation = ColocationModel(data)
+    colocation = ColocationModel(
+        '1',
+        'ColocataireUser',
+        '185',
+        '1',
+        '24/12/2022',
+        '25/12/2022'
+    )
 
-    return jsonify(colocation.serialize())
+    return jsonify({
+        'id': colocation.id,
+        'name': colocation.name,
+        'rentDue': colocation.rentDue,
+        'rentPaid': colocation.rentPaid,
+        'createdAt': colocation.createdAt,
+        'updatedAt': colocation.updatedAt
+    })
 
 @app.route('/api/data', methods=['POST'])
 def data():
@@ -62,25 +69,3 @@ def data():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-@app.route('/api/expense', methods=['GET'])
-def indexExpense():
-   return ExpenseController.indexExpense()
-
-@app.route('/api/expense/<id>', methods=['GET'])
-def showColocExpense(id):
-       return ExpenseController.showAllExpense(id)
-       # return Faut lui passer l'id de la colocation
-
-@app.route('/api/expense', methods=['POST'])
-def createExpense():
-    data = request.get_json()
-    return ExpenseController.newExpense(data)
-@app.route('/api/expense/<id>', methods=['PUT'])
-def updateExpense(id):
-    data = request.get_json()
-    return ExpenseController.updateExpense(id, data)
-    
-@app.route('/api/expense/<id>', methods=['DELETE']) 
-def deleteExpense(id):
-    return ExpenseController.deleteExpense(id)
