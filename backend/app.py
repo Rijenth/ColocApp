@@ -125,7 +125,7 @@ def createExpense():
     return ExpenseController.newExpense(data)
 
 # Update a expense
-# { "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# {"id", "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
 @app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
@@ -207,40 +207,6 @@ def deleteColocataire(id):
     except Exception as e:
         return jsonify({"type": "error"}), 422
     return ColocataireController.deleteColocataire(int(id))
-
-###                ###
-###      USER      ###
-###                ###
-
-# INDEX
-@app.route('/api/users', methods=['GET'])
-def indexUser():
-    return UsersController.indexUser()
-
-# SHOW
-@app.route('/api/users/<int:id>', methods=['GET'])
-def showUser(id):
-    return UsersController.showUser(id)
-
-# UPDATE
-# { Un body avec toutes les données du user }
-@app.route('/api/users/<int:id>', methods=['PUT'])
-def updateUser(id):
-    data = request.get_json()
-    try:
-        int(id)
-    except Exception as e:
-        return jsonify({"message": "Bad request"}), 422
-    return UsersController.updateUser(int(id), data)
-
-# DELETE
-@app.route('/api/users/<int:id>', methods=['DELETE'])
-def deleteUser(id):
-    try:
-        int(id)
-    except Exception as e:
-        return jsonify({"message": "Bad request"}), 422
-    return UsersController.deleteUser(int(id))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
