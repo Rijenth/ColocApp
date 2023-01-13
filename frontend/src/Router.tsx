@@ -27,7 +27,7 @@ export default function AppRouter() {
               <Route path="/account" element={<Account />} />
               <Route path="/account/:action" element={<Account />} />
               <Route path="/dashboard/" element={<Dashboard />} />
-              {/* <Route path="/Dashboard/:type" element={<Dashboard />} /> */}
+              <Route path="/dashboard/:element" element={<Dashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

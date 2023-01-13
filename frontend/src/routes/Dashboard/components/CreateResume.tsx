@@ -43,7 +43,7 @@ export default function CreateResume() {
   });
 
   return (
-    <>
+    <div className="dashboard__items dashboard__resumes">
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
@@ -105,9 +105,7 @@ export default function CreateResume() {
         <Button
           style={{ marginTop: 20 }}
           color="blue"
-          onClick={() =>
-            console.log(payload)
-          }
+          onClick={() => console.log(payload)}
         >
           Create
         </Button>
@@ -116,6 +114,6 @@ export default function CreateResume() {
       <Group position="center">
         <Button onClick={() => setOpened(true)}>Open Modal</Button>
       </Group>
-    </>
+    </div>
   );
 }

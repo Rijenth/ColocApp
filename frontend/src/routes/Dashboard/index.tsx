@@ -1,5 +1,11 @@
 // using mantine and redux we will create a new component
-import { Container, Grid, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
+import {
+  Container,
+  Grid,
+  SimpleGrid,
+  Skeleton,
+  useMantineTheme,
+} from "@mantine/core";
 
 import { useParams } from "react-router-dom";
 
@@ -7,41 +13,52 @@ import { useParams } from "react-router-dom";
 import HeaderTabs from "../../components/HeaderTabs";
 
 // inner components
-import Resumes from "./components/Resumes";
+import Expenses from "./components/Expenses";
 import CreateResume from "./components/CreateResume";
-import RadialChart from "./components/RadialChart";
+import Graph from "./components/RadialChart";
+import BigNum from "./components/BigNum";
 
 // styles
 import "./styles/index.css";
 
-export default function Dashboard() {
-    const data = [
-        { sum: "100", who: "who", why: 'why', category: "category", date: "date" },
-    ];
+const data = [
+  { sum: "100", who: "who", why: "why", category: "category", date: "date" },
+];
 
-    const theme = useMantineTheme();
-    return (
-        <>
-            <HeaderTabs
-                user={{ name: 'John Doe', image: 'https://i.pravatar.cc/300' }}
-                tabs={['Dashboard', 'Resume', 'Settings']}
-            />
-            <Container my="md">
-                <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-                    <div className="dashboard__items">
-                        <RadialChart />
-                    </div>
-                    <div className="dashboard__items">
-                        <h1 className="dashboard__number">10</h1>
-                    </div>
-                </SimpleGrid>
-                <div className="dashboard__items dashboard__resumes">
-                    <Resumes data={data} />
-                </div>
-                <div className="dashboard__items dashboard__resumes">
-                    <CreateResume />
-                </div>
-            </Container>
-        </>
-    );
+export default function Dashboard() {
+  const { element } = useParams();
+
+  switch (element) {
+    case "summary":
+      return <Expenses data={data} type={"view"} />;
+    case "graph":
+      return <Graph type={"view"} />;
+    case "bigNum":
+      return <BigNum type={"view"} />;
+    default:
+      return <FullDashboard />;
+  }
+}
+
+function FullDashboard() {
+  return (
+    <>
+      <HeaderTabs
+        user={{ name: "John Doe", image: "https://i.pravatar.cc/300" }}
+        tabs={["Dashboard", "Resume", "Settings"]}
+      />
+      <Container my="md">
+        <SimpleGrid
+          cols={2}
+          spacing="md"
+          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        >
+          <Graph type={"items"} />
+          <BigNum type={"items"} />
+        </SimpleGrid>
+        <Expenses data={data} type={"items"} />
+        <CreateResume />
+      </Container>
+    </>
+  );
 }
