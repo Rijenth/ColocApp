@@ -9,7 +9,7 @@ class ExpenseAction(DatabaseActions):
          super().__init__('Expense')
 
     def index(self):
-        result = super()._index("SELECT * FROM " + self.table + " Inner JOIN Users ON Expense.colocation.id = Users.id And Inner JOIN ")
+        result = super()._index("SELECT * FROM " + self.table + " Inner JOIN Users ON Expense.colocataireId = Users.id ")
         return result
 
     def post(self, model):
@@ -26,9 +26,9 @@ class ExpenseAction(DatabaseActions):
         super()._execute(query, value)
 
     def getExpenseUser(self, id):
-        data = super()._get("colocataireId", (id))   
+        data = super()._get("SELECT * FROM " + self.table + "Where colocataireId = %s  Inner JOIN Users ON Expense.colocataireId = Users.id ", (id))   
         return data
-
+    
     def getExpenseColoc(self, id):
         data = super()._get("colocation.id", (id))   
         return data
