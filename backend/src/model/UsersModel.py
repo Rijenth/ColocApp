@@ -5,7 +5,6 @@ import uuid
 
 class UsersModel(BasicModel):
     attributes = {
-        'id': int,
         'uid': str,
         'firstName': str,
         'lastName': str,

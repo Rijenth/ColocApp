@@ -79,7 +79,8 @@ class UsersController:
             UsersAction().update(id, user)
         except Exception as e:
             return jsonify({'type' : 'error', "message": e}), 422
-        return jsonify({}), 204
+        user = UsersAction().show(id)
+        return jsonify(user.serialize()), 201
 
     def deleteUser(id):
         UsersAction().delete(id)
