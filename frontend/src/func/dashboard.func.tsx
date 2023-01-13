@@ -1,3 +1,5 @@
+import {ExpensePayload} from "../interfaces/data.interface";
+
 const API_URL = 'http://localhost:8080/api/';
 
 // Auth Header for fetch

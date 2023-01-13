@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 import { createExpenses } from "../../../func/dashboard.func";
 
@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function CreateResume() {
+export default function CreateResume(open: boolean) {
   // You can add these classes as classNames to any Mantine input, it will work the same
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
@@ -45,6 +45,11 @@ export default function CreateResume() {
     desccription: "",
     colocationId: "",
   });
+
+  useEffect(() => {
+    setOpened(open);
+  }, [open]);
+
 
   return (
     <div className="dashboard__items dashboard__resumes">
@@ -116,10 +121,6 @@ export default function CreateResume() {
           Create
         </Button>
       </Modal>
-
-      <Group position="center">
-        <Button onClick={() => setOpened(true)}>Open Modal</Button>
-      </Group>
     </div>
   );
 }
