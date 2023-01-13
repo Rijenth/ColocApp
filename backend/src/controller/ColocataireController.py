@@ -1,5 +1,7 @@
 from src.action.ColocataireAction import ColocataireAction
 from src.model.ColocataireModel import ColocataireModel
+from src.model.ColocationModel import ColocationModel
+from src.action.ColocationAction import ColocationAction
 from flask import Flask, jsonify
 
 class ColocataireController:
@@ -38,17 +40,24 @@ class ColocataireController:
         return jsonify([Colocataire]), 200
 
     def createColocataire(data):
-        Colocataireexit = ColocataireAction().showColocUser(data['id_user'],data['id_coloc'])
-        if len(Colocataireexit) != 0:
-            return jsonify({"message" : "Vous êtes déjà dans cette colocation"}), 422
-        if data['id_user'] == data['id_coloc']:
-            return jsonify({"message" : "Vous ne pouvez pas vous ajouter vous même"}), 422
+        colocation = ColocationAction().show("code", data['code'])
+        
+        if colocation == None :
+            return jsonify({"type" : "error", "message" : "Ce code ne correspond à aucune colocation !"}), 422
+
+        colocationModel = ColocationModel(colocation).serializeWithRelationships()
+
+        for colocataireUser in colocationModel['relationships']['Colocataire'] :
+            if colocataireUser['userId'] == data['userId']:
+                return jsonify({"type" : "error", "message" : "Vous êtes déjà inscrit à cette colocation !"}), 422
+
+        data['colocationId'] = colocation['id']
+        Colocataire = ColocataireModel(data)
         try:
-            Colocataire = ColocataireModel(data)
             ColocataireAction().post(Colocataire)
         except Exception as e:
-            return jsonify({"message" : "Une erreur est survenue dans create"}), 422
-        return jsonify({"message" : "Colocataire create !"}), 201
+            return jsonify({"type" : "error", "message" : "Une erreur s'est produite lors de la création du colocataire"}), 422
+        return jsonify({"type" : "success", "message" : "Colocataire created !"}), 201
 
 
     def updateColocataire(id, data):

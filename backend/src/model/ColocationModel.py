@@ -3,6 +3,7 @@ from datetime import date
 
 class ColocationModel(BasicModel):
     attributes = {
+        'id': int,
         'name': str,
         'rentDue': int,
         'rentPaid': int,
@@ -19,5 +20,10 @@ class ColocationModel(BasicModel):
         'code': int
     }
 
+    relationships = ['Colocataire']
+
     def __init__(self, data):
         super().__init__(data)
+
+    def Colocataire(self):
+        return self.hasMany('Colocataire', 'colocationId', self.id)

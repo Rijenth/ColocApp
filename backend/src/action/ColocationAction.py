@@ -10,8 +10,8 @@ class ColocationAction(DatabaseActions):
         result = super()._index()
         return result
 
-    def show(self, id):
-        result = super()._get('id', id)
+    def show(self, key, value):
+        result = super()._get(key, value)
         return result
 
     def post(self, model):

@@ -12,7 +12,7 @@ class ColocationController:
         
     def showColocation(id):
         try:
-            colocation = ColocationAction().show(id)
+            colocation = ColocationAction().show("id", id)
         except Exception as e:
             return jsonify({}), 404
         if len(colocation) == 0:

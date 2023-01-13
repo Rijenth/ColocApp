@@ -26,7 +26,7 @@ class ColocataireAction(DatabaseActions):
         return result
 
     def post(self, model):
-        query = "INSERT INTO " + self.table + "  (userId,colocationId) VALUES (%s, %s,)"
+        query = "INSERT INTO " + self.table + "  (userId, colocationId) VALUES (%s, %s)"
         value = (
             model.userId,
             model.colocationId,
@@ -45,3 +45,4 @@ class ColocataireAction(DatabaseActions):
         query = "DELETE FROM " + self.table + " WHERE id = %s"
         super()._execute(query, (id,))
 
+        
