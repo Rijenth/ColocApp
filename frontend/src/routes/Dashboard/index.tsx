@@ -5,6 +5,7 @@ import {
   SimpleGrid,
   Skeleton,
   useMantineTheme,
+    Button
 } from "@mantine/core";
 
 import { useParams } from "react-router-dom";
@@ -20,73 +21,32 @@ import BigNum from "./components/BigNum";
 
 // styles
 import "./styles/index.css";
+
+import {useState} from "react";
 import FirstTime from "./components/FirstTime";
+import {getExpenses} from "../../func/dashboard.func";
 
 const data = [
   {
+    id: 1,
     amount: "100",
+    colocataireId: "1",
     colocataireName: "Kader",
     paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
+    date: "date",
     desccription: "Test1",
+    colocationId: "1",
   },
   {
+    id: 2,
     amount: "100",
-    colocataireName: "Kader",
+    colocataireId: "1",
+    colocataireName: "Adrien",
     paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test2",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test3",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test4",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test5",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test6",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test7",
-  },
-  {
-    amount: "100",
-    colocataireName: "Kader",
-    paidFord: "Other",
-    createdAt: "12/12/2021",
-    updateAt: "12/12/2021",
-    desccription: "Test8",
-  },
+    date: "date",
+    desccription: "Test1",
+    colocationId: "1",
+  }
 ];
 
 export default function Dashboard() {
@@ -107,6 +67,9 @@ export default function Dashboard() {
 }
 
 function FullDashboard() {
+  const [openModal, setOpenModal] = useState(false);
+
+
   return (
     <>
       <HeaderTabs
@@ -123,7 +86,9 @@ function FullDashboard() {
           <BigNum type={"items"} />
         </SimpleGrid>
         <Expenses data={data} type={"items"} />
-        <CreateResume />
+        <CreateResume open={openModal} />
+        <Button onClick={() => setOpenModal(true)}>Create Resume</Button>
+        <Button onClick={() => getExpenses()}>Get Expenses</Button>
       </Container>
     </>
   );
