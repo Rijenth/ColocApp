@@ -5,10 +5,11 @@ import {
   Button,
   Modal,
   Group,
+  NumberInput,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import { createExpenses } from "../../../func/dashboard.func";
 
@@ -37,17 +38,16 @@ export default function CreateResume(open: boolean) {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
-    amount: "",
+    amount: 0,
     colocataireId: 1,
-    paidFord: "",
-    desccription: "",
-    colocationId: 1
+    paidFor: "",
+    description: "",
+    colocationId: 1,
   });
 
   useEffect(() => {
     setOpened(open);
   }, [open]);
-
 
   return (
     <div className="dashboard__items dashboard__resumes">
@@ -61,35 +61,31 @@ export default function CreateResume(open: boolean) {
           placeholder="10.99 $"
           classNames={classes}
           required={true}
-          value={payload.desccription}
+          value={payload.description}
           onChange={(e) =>
-            setPayload({ ...payload, desccription: e.currentTarget.value })
+            setPayload({ ...payload, description: e.currentTarget.value })
           }
         />
 
-        <TextInput
+        <NumberInput
           style={{ marginTop: 20 }}
           label="Amount"
           placeholder="10.99 $"
           classNames={classes}
           required={true}
           value={payload.amount}
-          onChange={(e) =>
-            setPayload({ ...payload, amount: e.currentTarget.value })
-          }
+          onChange={(e) => setPayload({ ...payload, amount: e as number })}
         />
 
         <Select
           style={{ marginTop: 20, zIndex: 2 }}
-          data={[
-            "loyer","eletricte","eau","nourriture","autre"
-          ]}
+          data={["loyer", "eletricte", "eau", "nourriture", "autre"]}
           placeholder="Pick one"
           label="Paid ford"
           classNames={classes}
           required={true}
-          value={payload.paidFord}
-          onChange={(e) => setPayload({ ...payload, paidFord: e })}
+          value={payload.paidFor}
+          onChange={(e) => setPayload({ ...payload, paidFor: e as string })}
         />
 
         {/*<DatePicker

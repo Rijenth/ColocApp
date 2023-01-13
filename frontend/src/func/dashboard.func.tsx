@@ -15,13 +15,20 @@ const authHeader = () => {
 export function createExpenses(payload: {
   amount: string;
   colocataireId: string;
-  paidFord: string;
-  desccription: string;
+  paidFor: string;
+  description: string;
   colocationId: string;
 }) {
+  let body = {
+    amount: payload.amount,
+    colocataireId: payload.colocataireId,
+    paidFor: payload.paidFor,
+    description: payload.description,
+    colocationId: payload.colocationId,
+  };
   return fetch(`${API_URL}/expense`, {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
       AccessControlAllowOrigin: "*",
