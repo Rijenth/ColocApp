@@ -33,12 +33,12 @@ class ExpenseController:
         return jsonify([expense]), 200
 
     def newExpense(data):
-        data['date'] = date.today().strftime("%Y-%m-%d")
+       # data['date'] = date.today().strftime("%Y-%m-%d")
         try:
             expense = ExpenseModel(data)
             ExpenseAction().post(expense)
         except Exception as e:
-             return jsonify({"message" : "Une erreur est survenue dans create"}), 422
+             return jsonify({"message" :e}), 422
         return jsonify({"message" : "Expense create !"}), 201
 
 

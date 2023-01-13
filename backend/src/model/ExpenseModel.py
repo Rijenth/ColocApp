@@ -6,19 +6,19 @@ class ExpenseModel(BasicModel):
     attributes = {
             'amount': int,
             'colocataireId': int,
-            'paidFor': enumerate(['loyer', 'electricite', 'eau', 'nourriture', 'autre']),
+            'paidFor': str,
             'description': str,
-            'colocation.id': int,
+            'colocationId': int,
         }
     serializable = {
-            'id',
-            'amount',
-            'colocataireId',
-            'paidFor',
-            'createdAt',
-            'updatedAt',
-            'description',
-            'colocation.id'
+            'id': int,
+            'amount': int,
+            'colocataireId': int,
+            'paidFor': str,
+            'createdAt': str,
+            'updatedAt': str,
+            'description': str,
+            'colocationId':str
         }
     
     relationships = ['Users','Coloation']

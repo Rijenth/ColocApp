@@ -13,7 +13,7 @@ class ExpenseAction(DatabaseActions):
         return result
 
     def post(self, model):
-        query= "INSERT INTO " + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocation.id ) VALUES (%s, %s, %s, %s, %s)"
+        query= "INSERT INTO " + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocationId  ) VALUES (%s, %s, %s, %s, %s,%s, %s)"
         value = (
             model.amount, 
             model.colocataireId, 
@@ -21,7 +21,7 @@ class ExpenseAction(DatabaseActions):
             date.today().strftime("%Y-%m-%d"),
             date.today().strftime("%Y-%m-%d"),
             model.description, 
-            model.colocation.id 
+            model.colocationId  
         )
         super()._execute(query, value)
 
@@ -30,19 +30,18 @@ class ExpenseAction(DatabaseActions):
         return data
     
     def getExpenseColoc(self, id):
-        data = super()._get("colocation.id", (id))   
+        data = super()._get("colocationId ", (id))   
         return data
 
     def update(self , model, id):
-        query= "UPDATE" + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocation.id ) VALUES (%s, %s, %s, %s, %s)"
+        query= "UPDATE" + self.table + " (amount, colocataireId, paidFor, updatedAt , description , colocationId  ) VALUES ( %s, %s, %s, %s)"
         value = (
             model.amount, 
             model.colocataireId, 
             model.paidFor, 
             date.today().strftime("%Y-%m-%d"),
-            date.today().strftime("%Y-%m-%d"),
             model.description, 
-            model.colocation.id 
+            model.colocationId  
         )
         super()._execute(query, value, id)
 
