@@ -22,7 +22,7 @@ export function createExpenses(payload: {
   return fetch(`${API_URL}/expense`, {
     method: "POST",
     body: JSON.stringify(payload),
-    headers: {/* ...authHeader(),*/ "Content-Type": "application/json" },
+    headers: {/* ...authHeader(),*/ "Content-Type": "application/json", AccessControlAllowOrigin: "*" },
   })
       .then((res) => res.json())
       .then((data) => {
