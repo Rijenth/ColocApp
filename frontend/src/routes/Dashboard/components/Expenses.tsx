@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { createStyles, Table, ScrollArea } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
@@ -29,30 +29,31 @@ const useStyles = createStyles((theme) => ({
 
   // When hover on the table row, the background color changes and the icon appears
 
-    tableRow: {
+  tableRow: {
     "&:hover": {
-        backgroundColor: theme.colorScheme === "light" ? theme.colors.dark[8] : theme.white,
-        color: theme.colorScheme === "light" ? theme.colors.dark[0] : theme.black,
+      backgroundColor:
+        theme.colorScheme === "light" ? theme.colors.dark[8] : theme.white,
+      color: theme.colorScheme === "light" ? theme.colors.dark[0] : theme.black,
       opacity: 0.3,
-        "& td": {
-            "& svg": {
-                opacity: 1,
-            }
-        }
-    }
+      "& td": {
+        "& svg": {
+          opacity: 1,
+        },
+      },
     },
+  },
 
-    icon: {
-          width: '1rem',
-          height: '1rem',
-        opacity: 0,
-        transition: 'opacity 150ms ease',
-      }
+  icon: {
+    width: "1rem",
+    height: "1rem",
+    opacity: 0,
+    transition: "opacity 150ms ease",
+  },
 }));
 
 import { ExpensePayload } from "../../../interfaces/data.interface";
-import {IconPencilMinus} from "@tabler/icons";
-import {updateExpenses} from "../../../func/dashboard.func";
+import { IconPencilMinus } from "@tabler/icons";
+import { updateExpenses } from "../../../func/dashboard.func";
 import UpdateResume from "./UpdateResume";
 
 export default function Expenses({ data }: ExpensePayload, setOpenModel: any) {
@@ -62,41 +63,47 @@ export default function Expenses({ data }: ExpensePayload, setOpenModel: any) {
   const [idRow, setIdRow] = useState(0);
 
   const rows = data.map((row) => (
-      <>
-            <tr key={row.id} className={classes.tableRow} onClick={() => (setOpenModal(true), setIdRow(row.id))}>
-              <td>{row.amount}</td>
-              <td>{row.colocataireName}</td>
-              <td>{row.paidFord}</td>
-              <td>{row.date}</td>
-              <td>{row.desccription}</td>
-              <td>
-              <IconPencilMinus className={classes.icon} />
-                </td>
-            </tr>
-        </>
+    <>
+      <tr
+        key={row.id}
+        className={classes.tableRow}
+        onClick={() => (setOpenModal(true), setIdRow(row.id))}
+      >
+        <td>{row.amount}</td>
+        <td>{row.colocataireName}</td>
+        <td>{row.paidFord}</td>
+        <td>{row.date}</td>
+        <td>{row.desccription}</td>
+        <td>
+          <IconPencilMinus className={classes.icon} />
+        </td>
+      </tr>
+    </>
   ));
 
   return (
-      <>
-        <ScrollArea
-          sx={{ height: 300 }}
-          onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-        >
-          <Table sx={{ minWidth: 700 }}>
-            <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-              <tr>
-                <th>Amount</th>
-                <th>Colocataire</th>
-                <th>Paid for</th>
-                <th>Created at</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </Table>
-        </ScrollArea>
+    <>
+      <ScrollArea
+        sx={{ height: 300 }}
+        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+      >
+        <Table sx={{ minWidth: 700 }}>
+          <thead
+            className={cx(classes.header, { [classes.scrolled]: scrolled })}
+          >
+            <tr>
+              <th>Amount</th>
+              <th>Colocataire</th>
+              <th>Paid for</th>
+              <th>Created at</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
 
-        <UpdateResume open={openModal} id={idRow}/>
+      <UpdateResume open={openModal} id={idRow} />
     </>
   );
 }

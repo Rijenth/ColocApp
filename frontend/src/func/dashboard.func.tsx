@@ -1,6 +1,6 @@
-import {ExpensePayload} from "../interfaces/data.interface";
+import { ExpensePayload } from "../interfaces/data.interface";
 
-const API_URL = 'http://localhost:5500/api';
+const API_URL = "http://localhost:5000/api";
 
 // Auth Header for fetch
 const authHeader = () => {
@@ -22,33 +22,36 @@ export function createExpenses(payload: {
   return fetch(`${API_URL}/expense`, {
     method: "POST",
     body: JSON.stringify(payload),
-    headers: {/* ...authHeader(),*/ "Content-Type": "application/json", AccessControlAllowOrigin: "*" },
+    headers: {
+      "Content-Type": "application/json",
+      AccessControlAllowOrigin: "*",
+    },
   })
-      .then((res) => res.json())
-      .then((data) => {
-          console.log(data);
-      })
-      .catch((error) => {
-          console.log(error);
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getExpenses() {
   return fetch(`${API_URL}/expense`, {
-    method: "GET"
+    method: "GET",
   })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => {
-        return data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getExpensesById(id: string) {
