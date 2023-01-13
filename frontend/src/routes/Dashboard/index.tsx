@@ -88,7 +88,7 @@ function FullDashboard() {
         <Expenses data={data} type={"items"} />
         <CreateResume open={openModal} />
         <Button onClick={() => setOpenModal(true)}>Create Resume</Button>
-        <Button onClick={() => getExpenses().then((res) => {console.log(res)})}>Get Expenses</Button>
+        <Button onClick={() => getExpenses()}>Get Expenses</Button>
       </Container>
     </>
   );

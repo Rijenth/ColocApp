@@ -38,12 +38,10 @@ export default function CreateResume(open: boolean) {
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
     amount: "",
-    colocataireId: "",
+    colocataireId: 1,
     paidFord: "",
-    createdAt: "",
-    updateAt: "",
     desccription: "",
-    colocationId: "",
+    colocationId: 1
   });
 
   useEffect(() => {
@@ -84,13 +82,7 @@ export default function CreateResume(open: boolean) {
         <Select
           style={{ marginTop: 20, zIndex: 2 }}
           data={[
-            "Rent",
-            "Food",
-            "Transport",
-            "Wifi",
-            "Water",
-            "Electricity",
-            "Other",
+            "loyer","eletricte","eau","nourriture","autre"
           ]}
           placeholder="Pick one"
           label="Paid ford"
@@ -100,7 +92,7 @@ export default function CreateResume(open: boolean) {
           onChange={(e) => setPayload({ ...payload, paidFord: e })}
         />
 
-        <DatePicker
+        {/*<DatePicker
           style={{ marginTop: 20 }}
           label="Date"
           placeholder="January 1, 2023"
@@ -111,7 +103,7 @@ export default function CreateResume(open: boolean) {
           onChange={(e) =>
             setPayload({ ...payload, createdAt: e.toISOString() })
           }
-        />
+        />*/}
 
         <Button.Group>
           <Button
@@ -125,7 +117,7 @@ export default function CreateResume(open: boolean) {
           <Button
             style={{ marginTop: 20 }}
             color="blue"
-            onClick={() => createExpenses(payload)}
+            onClick={() => (createExpenses(payload), console.log(payload))}
           >
             Create
           </Button>

@@ -1,6 +1,6 @@
 import {ExpensePayload} from "../interfaces/data.interface";
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5500/api';
 
 // Auth Header for fetch
 const authHeader = () => {
@@ -13,23 +13,42 @@ const authHeader = () => {
 };
 
 export function createExpenses(payload: {
-  createdAt: string;
   amount: string;
-  desccription: string;
-  paidFord: string;
   colocataireId: string;
-  updateAt: string;
+  paidFord: string;
+  desccription: string;
   colocationId: string;
 }) {
-  return fetch(`${API_URL}/expense/create`, {
+  return fetch(`${API_URL}/expense`, {
     method: "POST",
     body: JSON.stringify(payload),
-    headers: { ...authHeader(), "Content-Type": "application/json" },
-  });
+    headers: {/* ...authHeader(),*/ "Content-Type": "application/json" },
+  })
+      .then((res) => res.json())
+      .then((data) => {
+          console.log(data);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
 }
 
 export function getExpenses() {
-  return fetch(`${API_URL}/expense`);
+  return fetch(`${API_URL}/expense`, {
+    method: "GET"
+  })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        return data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
 }
 
 export function getExpensesById(id: string) {
