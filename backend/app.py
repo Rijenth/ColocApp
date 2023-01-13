@@ -109,7 +109,7 @@ def showExpense(id):
        # return Faut lui passer l'id de l'user
 
 # Create a new expense
-@app.route('/api/expense', methods=['POST'])
+@app.route('/api/expenses/create', methods=['POST'])
 def createExpense():
     data = request.get_json()
     return ExpenseController.newExpense(data)
