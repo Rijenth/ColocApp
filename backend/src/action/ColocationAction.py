@@ -19,7 +19,7 @@ class ColocationAction(DatabaseActions):
         value = (
             model.name,
             model.rentDue,
-            model.rentPaid,
+            0,
             date.today().strftime("%Y-%m-%d"),
             date.today().strftime("%Y-%m-%d"),
             random.randint(1000, 9999)

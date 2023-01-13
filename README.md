@@ -147,9 +147,8 @@ status code:
 ```
 - data:
     - name: ```str````
-    - rentDue: ```int ```
-    - rentPaid: ``` int ```
-  
+    - code: ```int 4 ```
+    - rentDue: ``` int ```  
 response: 
 ```bash
 {"message"}
