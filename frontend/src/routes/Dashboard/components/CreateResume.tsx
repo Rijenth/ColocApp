@@ -108,13 +108,23 @@ export default function CreateResume() {
           }
         />
 
-        <Button
-          style={{ marginTop: 20 }}
-          color="blue"
-          onClick={() => createExpenses(payload)}
-        >
-          Create
-        </Button>
+        <Button.Group>
+          <Button
+            style={{ marginTop: 20 }}
+            color="red"
+            variant="subtle"
+            onClick={() => setOpened(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{ marginTop: 20 }}
+            color="blue"
+            onClick={() => createExpenses(payload)}
+          >
+            Create
+          </Button>
+        </Button.Group>
       </Modal>
 
       <Group position="center">
