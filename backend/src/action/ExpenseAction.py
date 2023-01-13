@@ -9,7 +9,7 @@ class ExpenseAction(DatabaseActions):
          super().__init__('Expense')
 
     def index(self):
-        result = super()._index()
+        result = super()._index("SELECT * FROM " + self.table + " Inner JOIN Users ON Expense.colocation.id = Users.id And Inner JOIN ")
         return result
 
     def post(self, model):
@@ -32,7 +32,7 @@ class ExpenseAction(DatabaseActions):
     def getExpenseColoc(self, id):
         data = super()._get("colocation.id", (id))   
         return data
-        
+
     def update(self , model, id):
         query= "UPDATE" + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocation.id ) VALUES (%s, %s, %s, %s, %s)"
         value = (
