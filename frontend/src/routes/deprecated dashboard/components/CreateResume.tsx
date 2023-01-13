@@ -8,9 +8,8 @@ import {
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
-import {useEffect, useState} from "react";
-
-import { createExpenses } from "../../../func/dashboard.func";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -32,52 +31,44 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function CreateResume(open: boolean) {
+export default function CreateResume() {
   // You can add these classes as classNames to any Mantine input, it will work the same
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
-    amount: "",
-    colocataireId: "",
-    paidFord: "",
-    createdAt: "",
-    updateAt: "",
-    desccription: "",
-    colocationId: "",
+    sum: "",
+    why: "",
+    category: "",
+    date: "",
   });
 
-  useEffect(() => {
-    setOpened(open);
-  }, [open]);
-
-
   return (
-    <div className="dashboard__items dashboard__resumes">
+    <>
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
         title="Create Resume"
       >
         <TextInput
-          label="Desccription"
+          label="Sum"
           placeholder="10.99 $"
           classNames={classes}
           required={true}
-          value={payload.desccription}
+          value={payload.sum}
           onChange={(e) =>
-            setPayload({ ...payload, desccription: e.currentTarget.value })
+            setPayload({ ...payload, sum: e.currentTarget.value })
           }
         />
 
         <TextInput
           style={{ marginTop: 20 }}
-          label="Amount"
-          placeholder="10.99 $"
+          label="Why"
+          placeholder="Kader"
           classNames={classes}
           required={true}
-          value={payload.amount}
+          value={payload.why}
           onChange={(e) =>
-            setPayload({ ...payload, amount: e.currentTarget.value })
+            setPayload({ ...payload, why: e.currentTarget.value })
           }
         />
 
@@ -93,11 +84,11 @@ export default function CreateResume(open: boolean) {
             "Other",
           ]}
           placeholder="Pick one"
-          label="Paid ford"
+          label="Category"
           classNames={classes}
           required={true}
-          value={payload.paidFord}
-          onChange={(e) => setPayload({ ...payload, paidFord: e })}
+          value={payload.category}
+          onChange={(e) => setPayload({ ...payload, category: e })}
         />
 
         <DatePicker
@@ -107,30 +98,24 @@ export default function CreateResume(open: boolean) {
           classNames={classes}
           clearable={false}
           required={true}
-          value={payload.createdAt}
-          onChange={(e) =>
-            setPayload({ ...payload, createdAt: e.toISOString() })
-          }
+          value={payload.date}
+          onChange={(e) => setPayload({ ...payload, date: e.toISOString() })}
         />
 
-        <Button.Group>
-          <Button
-            style={{ marginTop: 20 }}
-            color="red"
-            variant="subtle"
-            onClick={() => setOpened(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            style={{ marginTop: 20 }}
-            color="blue"
-            onClick={() => createExpenses(payload)}
-          >
-            Create
-          </Button>
-        </Button.Group>
+        <Button
+          style={{ marginTop: 20 }}
+          color="blue"
+          onClick={() =>
+            console.log(payload)
+          }
+        >
+          Create
+        </Button>
       </Modal>
-    </div>
+
+      <Group position="center">
+        <Button onClick={() => setOpened(true)}>Open Modal</Button>
+      </Group>
+    </>
   );
 }

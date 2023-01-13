@@ -20,14 +20,23 @@ class AuthenticationAction(DatabaseActions):
             model.picture,
             model.income
         )
-        super()._execute(query, value)
+
+        try :
+            super()._execute(query, value)
+        except Exception as e:
+            return False
+        return True
+            
     
     def login(self, data): 
-        row = super()._get("firstName", data["firstName"])
-        if(len(row) == 0):
+        row = super()._get("email", data["email"])
+
+        if(row == None or len(row) == 0):
             return []
-        elif(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):
+
+        if(self.checkPassword(data['password'].encode('utf-8'), row['password'].encode('utf-8')) == False):
             return []
+            
         return row
    
 

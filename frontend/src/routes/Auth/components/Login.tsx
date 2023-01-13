@@ -1,6 +1,6 @@
 // using redux hooks create a login page with a form to login
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Mantine UI
 import {
@@ -15,6 +15,7 @@ import {
 
 // Functions
 import { login } from "../../../func/auth.func";
+import { getUser } from "../../../func/user.func";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,13 @@ export default function Login() {
   };
 
   const { classes } = useStyle();
+
+  useEffect(() => {
+    console.log(getUser());
+    if (getUser()) {
+      window.location.href = "/dashboard";
+    }
+  }, []);
 
   return (
     <div className={classes.loginFormWrapper}>
