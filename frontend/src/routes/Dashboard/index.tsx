@@ -20,6 +20,7 @@ import BigNum from "./components/BigNum";
 
 // styles
 import "./styles/index.css";
+import FirstTime from "./components/FirstTime";
 
 const data = [
   {
@@ -92,6 +93,8 @@ export default function Dashboard() {
   const { element } = useParams();
 
   switch (element) {
+    case "firstTime":
+      return <FirstTime />;
     case "summary":
       return <Expenses data={data} type={"view"} />;
     case "graph":
