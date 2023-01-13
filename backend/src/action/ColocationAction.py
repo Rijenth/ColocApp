@@ -1,5 +1,6 @@
 from src.action.DatabaseActions import DatabaseActions
 from datetime import date
+import random
 
 class ColocationAction(DatabaseActions):
     def __init__(self):
@@ -14,13 +15,16 @@ class ColocationAction(DatabaseActions):
         return result
 
     def post(self, model):
-        query = "INSERT INTO " + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt ) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt, code ) VALUES (%s, %s, %s, %s, %s, %s)"
+        codeColoc = random.randint(1000, 9999)
         value = (
             model.name,
             model.rentDue,
             model.rentPaid,
             date.today().strftime("%Y-%m-%d"),
-            date.today().strftime("%Y-%m-%d")
+            date.today().strftime("%Y-%m-%d"),
+            codeColoc
+            
         )
         super()._execute(query, value)
 

@@ -6,6 +6,7 @@ class ColocationModel(BasicModel):
         'name': str,
         'rentDue': int,
         'rentPaid': int,
+        'code': int,
     }
 
     serializable = {
@@ -14,7 +15,8 @@ class ColocationModel(BasicModel):
         'rentDue': int,
         'rentPaid': int,
         'createdAt': str,
-        'updatedAt': str
+        'updatedAt': str,
+        'code': int
     }
 
     def __init__(self, data):
