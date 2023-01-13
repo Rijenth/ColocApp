@@ -5,21 +5,27 @@ import {
   createStyles,
   Input,
   NumberInput,
+  Title,
 } from "@mantine/core";
 import { IconPlus, IconUsers } from "@tabler/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { openModal, closeAllModals } from "@mantine/modals";
 
-import { createColloc } from "../../../func/colloc.func";
+import { createColloc, joinColloc } from "../../../func/colloc.func";
+import { getUser } from "../../../func/user.func";
 
 export default function FirstTime() {
   const useStyle = createStyles({
     container: {
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       height: "100vh",
       width: "100%",
+    },
+    title: {
+      marginBottom: "20px",
     },
     buttonGroup: {
       display: "flex",
@@ -63,6 +69,14 @@ export default function FirstTime() {
     expense: 0,
   });
 
+  const [joinCollocData, setJoinCollocData] = useState({
+    code: "",
+  });
+
+  useEffect(() => {
+    console.log(getUser());
+  }, []);
+
   const [loading, setLoading] = useState(false);
 
   const { classes } = useStyle();
@@ -72,7 +86,36 @@ export default function FirstTime() {
       title: "Rejoindre une collocation",
       children: (
         <Container>
-          <Input placeholder="Code de la collocation" maxLength={6} />
+          <Input
+            className={classes.modalInput}
+            placeholder="Code de la collocation"
+            maxLength={6}
+            onChange={(e) =>
+              setJoinCollocData({ ...joinCollocData, code: e.target.value })
+            }
+          />
+          <Button.Group>
+            <Button
+              onClick={() => closeAllModals()}
+              color="red"
+              variant="subtle"
+            >
+              Annuler
+            </Button>
+            <Button
+              onClick={() => {
+                joinColloc({
+                  userUid: getUser().uid,
+                  code: joinCollocData.code,
+                });
+                closeAllModals();
+              }}
+              color="blue"
+              variant="light"
+            >
+              Rejoindre
+            </Button>
+          </Button.Group>
         </Container>
       ),
     });
@@ -123,6 +166,7 @@ export default function FirstTime() {
                 setLoading(false);
                 closeAllModals();
               }}
+              variant="light"
             >
               Créer
             </Button>
@@ -134,6 +178,12 @@ export default function FirstTime() {
 
   return (
     <Container className={classes.container}>
+      <Title className={classes.title}>
+        Vous n'avez pas encore de collocation
+      </Title>
+      <Title className={classes.title} order={2}>
+        Que voulez-vous faire ?
+      </Title>
       <Button.Group className={classes.buttonGroup}>
         <Button className={classes.button} onClick={handleCreateColoc}>
           <IconPlus size={55} strokeWidth={2} color="#12acee" />
