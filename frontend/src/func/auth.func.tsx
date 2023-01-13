@@ -33,13 +33,16 @@ export async function register(
     },
     body: JSON.stringify(body),
   })
-    .then((response) => {
-      console.log("We're still here");
-      // response will be a jwt token that we will store in session storage
-      // and then we will redirect to the dashboard
-      if (response.ok) {
-        console.log(response.body);
-        //sessionStorage.setItem("coloc-user", response.body);
+    .then(async (response) => {
+      // response.body is a ReadableStream, we need to convert it to a string
+      // and then we can store it in session storage
+      const responseToString = response.text();
+      const decodedResponse = JSON.parse(await responseToString);
+      sessionStorage.setItem("ColocUser", decodedResponse.token);
+    })
+    .then(() => {
+      console.log(sessionStorage.getItem("ColocUser"));
+      if (sessionStorage.getItem("ColocUser")) {
         window.location.href = "/dashboard";
       }
     })
@@ -53,7 +56,7 @@ export async function register(
 }
 
 export async function logout() {
-  sessionStorage.removeItem("coloc-user");
+  sessionStorage.removeItem("ColocUser");
   window.location.href = "/";
 }
 
@@ -62,19 +65,21 @@ export async function login(email: string, password: string) {
     email: email,
     password: password,
   };
-  fetch("httpslocalhost:5000/api/auth/login", {
+  fetch("http://localhost:5000/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   })
-    .then((response) => {
-      // response will be a jwt token that we will store in session storage
-      // and then we will redirect to the dashboard
-      if (response.ok) {
-        console.log(response.body);
-        //sessionStorage.setItem("coloc-user", response.body);
+    .then(async (response) => {
+      const responseToString = response.text();
+      const decodedResponse = JSON.parse(await responseToString);
+      sessionStorage.setItem("ColocUser", decodedResponse.token);
+    })
+    .then(() => {
+      console.log(sessionStorage.getItem("ColocUser"));
+      if (sessionStorage.getItem("ColocUser")) {
         window.location.href = "/dashboard";
       }
     })
