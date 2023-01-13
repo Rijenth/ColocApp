@@ -33,11 +33,11 @@ export default function Resumes({ data }: TableScrollAreaProps) {
 
     const rows = data.map((row) => (
         <tr key={row.date}>
-            <td>{row.sum}</td>
-            <td>{row.who}</td>
-            <td>{row.why}</td>
-            <td>{row.category}</td>
-            <td>{row.date}</td>
+            <td>{row.amount}</td>
+            <td>{row.colocataireName}</td>
+            <td>{row.paidFord}</td>
+            <td>{row.createdAt}</td>
+            <td>{row.desccription}</td>
         </tr>
     ));
 
@@ -46,11 +46,11 @@ export default function Resumes({ data }: TableScrollAreaProps) {
                 <Table sx={{ minWidth: 700 }}>
                     <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
                     <tr>
-                        <th>Sum</th>
-                        <th>Who</th>
-                        <th>Why</th>
-                        <th>Category</th>
-                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Colocataire</th>
+                        <th>Paid for</th>
+                        <th>Created at</th>
+                        <th>Description</th>
                     </tr>
                     </thead>
                     <tbody>{rows}</tbody>

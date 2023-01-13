@@ -16,7 +16,14 @@ import "./styles/index.css";
 
 export default function Dashboard() {
     const data = [
-        { sum: "100", who: "who", why: 'why', category: "category", date: "date" },
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test1"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test2"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test3"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test4"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test5"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test6"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test7"},
+        { amount: "100", colocataireName: "Kader", paidFord: "Other", createdAt: "12/12/2021", updateAt: "12/12/2021", desccription: "Test8"},
     ];
 
     const theme = useMantineTheme();

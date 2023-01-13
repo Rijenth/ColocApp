@@ -8,8 +8,9 @@ import {
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+
+import { createExpenses } from "../../../func/dashboard.func";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -36,10 +37,13 @@ export default function CreateResume() {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
-    sum: "",
-    why: "",
-    category: "",
-    date: "",
+    amount: "",
+    colocataireId: "",
+    paidFord: "",
+    createdAt: "",
+    updateAt: "",
+    desccription: "",
+    colocationId: "",
   });
 
   return (
@@ -50,25 +54,25 @@ export default function CreateResume() {
         title="Create Resume"
       >
         <TextInput
-          label="Sum"
-          placeholder="10.99 $"
-          classNames={classes}
-          required={true}
-          value={payload.sum}
-          onChange={(e) =>
-            setPayload({ ...payload, sum: e.currentTarget.value })
-          }
+            label="Desccription"
+            placeholder="10.99 $"
+            classNames={classes}
+            required={true}
+            value={payload.desccription}
+            onChange={(e) =>
+                setPayload({ ...payload, desccription: e.currentTarget.value })
+            }
         />
 
         <TextInput
-          style={{ marginTop: 20 }}
-          label="Why"
-          placeholder="Kader"
+            style={{ marginTop: 20 }}
+          label="Amount"
+          placeholder="10.99 $"
           classNames={classes}
           required={true}
-          value={payload.why}
+          value={payload.amount}
           onChange={(e) =>
-            setPayload({ ...payload, why: e.currentTarget.value })
+            setPayload({ ...payload, amount: e.currentTarget.value })
           }
         />
 
@@ -84,11 +88,11 @@ export default function CreateResume() {
             "Other",
           ]}
           placeholder="Pick one"
-          label="Category"
+          label="Paid ford"
           classNames={classes}
           required={true}
-          value={payload.category}
-          onChange={(e) => setPayload({ ...payload, category: e })}
+          value={payload.paidFord}
+          onChange={(e) => setPayload({ ...payload, paidFord: e })}
         />
 
         <DatePicker
@@ -98,15 +102,15 @@ export default function CreateResume() {
           classNames={classes}
           clearable={false}
           required={true}
-          value={payload.date}
-          onChange={(e) => setPayload({ ...payload, date: e.toISOString() })}
+          value={payload.createdAt}
+          onChange={(e) => setPayload({ ...payload, createdAt: e.toISOString() })}
         />
 
         <Button
           style={{ marginTop: 20 }}
           color="blue"
           onClick={() =>
-            console.log(payload)
+              createExpenses(payload)
           }
         >
           Create
