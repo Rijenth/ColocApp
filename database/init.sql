@@ -160,7 +160,7 @@ ALTER TABLE `Users`
 --
 ALTER TABLE `Colocataire`
   ADD CONSTRAINT `fk_colocation` FOREIGN KEY (`colocationId`) REFERENCES `Colocation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_user` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_user` FOREIGN KEY (`userId`) REFERENCES `Users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `Expense`

@@ -14,9 +14,9 @@ cors = CORS(app)
 app.config['JWT_SECRET_KEY'] = "952zWPh*6aKvy4aP8h6Dx"
 jwt = JWTManager(app)
 
-@app.route('/api/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
-    return jsonify({'message': 'Everything is fine!', 'cool': 'Everything is fine!'})
+    return jsonify({'message': 'Everything is fine!'}), 200
 
 ###                ###
 ### AUTHENTICATION ###
@@ -164,15 +164,6 @@ def showColocataire(id):
         return jsonify({"type": "error"}), 422
     return ColocataireController.showColocataire(int(id))
 
-# Get  Colocataire of a user
-@app.route('/api/colocataire/user/<string:id>', methods=['GET'])
-def showColocataireUser(id):
-    try:
-        int(id)
-    except Exception as e:
-        return jsonify({"type": "error"}), 422
-    return ColocataireController.showColocataireUser(int(id))
-
 # Get  Colocataire of a colocation
 @app.route('/api/colocataire/colocation/<string:id>', methods=['GET'])
 def showColocExpenseColoc(id):
@@ -184,6 +175,7 @@ def showColocExpenseColoc(id):
 
 # Create a new Colocataire
 # { "userId", "colocationId" }
+@app.route('/api/colocataire', methods=['POST'])
 def createColocataire():
     data = request.get_json()
     return ColocataireController.createColocataire(data)

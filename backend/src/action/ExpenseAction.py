@@ -34,16 +34,17 @@ class ExpenseAction(DatabaseActions):
         return data
 
     def update(self , model, id):
-        query= "UPDATE" + self.table + " (amount, colocataireId, paidFor, updatedAt , description , colocationId  ) VALUES ( %s, %s, %s, %s)"
+        query= "UPDATE "+ self.table +" Set amount = %s, colocataireId = %s, paidFor = %s, updatedAt  = %s, description  = %s , colocationId  = %s  WHERE id = %s"
         value = (
             model.amount, 
             model.colocataireId, 
             model.paidFor, 
             date.today().strftime("%Y-%m-%d"),
             model.description, 
-            model.colocationId  
+            model.colocationId,
+            id
         )
-        super()._execute(query, value, id)
+        super()._execute(query, value)
 
     def delete(self, id):
         query = "DELETE FROM " + self.table + " WHERE id = %s"

@@ -37,5 +37,5 @@ class ColocationController:
 
     def deleteColocation(id):
         ColocationAction().delete(id)
-        return jsonify({"message" : "Colocation delete"}), 204
+        return jsonify({}), 204
 
