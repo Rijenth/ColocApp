@@ -53,10 +53,6 @@ const data = [
 export default function Dashboard() {
   const { element } = useParams();
 
-  useEffect(() => {
-    console.log(decodeJwt(sessionStorage.getItem("ColocUser")));
-  }, []);
-
   switch (element) {
     case "firstTime":
       return <FirstTime />;
@@ -72,7 +68,6 @@ export default function Dashboard() {
 }
 
 function FullDashboard() {
-
   return (
     <>
       <HeaderTabs

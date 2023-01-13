@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { openModal, closeAllModals } from "@mantine/modals";
 
 import { createColloc, joinColloc } from "../../../func/colloc.func";
-import { getUser } from "../../../func/user.func";
+import { decodeJwt } from "jose";
 
 export default function FirstTime() {
   const useStyle = createStyles({
@@ -73,10 +73,6 @@ export default function FirstTime() {
     code: 0,
   });
 
-  useEffect(() => {
-    console.log(getUser());
-  }, []);
-
   const [loading, setLoading] = useState(false);
 
   const { classes } = useStyle();
@@ -104,7 +100,8 @@ export default function FirstTime() {
             <Button
               onClick={() => {
                 joinColloc({
-                  userUid: getUser().uid,
+                  userUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+                    .uid as string,
                   code: joinCollocData.code,
                 });
                 closeAllModals();
