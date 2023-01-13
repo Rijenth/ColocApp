@@ -15,191 +15,580 @@ docker-compose up -d --build
 | PIVERT         | Fabrice | @Fabpiv    |
 | BAKAYOKO       | Kader   | @gaoubak   |
 
-1. Testing Endpoint
-endpoint: /
-method: GET
-status code: 200 OK
-data: None
-response: {"message"}
-2. Authentication
-Register
-endpoint: /api/auth/register
-method: POST
-status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-data:
-uid: str
-firstName: str
-lastName: str
-email: str
-password: str
-gender: str
-phone: str
-birthdate: str
-picture: str
-income: int
-response: {"type", "token"}
-Login
-endpoint: /api/auth/login
-method: POST
-status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-data:
-email: str
-password: str
-response: {"type", "token"}
-3. Colocation
-Get All Colocations
-endpoint: /api/colocation
-method: GET
-status code: 200 (OK)
-data: None
-response: {...[colocation]}
-Get Colocation by ID
-endpoint: /api/colocation/<string:id>
-method: GET
-status code: 200 (OK) || 404 (NOT FOUND)
-data:
-uid: str
-response: {[colocation]}
-Create Colocation
-endpoint: /api/colocation
-method: POST
-status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
-data:
-name: str
-rentDue: int
-rentPaid: int
-response: {"message"}
-Update Colocation
-endpoint: /api/colocation/<string:id>
-method: PUT
-status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-data:
-name: str
-rentDue: int
-rentPaid: int
-response: {"message"}
-Delete Colocation
-endpoint: /api/colocation/<string:id>
-method: DELETE
-status code: 204 (NO CONTENT)
-data: None
-response: None
-4. Expense
-Get All Expenses
-endpoint: /api/expense
-method: GET
-status code: 200 (OK)
-data: None
-response: {...[Expense]}
-Get Expenses by Colocation ID
-endpoint: /api/expense/colocation/<string:id>
-method: GET
-status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: {[Expense]}
-Get Expenses by User ID
-endpoint: /api/expense/user/<string:id>
-method: GET
-status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: {[Expense]}
-Create Expense
-endpoint: /api/expense
-method: POST
-status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-data:
-amount: int
-colocataireId: int
-paidFor: enumerate(['loyer', 'electricite', 'eau', 'nourriture', 'autre'])
-description: str
-colocation.id: int
-response: {"message"}
-Update Expense
-endpoint: /api/expense/<string:id>
-method: PUT
-status code: 204 (NO CONTENT)) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: None
-Delete Expense
-endpoint: /api/expense/<string:id>
-method: DELETE
-status code: 204 (NO CONTENT)
-data: None
-response: None
-5. Colocataire
-Get All Colocataires
-endpoint: /api/colocataire
-method: GET
-status code: 200 (OK)
-data: None
-response: {...[colocataire]}
-Get Colocataire by User ID
-endpoint: /api/colocataire/user/<string:id>
-method: GET
-status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: {...[colocataire]}
-Get Colocataire by Colocation ID
-endpoint: /api/colocataire/colocation/<string:id>
-method: GET
-status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: {[colocataire]}
-Create Colocataire
-endpoint: /api/colocataire
-method: POST
-status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
-data:
-userId: int
-colocationId: int
-response: {"message"}
-Update Colocataire
-endpoint: /api/colocataire/<string:id>
-method: PUT
-status code: 201 (CREATED))
-Delete Colocataire
-endpoint: /api/colocataire/<string:id>
-method: DELETE
-status code: 204 (NO CONTENT)
-data: None
-response: None
-Update Colocataire
-endpoint: /api/Colocataire/<string:id>
-method: PUT
-status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-data: None
-response: {"message"}
-6. Users
-Get All Users
-endpoint: /api/users
-method: GET
-status code: 200 (OK)
-data: None
-response: {...[User]}
-Get User by ID
-endpoint: /api/users/<int:id>
-method: GET
-status code: 200 (OK) || 404 (NOT FOUND)
-data: None
-response: {[User]}
-Update User
-endpoint: /api/users/<string:id>
-method: PUT
-status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-data:
-firstName: str,
-lastName: str,
-email: str,
-password: str,
-gender: str,
-phone: str,
-birthdate: str,
-picture: str,
-income: int
-response: {[User]}
-Delete User
-endpoint: /api/users/<int:id>
-method: DELETE
-status code: 204 (NO CONTENT)
-data: None
-response: None
+## Testing Endpoint
+endpoint:```  / ``` 
+
+method:``` GET ```
+status code:
+```bash
+ 200 OK
+``` 
+data: 
+```bash
+None
+```
+response: 
+```bash
+{"message"}
+```
+**2. Authentication**
+
+*Register*
+
+endpoint:
+```bash
+ /api/auth/register
+```
+method:
+```bash
+ POST
+```
+status code:
+```bash
+ 200 (OK) || 422 (UNPROCESSABLE ENTITY)
+```
+- data 
+    - uid: ``` str ```
+    - firstName: ``` str ```
+    - lastName: ``` str ```
+    - email: ``` str ```
+    - password: ``` str ```
+    - gender: ``` str ```
+    - phone: ``` str ```
+    - birthdate: ``` str ```
+    - picture: ``` str ```
+    - income: ``` int ```
+
+response:
+```bash
+{"type", "token"}
+``` 
+*Login* 
+endpoint:
+```bash
+ /api/auth/login
+```
+method:
+```bash
+ POST
+```
+
+status code: 
+```bash
+200 (OK) || 422 (UNPROCESSABLE ENTITY)
+```
+- data:
+  - email:``` str ```
+  - password: ``` str ```
+
+response: 
+```bash
+{"type", "token"}
+```
+
+**3. Colocation**
+*Get All Colocations* 
+endpoint:
+```bash
+ /api/colocation
+```
+method:
+```bash
+ GET
+```
+
+status code: 
+```bash
+200 (OK) 
+```
+- data:
+  - none
+
+response: 
+```bash
+{...[colocation]}
+```
+
+*Get Colocation by ID* 
+endpoint:
+```bash
+ /api/colocation/<string:id>
+```
+method:
+```bash
+ GET
+```
+
+status code: 
+```bash
+200 (OK) || 404 (NOT FOUND) 
+```
+- data:
+  - uid: ``` str ```
+
+response: 
+```bash
+{[colocation]}
+```
+
+*Create Colocation* 
+endpoint:
+```bash
+  /api/colocation
+```
+method:
+```bash
+ POST
+```
+
+status code: 
+```bash
+201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+```
+- data:
+    - name: ```str````
+    - rentDue: ```int ```
+    - rentPaid: ``` int ```
+  
+response: 
+```bash
+{"message"}
+```
+
+*Update Colocation* 
+endpoint:
+```bash
+ /api/colocation/<string:id>
+```
+method:
+```bash
+ PUT
+```
+
+status code: 
+```bash
+201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+```
+- data:
+    - name: ```str```
+    - rentDue: ```int ```
+    - rentPaid: ``` int ```
+  
+response: 
+```bash
+{"message"}
+```
+
+*Delete Colocation* 
+endpoint:
+```bash
+ /api/colocation/<string:id>
+```
+method:
+```bash
+ DELETE
+```
+
+status code: 
+```bash
+ 204 (NO CONTENT)
+```
+- data:
+    - none
+  
+response: 
+```bash
+None
+```
+
+
+**4. Expense**
+*Get All Expenses*
+endpoint:
+```bash 
+ /api/expense
+```
+method:
+```bash
+ GET
+```
+status code: 
+```bash
+ 200 (OK)
+```
+- data: 
+    - None
+response: 
+```bash
+{...[Expense]}
+```
+
+*Get Expenses by Colocation ID*
+endpoint:
+```bash 
+ /api/expense/colocation/<string:id>
+```
+
+method:
+```bash
+ GET
+```
+
+status code: 
+```bash
+200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - None
+response: 
+```bash
+{[Expense]}
+```
+
+*Get Expenses by User ID*
+endpoint:
+```bash 
+ /api/expense/user/<string:id>
+```
+
+method:
+```bash
+ GET
+```
+
+status code: 
+```bash
+200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - None
+response: 
+```bash
+{[Expense]}
+```
+
+*Create Expense*
+endpoint:
+```bash 
+ /api/expense
+```
+
+method:
+```bash
+ POST
+```
+
+status code: 
+```bash
+201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - amount: ```int```
+    - colocataireId: ```int```
+    - paidFor: ```str(['loyer', 'electricite', 'eau', 'nourriture', 'autre'])```
+    - description: ```str```
+    - colocation.id: ```int```
+response: 
+```bash
+{"message"}
+```
+
+*Update Expense*
+endpoint:
+```bash 
+ /api/expense/<string:id>
+```
+
+method:
+```bash
+ PUT
+```
+
+status code: 
+```bash
+204 (NO CONTENT) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - amount: ```int```
+    - colocataireId: ```int```
+    - paidFor: ```str(['loyer', 'electricite', 'eau', 'nourriture', 'autre'])```
+    - description: ```str```
+    - colocation.id: ```int```
+response: 
+```bash
+{"message"}
+```
+
+*Delete Expense*
+endpoint:
+```bash 
+ /api/expense/<string:id>
+```
+
+method:
+```bash
+ method: DELETE
+
+```
+
+status code: 
+```bash
+204 (NO CONTENT)
+```
+
+- data: 
+    - None
+response: 
+```bash
+None
+```
+
+**5. Colocataire**
+*Get All Colocataires*
+endpoint:
+```bash 
+ /api/colocataire
+```
+
+method:
+```bash
+ method: GET
+```
+
+status code: 
+```bash
+200 (OK)
+```
+
+- data: 
+    - None
+response: 
+```bash
+ {...[colocataire]}
+```
+
+*Get Colocataire by User ID*
+endpoint:
+```bash 
+/api/colocataire/user/<string:id>
+```
+
+method:
+```bash
+ method: GET
+```
+
+status code: 
+```bash
+200 (OK) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - None
+response: 
+```bash
+ {...[colocataire]}
+```
+
+
+*Get Colocataire by Colocation ID*
+endpoint:
+```bash 
+/api/colocataire/colocation/<string:id>
+```
+
+method:
+```bash
+ method: GET
+```
+
+status code: 
+```bash
+200 (OK) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - None
+response: 
+```bash
+ {...[colocataire]}
+```
+
+*Create Colocataire*
+endpoint:
+```bash 
+/api/colocataire
+```
+
+method:
+```bash
+ method: POST
+```
+
+status code: 
+```bash
+201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - userId: ````int````
+    - colocationId: ````int````
+response: 
+```bash
+ {"message"}
+```
+
+*Update Colocataire*
+endpoint:
+```bash 
+/api/colocataire/<string:id>
+```
+
+method:
+```bash
+ method: PUT
+```
+
+status code: 
+```bash
+201 (CREATED)
+```
+
+- data: 
+    - userId: ````int````
+    - colocationId: ````int````
+response: 
+```bash
+ None
+```
+
+*Delete Colocataire*
+endpoint:
+```bash 
+/api/colocataire/<string:id>
+```
+
+method:
+```bash
+ method: DELETE
+```
+
+status code: 
+```bash
+204 (NO CONTENT)
+```
+
+- data: 
+    - None
+response: 
+```bash
+ None
+```
+
+**6. Users**
+*Get All Users*
+endpoint:
+```bash 
+/api/users
+```
+
+method:
+```bash
+GET
+```
+
+status code: 
+```bash
+200 (OK)
+```
+
+- data: 
+    - None
+response: 
+```bash
+{...[User]}
+```
+
+*Get User by ID*
+endpoint:
+```bash 
+/api/users/<int:id>
+```
+
+method:
+```bash
+GET
+```
+
+status code: 
+```bash
+200 (OK) || 404 (NOT FOUND)
+```
+
+- data: 
+    - None
+response: 
+```bash
+{...[User]}
+```
+
+*Update User*
+endpoint:
+```bash 
+/api/users/<int:id>
+```
+
+method:
+```bash
+GET
+```
+
+status code: 
+```bash
+201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+```
+
+- data: 
+    - firstName: ````str````,
+    - lastName: ````str````,
+    - email: ````str````,
+    - password: ````str````,
+    - gender: ````str````,
+    - phone: ````str````,
+    - birthdate: ````str````,
+    - picture: ````str````,
+    - income: ````int````
+
+response: 
+```bash
+{[User]}
+```
+
+*Delete User*
+endpoint:
+```bash 
+/api/users/<int:id>
+```
+
+method:
+```bash
+DELETE
+```
+
+status code: 
+```bash
+204 (NO CONTENT)
+```
+
+- data: 
+    - None
+
+response: 
+```bash
+None
+```
+
