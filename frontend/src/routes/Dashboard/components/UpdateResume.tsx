@@ -48,6 +48,7 @@ export default function UpdateResume(open: boolean, id: number) {
 
     useEffect(() => {
         setOpened(open);
+        setOpened(false);
     }, [open]);
 
     return (

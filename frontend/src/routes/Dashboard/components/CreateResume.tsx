@@ -47,6 +47,7 @@ export default function CreateResume(open: boolean) {
 
   useEffect(() => {
     setOpened(open);
+    setOpened(false);
   }, [open]);
 
   return (
