@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { openModal, closeAllModals } from "@mantine/modals";
 
 import { createColloc, joinColloc } from "../../../func/colloc.func";
-import { getUser } from "../../../func/user.func";
+import { decodeJwt } from "jose";
 
 export default function FirstTime() {
   const useStyle = createStyles({
@@ -65,17 +65,13 @@ export default function FirstTime() {
 
   const [createCollocData, setCreateCollocData] = useState({
     name: "",
-    code: "",
+    code: 0,
     expense: 0,
   });
 
   const [joinCollocData, setJoinCollocData] = useState({
-    code: "",
+    code: 0,
   });
-
-  useEffect(() => {
-    console.log(getUser());
-  }, []);
 
   const [loading, setLoading] = useState(false);
 
@@ -86,13 +82,12 @@ export default function FirstTime() {
       title: "Rejoindre une collocation",
       children: (
         <Container>
-          <Input
+          <NumberInput
             className={classes.modalInput}
             placeholder="Code de la collocation"
-            maxLength={6}
-            onChange={(e) =>
-              setJoinCollocData({ ...joinCollocData, code: e.target.value })
-            }
+            maxLength={4}
+            value={joinCollocData.code}
+            onChange={(e) => setJoinCollocData({ ...joinCollocData, code: e })}
           />
           <Button.Group>
             <Button
@@ -105,7 +100,8 @@ export default function FirstTime() {
             <Button
               onClick={() => {
                 joinColloc({
-                  userUid: getUser().uid,
+                  userUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+                    .uid as string,
                   code: joinCollocData.code,
                 });
                 closeAllModals();
