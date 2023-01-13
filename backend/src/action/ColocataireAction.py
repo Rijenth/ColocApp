@@ -15,7 +15,7 @@ class ColocataireAction(DatabaseActions):
     
     def showColocUser(self, id, colocationId):
         query = "SELECT * FROM " + self.table + " WHERE userId = %s AND colocationId = %s"
-        result = super()._execute(query, (id,))
+        result = super()._execute(query, (id,colocationId))
         return result
 
     def showUser(self, id):
