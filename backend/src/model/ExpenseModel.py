@@ -18,7 +18,7 @@ class ExpenseModel(BasicModel):
             'createdAt': str,
             'updatedAt': str,
             'description': str,
-            'colocationId':str
+            'colocationId': int
         }
     
     relationships = ['Users','Coloation']
