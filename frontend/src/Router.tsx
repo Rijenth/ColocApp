@@ -13,7 +13,7 @@ import { isLoggedIn } from "./func/user.func";
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
 import Account from "./routes/Account";
-import Dashboard from "./routes/Dashboard";
+// import Dashboard from "./routes/Dashboard";
 
 export default function AppRouter() {
   return (
