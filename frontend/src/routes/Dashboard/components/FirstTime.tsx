@@ -65,12 +65,12 @@ export default function FirstTime() {
 
   const [createCollocData, setCreateCollocData] = useState({
     name: "",
-    code: "",
+    code: 0,
     expense: 0,
   });
 
   const [joinCollocData, setJoinCollocData] = useState({
-    code: "",
+    code: 0,
   });
 
   useEffect(() => {
@@ -86,13 +86,12 @@ export default function FirstTime() {
       title: "Rejoindre une collocation",
       children: (
         <Container>
-          <Input
+          <NumberInput
             className={classes.modalInput}
             placeholder="Code de la collocation"
-            maxLength={6}
-            onChange={(e) =>
-              setJoinCollocData({ ...joinCollocData, code: e.target.value })
-            }
+            maxLength={4}
+            value={joinCollocData.code}
+            onChange={(e) => setJoinCollocData({ ...joinCollocData, code: e })}
           />
           <Button.Group>
             <Button
