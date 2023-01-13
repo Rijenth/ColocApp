@@ -67,7 +67,6 @@ export default function Dashboard() {
 }
 
 function FullDashboard() {
-  const [openModal, setOpenModal] = useState(false);
 
 
   return (
@@ -86,8 +85,7 @@ function FullDashboard() {
           <BigNum type={"items"} />
         </SimpleGrid>
         <Expenses data={data} type={"items"} />
-        <CreateResume open={openModal} />
-        <Button onClick={() => setOpenModal(true)}>Create Resume</Button>
+        <CreateResume />
         <Button onClick={() => getExpenses()}>Get Expenses</Button>
       </Container>
     </>

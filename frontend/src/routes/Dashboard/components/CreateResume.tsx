@@ -119,6 +119,8 @@ export default function CreateResume(open: boolean) {
           </Button>
         </Button.Group>
       </Modal>
+
+      <Button onClick={() => setOpened(true)}>Create Resume</Button>
     </div>
   );
 }
