@@ -49,7 +49,8 @@ CREATE TABLE `Colocation` (
   `rentDue` int NOT NULL,
   `rentPaid` tinyint(1) NOT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `code` int(4) UNIQUE NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -180,9 +181,9 @@ INSERT INTO `Users` (`id`, `uid`, `firstName`, `lastName`, `email`, `password`, 
 -- Déchargement des données de la table `Colocation`
 --
 
-INSERT INTO `Colocation` (`id`, `name`, `rentDue`, `rentPaid`, `createdAt`, `updatedAt`) VALUES
-(1, 'La coloc des 3000', 1500, 0, '2023-01-12 20:31:13', '2023-01-12 20:31:13'),
-(2, 'La coloc du bat 5', 999, 0, '2023-01-12 20:31:38', '2023-01-12 20:31:38');
+INSERT INTO `Colocation` (`id`, `name`, `rentDue`, `rentPaid`, `createdAt`, `updatedAt`, `code`) VALUES
+(1, 'La coloc des 3000', 1500, 0, '2023-01-12 20:31:13', '2023-01-12 20:31:13', '1234'),
+(2, 'La coloc du bat 5', 999, 0, '2023-01-12 20:31:38', '2023-01-12 20:31:38', '7720');
 
 COMMIT;
 
