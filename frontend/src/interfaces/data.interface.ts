@@ -1,10 +1,11 @@
 export interface ExpensePayload {
     data: {
+        id: string;
         amount: string;
         colocataireId: string;
+        colocataireName: string;
         paidFord: string;
-        createdAt: Date;
-        updateAt: Date;
+        date: string;
         desccription: string;
         colocationId: string;
     }[];

@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:8080/api/";
+import { ExpensePayload } from "../interfaces/data.interface";
+
+const API_URL = "http://localhost:5000/api";
 
 // Auth Header for fetch
 const authHeader = () => {
@@ -11,23 +13,52 @@ const authHeader = () => {
 };
 
 export function createExpenses(payload: {
-  createdAt: string;
   amount: string;
-  desccription: string;
-  paidFord: string;
   colocataireId: string;
-  updateAt: string;
+  paidFor: string;
+  description: string;
   colocationId: string;
 }) {
-  return fetch(`${API_URL}/expense/create`, {
+  let body = {
+    amount: payload.amount,
+    colocataireId: payload.colocataireId,
+    paidFor: payload.paidFor,
+    description: payload.description,
+    colocationId: payload.colocationId,
+  };
+  return fetch(`${API_URL}/expense`, {
     method: "POST",
-    body: JSON.stringify(payload),
-    headers: { ...authHeader(), "Content-Type": "application/json" },
-  });
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      AccessControlAllowOrigin: "*",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getExpenses() {
-  return fetch(`${API_URL}/expense`, { headers: authHeader() });
+  return fetch(`${API_URL}/expense`, {
+    method: "GET",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getExpensesById(id: string) {
