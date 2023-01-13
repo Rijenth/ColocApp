@@ -1,5 +1,5 @@
 from src.action.RelationshipActions import RelationshipActions
-class BasicModel():
+class BasicModel(RelationshipActions):
     
     attributes = {}
 

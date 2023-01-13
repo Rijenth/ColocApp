@@ -5,6 +5,7 @@ import uuid
 
 class UsersModel(BasicModel):
     attributes = {
+        'id': int,
         'uid': str,
         'firstName': str,
         'lastName': str,
@@ -28,15 +29,17 @@ class UsersModel(BasicModel):
         'phone': str,
         'birthdate': str,
         'picture': str,
-        'income': int
+        'income': int,
+        'colocation': int or None
     }
+
+    relationships = ['Colocataire']
 
     def __init__(self, data):
         super().__init__(data)
 
-    def getUuid(self):
-        return uuid.uuid1(self.id)
+    def setColocationId(self):
+        self.colocation = self.Colocataire()['colocationId'] if self.Colocataire() else None
 
-    def getIdFromUuid(self, uuid):
-        return uuid.int & (2**32-1)
-
+    def Colocataire(self):
+        return self.belongsTo('Colocataire', 'userId', self.id)

@@ -45,6 +45,7 @@ class UsersController:
         if(row == []):
             return jsonify({"type" : "error", "message" : "Wrong Credentials"}), 403
         user =  UsersModel(row)
+        user.setColocationId()
         return jsonify(
             {
                 'type' : 'success',
@@ -56,7 +57,8 @@ class UsersController:
                         "email" : user.email, 
                         "phone" : user.phone,
                         "picture" : user.picture,
-                        "income" : user.income
+                        "income" : user.income,
+                        "colocation" : user.colocation
                         })
             }
         ), 200   
@@ -71,7 +73,9 @@ class UsersController:
             return jsonify({'type' : 'error', 'message' : 'Database error'}), 404
         if user == None or len(user) == 0:
             return jsonify({'type' : 'error', 'message' : 'User not found'}), 404
-        return jsonify(UsersModel(user).serialize()), 200
+        user = UsersModel(user)
+        user.setColocationId()
+        return jsonify(user.serialize()), 200
 
     def updateUser(id, data):
         try:
