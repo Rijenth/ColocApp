@@ -183,14 +183,13 @@ def showColocExpenseColoc(id):
     return ColocataireController.showColocataireColoc(int(id))
 
 # Create a new Colocataire
-# { "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
-@app.route('/api/Colocataire', methods=['POST'])
+# { "userId", "colocationId" }
 def createColocataire():
     data = request.get_json()
     return ColocataireController.createColocataire(data)
 
 # Update a Colocataire
-# { "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# { "userId", "colocationId" }
 @app.route('/api/Colocataire/<string:id>', methods=['PUT'])
 def updateColocataire(id):
     data = request.get_json()
