@@ -1,6 +1,6 @@
 import {ExpensePayload} from "../interfaces/data.interface";
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://localhost:5000/api';
 
 // Auth Header for fetch
 const authHeader = () => {
@@ -29,7 +29,7 @@ export function createExpenses(payload: {
 }
 
 export function getExpenses() {
-  return fetch(`${API_URL}/expense`, { headers: authHeader() });
+  return fetch(`${API_URL}/expense`);
 }
 
 export function getExpensesById(id: string) {

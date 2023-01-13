@@ -24,6 +24,7 @@ import "./styles/index.css";
 
 import {useState} from "react";
 import FirstTime from "./components/FirstTime";
+import {getExpenses} from "../../func/dashboard.func";
 
 const data = [
   {
@@ -68,6 +69,7 @@ export default function Dashboard() {
 function FullDashboard() {
   const [openModal, setOpenModal] = useState(false);
 
+
   return (
     <>
       <HeaderTabs
@@ -86,6 +88,7 @@ function FullDashboard() {
         <Expenses data={data} type={"items"} />
         <CreateResume open={openModal} />
         <Button onClick={() => setOpenModal(true)}>Create Resume</Button>
+        <Button onClick={() => getExpenses().then((res) => {console.log(res)})}>Get Expenses</Button>
       </Container>
     </>
   );
