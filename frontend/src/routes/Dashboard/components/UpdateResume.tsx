@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export default function UpdateResume(open: boolean, id: string) {
+export default function UpdateResume(open: boolean, id: number) {
     // You can add these classes as classNames to any Mantine input, it will work the same
     const { classes } = useStyles();
     const [opened, setOpened] = useState(false);
@@ -48,10 +48,10 @@ export default function UpdateResume(open: boolean, id: string) {
 
     useEffect(() => {
         setOpened(open);
+        setOpened(false);
     }, [open]);
 
     return (
-        <div className="dashboard__items dashboard__resumes">
             <Modal
                 opened={opened}
                 onClose={() => setOpened(false)}
@@ -132,6 +132,5 @@ export default function UpdateResume(open: boolean, id: string) {
                     Create
                 </Button>
             </Modal>
-        </div>
     );
 }

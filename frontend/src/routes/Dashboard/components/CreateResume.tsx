@@ -47,6 +47,7 @@ export default function CreateResume(open: boolean) {
 
   useEffect(() => {
     setOpened(open);
+    setOpened(false);
   }, [open]);
 
   return (
@@ -119,6 +120,8 @@ export default function CreateResume(open: boolean) {
           </Button>
         </Button.Group>
       </Modal>
+
+      <Button onClick={() => setOpened(true)}>Create Resume</Button>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   SimpleGrid,
   Skeleton,
   useMantineTheme,
-    Button
+  Button,
 } from "@mantine/core";
 
 import { useParams } from "react-router-dom";
@@ -22,9 +22,10 @@ import BigNum from "./components/BigNum";
 // styles
 import "./styles/index.css";
 
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import FirstTime from "./components/FirstTime";
-import {getExpenses} from "../../func/dashboard.func";
+import { getExpenses } from "../../func/dashboard.func";
+import { decodeJwt } from "jose";
 
 const data = [
   {
@@ -46,11 +47,24 @@ const data = [
     date: "date",
     desccription: "Test1",
     colocationId: "1",
-  }
+  },
 ];
+
+const onInit = async () => {
+  const user = sessionStorage.getItem("ColocUser");
+  if (user) {
+    const decoded = decodeJwt(user);
+    const userData = decoded.sub;
+    console.log(userData);
+  }
+};
 
 export default function Dashboard() {
   const { element } = useParams();
+
+  useEffect(() => {
+    onInit();
+  }, []);
 
   switch (element) {
     case "firstTime":
@@ -67,9 +81,6 @@ export default function Dashboard() {
 }
 
 function FullDashboard() {
-  const [openModal, setOpenModal] = useState(false);
-
-
   return (
     <>
       <HeaderTabs
@@ -86,8 +97,7 @@ function FullDashboard() {
           <BigNum type={"items"} />
         </SimpleGrid>
         <Expenses data={data} type={"items"} />
-        <CreateResume open={openModal} />
-        <Button onClick={() => setOpenModal(true)}>Create Resume</Button>
+        <CreateResume />
         <Button onClick={() => getExpenses()}>Get Expenses</Button>
       </Container>
     </>

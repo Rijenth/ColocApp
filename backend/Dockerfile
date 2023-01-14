@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-EXPOSE 5000
+EXPOSE 5500
 
 WORKDIR /code
 
