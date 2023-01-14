@@ -170,8 +170,8 @@ def showColocExpenseColoc(id):
 @app.route('/api/colocataire', methods=['POST'])
 def createColocataire():
     data = request.get_json()
-    if not 'code' in data or not 'userId' in data:
-        return jsonify({"type": "error", "message" : "missing attributes 'code:int4' or/and 'userId:int'"}), 422
+    if not 'code' in data or not 'uid' in data:
+        return jsonify({"type": "error", "message" : "missing attributes 'code:int4' or/and 'uid:str'"}), 422
     return ColocataireController.createColocataire(data)
 
 

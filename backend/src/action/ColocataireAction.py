@@ -21,6 +21,7 @@ class ColocataireAction(DatabaseActions):
     def showUser(self, id):
         result = super()._get('userId', id)
         return result
+        
     def showColoc(self, id):
         result = super()._get('colocationId', id)
         return result
