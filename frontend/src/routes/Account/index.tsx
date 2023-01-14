@@ -148,6 +148,13 @@ export default function Account() {
           <Button
             className={classes.accountFormButton}
             leftIcon={editabled ? <IconCheck /> : <IconHome />}
+            onClick={() => {
+              if (editabled) {
+                // todo : save user data
+              }
+              window.location.href = "/";
+            }
+            }
           >
             {editabled ? "Save" : "Back to home"}
           </Button>
