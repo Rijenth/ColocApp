@@ -174,11 +174,6 @@ export default function FirstTime() {
           <Button
             onClick={() => {
               setLoading(true);
-              console.log({
-                name: createCollocName,
-                code: createCollocCode,
-                expense: createCollocExpectedIncome,
-              })
               createColloc({
                 name: createCollocName,
                 code: createCollocCode,

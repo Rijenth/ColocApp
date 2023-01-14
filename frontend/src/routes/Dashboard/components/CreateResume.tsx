@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 
 import { createExpenses } from "../../../func/dashboard.func";
 
+import { decodeJwt } from "jose";
+
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
@@ -39,7 +41,8 @@ export default function CreateResume(open: boolean) {
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
     amount: 0,
-    colocataireId: 1,
+    colocataireUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+      .uid as string,
     paidFor: "",
     description: "",
     colocationId: 1,
@@ -59,7 +62,7 @@ export default function CreateResume(open: boolean) {
       >
         <TextInput
           label="Desccription"
-          placeholder="10.99 $"
+          placeholder="Description"
           classNames={classes}
           required={true}
           value={payload.description}
@@ -88,19 +91,6 @@ export default function CreateResume(open: boolean) {
           value={payload.paidFor}
           onChange={(e) => setPayload({ ...payload, paidFor: e as string })}
         />
-
-        {/*<DatePicker
-          style={{ marginTop: 20 }}
-          label="Date"
-          placeholder="January 1, 2023"
-          classNames={classes}
-          clearable={false}
-          required={true}
-          value={payload.createdAt}
-          onChange={(e) =>
-            setPayload({ ...payload, createdAt: e.toISOString() })
-          }
-        />*/}
 
         <Button.Group>
           <Button

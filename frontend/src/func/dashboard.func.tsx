@@ -1,6 +1,6 @@
 import { ExpensePayload } from "../interfaces/data.interface";
 
-const API_URL = "http://localhost:5500/api";
+const API_URL = "http://localhost:5000/api";
 
 // Auth Header for fetch
 const authHeader = () => {
@@ -14,14 +14,14 @@ const authHeader = () => {
 
 export function createExpenses(payload: {
   amount: string;
-  colocataireId: string;
+  colocataireUid: string;
   paidFor: string;
   description: string;
   colocationId: string;
 }) {
   let body = {
     amount: payload.amount,
-    colocataireId: payload.colocataireId,
+    colocataireUid: payload.colocataireUid,
     paidFor: payload.paidFor,
     description: payload.description,
     colocationId: payload.colocationId,

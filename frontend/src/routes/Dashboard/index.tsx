@@ -62,14 +62,14 @@ const isFirstTime = async () => {
 export default function Dashboard() {
   const { element } = useParams();
 
-  useEffect(() => {
+  /* useEffect(() => {
     isFirstTime().then((res) => {
       // if value is null, then it's the first time
       if (res === null) {
         window.location.href = "/firstTime";
       }
     });
-  }, []);
+  }, []); */
 
   switch (element) {
     case "summary":
