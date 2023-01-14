@@ -129,7 +129,7 @@ export default function FirstTime() {
               setCreateCollocData({ ...createCollocData, name: e.target.value })
             }
           />
-          <Input
+          <NumberInput
             className={classes.modalInput}
             placeholder="Code de la collocation"
             maxLength={6}

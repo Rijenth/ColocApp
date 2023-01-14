@@ -50,8 +50,21 @@ const data = [
   },
 ];
 
+const onInit = async () => {
+  const user = sessionStorage.getItem("ColocUser");
+  if (user) {
+    const decoded = decodeJwt(user);
+    const userData = decoded.sub;
+    console.log(userData);
+  }
+};
+
 export default function Dashboard() {
   const { element } = useParams();
+
+  useEffect(() => {
+    onInit();
+  }, []);
 
   switch (element) {
     case "firstTime":
