@@ -7,7 +7,7 @@ export function createColloc({
   code: number;
   expense: number;
 }) {
-  fetch("http://localhost:5000/api/colocation", {
+  fetch("http://localhost:5500/api/colocation", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export function joinColloc({
   userUid: string;
   code: string;
 }) {
-  fetch(`http://localhost:5000/api/colocataire`, {
+  fetch(`http://localhost:5500/api/colocataire`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

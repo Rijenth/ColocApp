@@ -26,7 +26,7 @@ export async function register(
     birthdate: birthdate?.toString(),
   };
 
-  fetch("http://localhost:5000/api/auth/register", {
+  fetch("http://localhost:5500/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export async function login(email: string, password: string) {
     email: email,
     password: password,
   };
-  fetch("http://localhost:5000/api/auth/login", {
+  fetch("http://localhost:5500/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

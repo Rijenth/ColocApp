@@ -1,6 +1,6 @@
 import { ExpensePayload } from "../interfaces/data.interface";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://localhost:5500/api";
 
 // Auth Header for fetch
 const authHeader = () => {
