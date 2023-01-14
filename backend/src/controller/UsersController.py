@@ -75,7 +75,7 @@ class UsersController:
             return jsonify({'type' : 'error', 'message' : 'User not found'}), 404
         user = UsersModel(user)
         user.setColocationId()
-        return jsonify(user.serialize()), 200
+        return jsonify(user.serializeWithRelationships()), 200
 
     def updateUser(uid, data):
         try:

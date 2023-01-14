@@ -185,6 +185,9 @@ INSERT INTO `Colocation` (`id`, `name`, `rentDue`, `rentPaid`, `createdAt`, `upd
 (1, 'La coloc des 3000', 1500, 0, '2023-01-12 20:31:13', '2023-01-12 20:31:13', '1234'),
 (2, 'La coloc du bat 5', 999, 0, '2023-01-12 20:31:38', '2023-01-12 20:31:38', '7720');
 
+INSERT INTO `Colocataire` (`id`, `userId`, `colocationId`) VALUES
+(1, 1, 1);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
