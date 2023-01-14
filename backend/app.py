@@ -132,7 +132,7 @@ def createExpense():
     if data['paidFor'] not in ('loyer','electricite','eau','nourriture','autres'):
         return jsonify({"type": "error", "message" : "paidFor has to be one of ('loyer','electricite','eau','nourriture','autres')"}), 422
 
-    return ExpenseController.newExpense(data)
+    return ExpenseController.createExpense(data)
 
 # Update a expense
 # {"id", "amount", "colocataireId", "paidFor": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }

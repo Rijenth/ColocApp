@@ -17,7 +17,8 @@ class ColocationController:
             return jsonify({}), 404
         if len(colocation) == 0:
             return jsonify({}), 404
-        return jsonify([colocation]), 200
+        colocationModel = ColocationModel(colocation).serializeWithRelationships()
+        return jsonify(colocationModel), 200
 
     def createColocation(data):
         try:

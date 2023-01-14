@@ -3,8 +3,10 @@ from datetime import date
 from src.model.ExpenseModel import ExpenseModel
 from src.model.UsersModel import UsersModel
 from src.action.ColocataireAction import ColocataireAction
+from src.action.ColocationAction import ColocationAction
 from src.action.ExpenseAction import ExpenseAction
 from src.action.UsersAction import UsersAction
+from src.model.ColocationModel import ColocationModel
 
 class ExpenseController:
     def __init__(self, request):
@@ -39,13 +41,30 @@ class ExpenseController:
             return jsonify({}), 200
         return jsonify([expense]), 200
 
-    def newExpense(data):
+    def createExpense(data):
         try:
             expense = ExpenseModel(data)
             ExpenseAction().post(expense)
         except Exception as e:
              return jsonify({"message" :e}), 422
-        return jsonify({"message" : "Expense create !"}), 201
+        
+        colocation = ColocationAction().show("id", expense.colocationId)
+        colocationModel = ColocationModel(colocation)
+
+        # get all expense of this colocation
+        expense = ExpenseAction().getAllExpensesColoc(colocationModel.id)
+
+        # sum of each expenses of this colocation
+        total = 0
+        for e in expense:
+            total += e['amount']
+        
+        if total >= colocationModel.rentDue :
+            colocationModel.rentPaid = True
+        
+        ColocationAction().update(colocationModel.id, colocationModel)
+
+        return jsonify({"message" : "Expense created !"}), 201
 
 
     def updateExpense(id, data):
