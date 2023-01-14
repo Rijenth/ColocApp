@@ -56,10 +56,15 @@ def showColocation(id):
     return ColocationController.showColocation(int(id))
 
 ###     CREATE     ###
-# { "name": "nameCreate", "rentDue": 100, "rentPaid": 0 }
+# { "name": "nameCreate", "rentDue": 100}
 @app.route('/api/colocation', methods=['POST'])
 def postColocation():
     data = request.get_json()
+
+    if not all(key in data for key in ("name", "rentDue")):
+        missing = [key for key in ("name", "rentDue") if key not in data]
+        return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
+    
     return ColocationController.createColocation(data)
 
 ###     UPDATE     ###
@@ -67,6 +72,11 @@ def postColocation():
 @app.route('/api/colocation/<string:id>', methods=['PUT'])
 def updateColocation(id):
     data = request.get_json()
+
+    if not all(key in data for key in ("name", "rentDue", "rentPaid")):
+        missing = [key for key in ("name", "rentDue", "rentPaid") if key not in data]
+        return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
+
     try:
         int(id)
     except Exception as e:
@@ -82,14 +92,6 @@ def deleteColocation(id):
         return jsonify({"message": "error"}), 422
     return ColocationController.deleteColocation(int(id))
     
-###                ###
-###                ###
-###                ### 
-
-@app.route('/api/data', methods=['POST'])
-def data():
-    data = request.get_json()
-    return jsonify({'message': 'Data received!', 'data': data})
 ###                ###
 ###   Expense      ###
 ###                ### 
@@ -109,31 +111,47 @@ def showColocExpense(id):
     return ExpenseController.showColocExpense(int(id))
 
 # Get all expense of a user
-@app.route('/api/expense/user/<string:id>', methods=['GET'])
-def showExpense(id):
+@app.route('/api/expense/user/<string:uid>', methods=['GET'])
+def showUserExpense(uid):
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"type": "error"}), 422
-    return ExpenseController.showColocExpense(int(id))
+    return ExpenseController.showUserExpense(str(uid))
 
 # Create a new expense
-# { "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# { "amount", "colocataireId", "paidFor": 'loyer, electricte, eau, nourriture, autre', "description" ,"colocationId" }
 @app.route('/api/expense', methods=['POST'])
 def createExpense():
     data = request.get_json()
-    return ExpenseController.newExpense(data)
+
+    if not all (k in data for k in ("amount", "colocataireId", "paidFor", "description", "colocationId")):
+        missing = [k for k in ("amount", "colocataireId", "paidFor", "description", "colocationId") if k not in data]
+        return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
+
+    if data['paidFor'] not in ('loyer','electricite','eau','nourriture','autres'):
+        return jsonify({"type": "error", "message" : "paidFor has to be one of ('loyer','electricite','eau','nourriture','autres')"}), 422
+
+    return ExpenseController.createExpense(data)
 
 # Update a expense
-# {"id", "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# {"id", "amount", "colocataireId", "paidFor": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
 @app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
+    
+    if not all (k in data for k in ("amount", "colocataireId", "paidFor", "description", "colocationId")):
+        missing = [k for k in ("amount", "colocataireId", "paidFor", "description", "colocationId") if k not in data]
+        return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
+
+    if data['paidFor'] not in ('loyer','electricite','eau','nourriture','autres'):
+        return jsonify({"type": "error", "message" : "paidFor has to be one of ('loyer','electricite','eau','nourriture','autres')"}), 422
+
     try:
         int(id)
     except Exception as e:
         return jsonify({"type": "error"}), 422
-    return ExpenseController.updateExpense(int (id), data)
+    return ExpenseController.updateExpense(int(id), data)
 
 # Delete a expense
 @app.route('/api/expense/<string:id>', methods=['DELETE']) 
@@ -178,8 +196,8 @@ def showColocExpenseColoc(id):
 @app.route('/api/colocataire', methods=['POST'])
 def createColocataire():
     data = request.get_json()
-    if not 'code' in data or not 'userId' in data:
-        return jsonify({"type": "error", "message" : "missing attributes 'code:int4' or/and 'userId:int'"}), 422
+    if not 'code' in data or not 'uid' in data:
+        return jsonify({"type": "error", "message" : "missing attributes 'code:int4' or/and 'uid:str'"}), 422
     return ColocataireController.createColocataire(data)
 
 
@@ -213,29 +231,29 @@ def indexUser():
     return UsersController.indexUser()
 
 # SHOW
-@app.route('/api/users/<int:id>', methods=['GET'])
-def showUser(id):
-    return UsersController.showUser(id)
+@app.route('/api/users/<string:uid>', methods=['GET'])
+def showUser(uid):
+    return UsersController.showUser(uid)
 
 # UPDATE
 # { Un body avec toutes les données du user }
-@app.route('/api/users/<int:id>', methods=['PUT'])
-def updateUser(id):
+@app.route('/api/users/<string:uid>', methods=['PUT'])
+def updateUser(uid):
     data = request.get_json()
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"message": "Bad request"}), 422
-    return UsersController.updateUser(int(id), data)
+    return UsersController.updateUser(str(uid), data)
 
 # DELETE
-@app.route('/api/users/<int:id>', methods=['DELETE'])
-def deleteUser(id):
+@app.route('/api/users/<string:uid>', methods=['DELETE'])
+def deleteUser(uid):
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"message": "Bad request"}), 422
-    return UsersController.deleteUser(int(id))
+    return UsersController.deleteUser(str(uid))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5500)

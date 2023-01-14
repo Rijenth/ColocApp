@@ -20,10 +20,13 @@ class ColocationModel(BasicModel):
         'code': int
     }
 
-    relationships = ['Colocataire']
+    relationships = ['Colocataire', 'Expense']
 
     def __init__(self, data):
         super().__init__(data)
 
     def Colocataire(self):
         return self.hasMany('Colocataire', 'colocationId', self.id)
+
+    def Expense(self):
+        return self.hasMany('Expense', 'colocationId', self.id)

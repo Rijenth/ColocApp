@@ -15,11 +15,11 @@ class ColocationAction(DatabaseActions):
         return result
 
     def post(self, model):
-        query = "INSERT INTO " + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt, code ) VALUES (%s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + self.table + " (name, rentDue, rentPaid, createdAt, updatedAt, code) VALUES (%s, %s, %s, %s, %s, %s)"
         value = (
             model.name,
             model.rentDue,
-            0,
+            False,
             date.today().strftime("%Y-%m-%d"),
             date.today().strftime("%Y-%m-%d"),
             random.randint(1000, 9999)

@@ -13,8 +13,8 @@ class UsersAction(DatabaseActions):
             result.append(UsersModel(user).serialize())
         return result
 
-    def show(self, id):
-        return super()._get('id', id)
+    def show(self, key, value):
+        return super()._get(key, value)
 
     def update(self, id, model):
         query = "UPDATE " + self.table + " SET firstName = %s, lastName = %s, email = %s, password = %s, phone = %s, gender = %s, birthdate = %s, picture = %s, income = %s WHERE id = %s"

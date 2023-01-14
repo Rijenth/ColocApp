@@ -1,27 +1,28 @@
 import { ExpensePayload } from "../interfaces/data.interface";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://localhost:5500/api";
 
-// Auth Header for fetch
-const authHeader = () => {
-  const user = JSON.parse(sessionStorage.getItem("coloc-user") || "{}");
-  if (user && user.token) {
-    return { Authorization: "Bearer " + user.token };
-  } else {
-    return {};
-  }
-};
+export function getColocataireId(uid: string) {
+  return fetch(`${API_URL}/api/users/${uid}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => response.json());
+}
 
 export function createExpenses(payload: {
   amount: string;
-  colocataireUid: string;
+  uid: string;
   paidFor: string;
   description: string;
   colocationId: string;
 }) {
+  console.log(payload);
+  console.log(getColocataireId(payload.uid));
   let body = {
     amount: payload.amount,
-    colocataireUid: payload.colocataireUid,
+    colocataireId: getColocataireId(payload.uid).relationships.Colocataire.id,
     paidFor: payload.paidFor,
     description: payload.description,
     colocationId: payload.colocationId,
@@ -31,7 +32,6 @@ export function createExpenses(payload: {
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
-      AccessControlAllowOrigin: "*",
     },
   })
     .then((res) => res.json())
@@ -53,22 +53,15 @@ export function getExpenses() {
       }
       return response.json();
     })
-    .then((data) => {
-      return data;
-    })
     .catch((error) => {
       console.log(error);
     });
-}
-
-export function getExpensesById(id: string) {
-  return fetch(`${API_URL}/expense/${id}`, { headers: authHeader() });
 }
 
 export function updateExpenses(id: string, payload: ExpensePayload) {
   return fetch(`${API_URL}/expense/${id}`, {
     method: "PUT",
     body: JSON.stringify(payload),
-    headers: { ...authHeader(), "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" },
   });
 }

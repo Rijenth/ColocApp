@@ -41,7 +41,7 @@ export default function CreateResume(open: boolean) {
   const [opened, setOpened] = useState(false);
   const [payload, setPayload] = useState({
     amount: 0,
-    colocataireUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+    uid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
       .uid as string,
     paidFor: "",
     description: "",
@@ -83,7 +83,7 @@ export default function CreateResume(open: boolean) {
 
         <Select
           style={{ marginTop: 20, zIndex: 2 }}
-          data={["loyer", "eletricte", "eau", "nourriture", "autre"]}
+          data={["loyer", "eletricite", "eau", "nourriture", "autre"]}
           placeholder="Pick one"
           label="Paid ford"
           classNames={classes}

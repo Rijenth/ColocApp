@@ -1,7 +1,10 @@
 from src.action.ColocataireAction import ColocataireAction
+from src.action.ColocationAction import ColocationAction
+from src.action.UsersAction import UsersAction
 from src.model.ColocataireModel import ColocataireModel
 from src.model.ColocationModel import ColocationModel
-from src.action.ColocationAction import ColocationAction
+from src.model.UsersModel import UsersModel
+
 from flask import Flask, jsonify
 
 class ColocataireController:
@@ -47,12 +50,21 @@ class ColocataireController:
 
         colocationModel = ColocationModel(colocation).serializeWithRelationships()
 
+        userData = UsersAction().show("uid", data['uid'])
+
+        if userData == None :
+            return jsonify({"type" : "error", "message" : "Cet utilisateur n'existe pas !"}), 422
+        
+        user = UsersModel(userData).serialize()  
+
         for colocataireUser in colocationModel['relationships']['Colocataire'] :
-            if colocataireUser['userId'] == data['userId']:
+            if colocataireUser['userId'] == user['id']:
                 return jsonify({"type" : "error", "message" : "Vous êtes déjà inscrit à cette colocation !"}), 422
 
         data['colocationId'] = colocation['id']
+        data['userId'] = user['id']
         Colocataire = ColocataireModel(data)
+
         try:
             ColocataireAction().post(Colocataire)
         except Exception as e:

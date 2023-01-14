@@ -65,8 +65,8 @@ CREATE TABLE `Expense` (
   `amount` int NOT NULL,
   `colocataireId` int NOT NULL,
   `paidFor` enum('loyer','electricite','eau','nourriture','autres') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   `description` text NOT NULL,
   `colocationId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -184,6 +184,9 @@ INSERT INTO `Users` (`id`, `uid`, `firstName`, `lastName`, `email`, `password`, 
 INSERT INTO `Colocation` (`id`, `name`, `rentDue`, `rentPaid`, `createdAt`, `updatedAt`, `code`) VALUES
 (1, 'La coloc des 3000', 1500, 0, '2023-01-12 20:31:13', '2023-01-12 20:31:13', '1234'),
 (2, 'La coloc du bat 5', 999, 0, '2023-01-12 20:31:38', '2023-01-12 20:31:38', '7720');
+
+INSERT INTO `Colocataire` (`id`, `userId`, `colocationId`) VALUES
+(1, 1, 1);
 
 COMMIT;
 
