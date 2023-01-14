@@ -140,12 +140,6 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
                         </Menu.Target>
                         <Menu.Dropdown>
                             <Menu.Label>Settings</Menu.Label>
-                            <Menu.Item onClick={
-                                () => {
-                                    window.location.href = '/account'
-                                }
-
-                            } icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
                             <Menu.Item onClick={() => {
                                 window.location.href = '/account'
                             }} icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
