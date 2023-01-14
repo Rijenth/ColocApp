@@ -2,15 +2,6 @@ import { ExpensePayload } from "../interfaces/data.interface";
 
 const API_URL = "http://localhost:5500/api";
 
-export function getColocataireId(uid: string) {
-  return fetch(`${API_URL}/users/${uid}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => response.json());
-}
-
 export function createExpenses(payload: {
   amount: string;
   uid: string;
@@ -55,18 +46,35 @@ export function createExpenses(payload: {
 }
 
 export function getExpenses() {
-  return fetch(`${API_URL}/expense`, {
+  console.log("getExpenses");
+    return fetch(`${API_URL}/expense`, {
     method: "GET",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
+    headers: {
+        "Content-Type": "application/json",
+    }
+  }
+    ).then((response) => response.json())
+    .then((res) => {
+        let data: ExpensePayload[] = [];
+        res[0].map((item: ExpensePayload) => {
+            const expense: ExpensePayload = {
+                id: item.id,
+                amount: item.amount,
+                colocataireId: item.colocataireId,
+                firstName: item.firstName,
+                createdAt: item.createdAt,
+                paidFor: item.paidFor,
+                description: item.description,
+                colocationId: item.colocationId,
+            };
+            data.push(expense);
+        });
+        return data;
     })
     .catch((error) => {
-      console.log(error);
-    });
+        console.log(error);
+    }
+    );
 }
 
 export function updateExpenses(id: string, payload: ExpensePayload) {

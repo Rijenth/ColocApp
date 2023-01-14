@@ -25,8 +25,9 @@ import "./styles/index.css";
 
 import { getExpenses } from "../../func/dashboard.func";
 import { decodeJwt } from "jose";
+import {ExpensePayload} from "../../interfaces/data.interface";
 
-const data = [
+const dataSave = [
   {
     id: 1,
     amount: "100",
@@ -48,6 +49,13 @@ const data = [
     colocationId: "1",
   },
 ];
+let tableData: ExpensePayload[] | void = [];
+
+getExpenses().then((data) => {
+  tableData = data;
+});
+
+console.log(tableData);
 
 const isFirstTime = async () => {
   const user = sessionStorage.getItem("ColocUser");
@@ -130,9 +138,8 @@ function FullDashboard() {
           <Graph type={"items"} />
           <BigNum type={"items"} />
         </SimpleGrid>
-        <Expenses data={data} type={"items"} />
+        <Expenses data={tableData} type={"items"} />
         <CreateResume />
-        <Button onClick={() => getExpenses()}>Get Expenses</Button>
       </Container>
     </>
   );

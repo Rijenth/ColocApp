@@ -70,10 +70,10 @@ export default function Expenses({ data }: ExpensePayload, setOpenModel: any) {
         onClick={() => (setOpenModal(true), setIdRow(row.id))}
       >
         <td>{row.amount}</td>
-        <td>{row.colocataireName}</td>
-        <td>{row.paidFord}</td>
-        <td>{row.date}</td>
-        <td>{row.desccription}</td>
+        <td>{row.firstName}</td>
+        <td>{row.paidFor}</td>
+        <td>{row.createdAt}</td>
+        <td>{row.description}</td>
         <td>
           <IconPencilMinus className={classes.icon} />
         </td>
