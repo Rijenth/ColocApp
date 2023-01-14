@@ -83,14 +83,6 @@ def deleteColocation(id):
     return ColocationController.deleteColocation(int(id))
     
 ###                ###
-###                ###
-###                ### 
-
-@app.route('/api/data', methods=['POST'])
-def data():
-    data = request.get_json()
-    return jsonify({'message': 'Data received!', 'data': data})
-###                ###
 ###   Expense      ###
 ###                ### 
 
@@ -213,29 +205,29 @@ def indexUser():
     return UsersController.indexUser()
 
 # SHOW
-@app.route('/api/users/<int:id>', methods=['GET'])
-def showUser(id):
-    return UsersController.showUser(id)
+@app.route('/api/users/<string:uid>', methods=['GET'])
+def showUser(uid):
+    return UsersController.showUser(uid)
 
 # UPDATE
 # { Un body avec toutes les données du user }
-@app.route('/api/users/<int:id>', methods=['PUT'])
-def updateUser(id):
+@app.route('/api/users/<string:uid>', methods=['PUT'])
+def updateUser(uid):
     data = request.get_json()
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"message": "Bad request"}), 422
-    return UsersController.updateUser(int(id), data)
+    return UsersController.updateUser(str(uid), data)
 
 # DELETE
-@app.route('/api/users/<int:id>', methods=['DELETE'])
-def deleteUser(id):
+@app.route('/api/users/<string:uid>', methods=['DELETE'])
+def deleteUser(uid):
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"message": "Bad request"}), 422
-    return UsersController.deleteUser(int(id))
+    return UsersController.deleteUser(str(uid))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -66,9 +66,9 @@ class UsersController:
     def indexUser():
         return jsonify(UsersAction().index()), 200
 
-    def showUser(id):
+    def showUser(uid):
         try:
-            user = UsersAction().show(id)
+            user = UsersAction().show("uid", uid)
         except Exception as e:
             return jsonify({'type' : 'error', 'message' : 'Database error'}), 404
         if user == None or len(user) == 0:
@@ -77,15 +77,15 @@ class UsersController:
         user.setColocationId()
         return jsonify(user.serialize()), 200
 
-    def updateUser(id, data):
+    def updateUser(uid, data):
         try:
             user = UsersModel(data)
-            UsersAction().update(id, user)
+            UsersAction().update(uid, user)
         except Exception as e:
             return jsonify({'type' : 'error', "message": e}), 422
-        user = UsersAction().show(id)
+        user = UsersAction().show("uid", uid)
         return jsonify(user.serialize()), 201
 
-    def deleteUser(id):
-        UsersAction().delete(id)
+    def deleteUser(uid):
+        UsersAction().delete(uid)
         return jsonify({'type' : 'success'}), 204
