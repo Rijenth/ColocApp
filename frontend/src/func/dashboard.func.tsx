@@ -3,7 +3,7 @@ import { ExpensePayload } from "../interfaces/data.interface";
 const API_URL = "http://localhost:5500/api";
 
 export function getColocataireId(uid: string) {
-  return fetch(`${API_URL}/api/users/${uid}`, {
+  return fetch(`${API_URL}/users/${uid}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -18,28 +18,39 @@ export function createExpenses(payload: {
   description: string;
   colocationId: string;
 }) {
-  console.log(payload);
-  console.log(getColocataireId(payload.uid));
-  let body = {
-    amount: payload.amount,
-    colocataireId: getColocataireId(payload.uid).relationships.Colocataire.id,
-    paidFor: payload.paidFor,
-    description: payload.description,
-    colocationId: payload.colocationId,
-  };
-  return fetch(`${API_URL}/expense`, {
-    method: "POST",
-    body: JSON.stringify(body),
+  fetch(`${API_URL}/users/${payload.uid}`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((res) => res.json())
+  }).then((response) => response.json())
     .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.log(error);
+        let resId: string;
+
+        resId = data.relationships.Colocataire.id;
+
+        let body = {
+          amount: payload.amount,
+          colocataireId: resId,
+          paidFor: payload.paidFor,
+          description: payload.description,
+          colocationId: payload.colocationId,
+        };
+
+        return fetch(`${API_URL}/expense`, {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     });
 }
 
