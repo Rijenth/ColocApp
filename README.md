@@ -22,221 +22,221 @@ docker-compose up -d --build
 
 1. Testing Endpoint
     1.  Endpoint : `/`
-        1. method: GET
-        2. status code: 200 OK
-        3. data: None
-        4. response: {"message"}
+        1. Method: GET
+        2. Status code: 200 OK
+        3. Data: None
+        4. Response: {"message"}
 
 2. Authentication
     1. Register
         1. Endpoint : `/api/auth/register`
-        2. method: POST
-        3. status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            uid: str
-            firstName: str
-            lastName: str
-            email: str
-            password: str
-            gender: str
-            phone: str
-            birthdate: str
-            picture: str
+        2. Method: POST
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            uid: str, 
+            firstName: str, 
+            lastName: str, 
+            email: str, 
+            password: str, 
+            gender: str, 
+            phone: str, 
+            birthdate: str, 
+            picture: str, 
             income: int
         }
-        5. response: {"type", "token"}
+        5. Response: {"type", "token"}
         
     2. Login
         1. Endpoint : `/api/auth/login`
-        2. method: POST
-        3. status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            email: str
+        2. Method: POST
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            email: str, 
             password: str
         }
-        5. response: {"type", "token"}
+        5. Response: {"type", "token"}
 
 3. Colocation
     1. Get All Colocations
         1. Endpoint : `/api/colocation`
-        2. method: GET
-        3. status code: 200 (OK)
-        4. data: None
-        5. response: {...[colocation]}
+        2. Method: GET
+        3. Status code: 200 (OK)
+        4. Data: None
+        5. Response: {...[colocation]}
 
     2. Get Colocation by ID
         1. Endpoint : `/api/colocation/<string:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 404 (NOT FOUND)
-        4. data: {
-            uid: str
+        2. Method: GET
+        3. Status code: 200 (OK) || 404 (NOT FOUND)
+        4. Data: {
+            uid: str 
         }
-        5. response: {[colocation]}
+        5. Response: {[colocation]}
     
     3. Create Colocation
         1. Endpoint : `/api/colocation`
-        2. method: POST
-        3. status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
-        4. data: { 
-            name: str
-            rentDue: int
+        2. Method: POST
+        3. Status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: { 
+            name: str, 
+            rentDue: int, 
             rentPaid: int 
         }
-        5. response: {"message"}
+        5. Response: {"message"}
 
     4. Update Colocation
         1. Endpoint : `/api/colocation/<string:id>`
-        2. method: PUT
-        3. status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            name: str
-            rentDue: int
+        2. Method: PUT
+        3. Status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            name: str, 
+            rentDue: int, 
             rentPaid: int 
         }
-        5. response: {"message"}
+        5. Response: {"message"}
 
     5. Delete Colocation
         1. Endpoint : `/api/colocation/<string:id>`
-        2. method: DELETE
-        3. status code: 204 (NO CONTENT)
-        4. data: None
-        5. response: None
+        2. Method: DELETE
+        3. Status code: 204 (NO CONTENT)
+        4. Data: None
+        5. Response: None
 
 4. Expense
     1. Get All Expenses
         1. Endpoint : `/api/expense`
-        2. method: GET
-        3. status code: 200 (OK)
-        4. data: None
-        5. response: {...[Expense]}
+        2. Method: GET
+        3. Status code: 200 (OK)
+        4. Data: None
+        5. Response: {...[Expense]}
 
     2. Get Expenses by Colocation ID
         1. Endpoint : `/api/expense/colocation/<string:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: {[Expense]}
+        2. Method: GET
+        3. Status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: {[Expense]}
 
     3. Get Expenses by User ID
         1. Endpoint : `/api/expense/user/<string:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: {[Expense]}
+        2. Method: GET
+        3. Status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: {[Expense]}
 
     4. Create Expense
         1. Endpoint : `/api/expense`
-        2. method: POST
-        3. status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            amount: int
-            colocataireId: int
-            paidFor: enumerate(['loyer', 'electricite', 'eau', 'nourriture', 'autre'])
-            description: str
+        2. Method: POST
+        3. Status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            amount: int, 
+            colocataireId: int, 
+            paidFor: enumerate(['loyer', 'electricite', 'eau', 'nourriture', 'autre']), 
+            description: str, 
             colocation.id: int 
         }
-        5. response: {"message"}
+        5. Response: {"message"}
 
     5. Update Expense
         1. Endpoint : `/api/expense/<string:id>`
-        2. method: PUT
-        3. status code: 204 (NO CONTENT)) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: None
+        2. Method: PUT
+        3. Status code: 204 (NO CONTENT)) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: None
 
     6. Delete Expense
         1. Endpoint : `/api/expense/<string:id>`
-        2. method: DELETE
-        3. status code: 204 (NO CONTENT)
-        4. data: None
-        5. response: None
+        2. Method: DELETE
+        3. Status code: 204 (NO CONTENT)
+        4. Data: None
+        5. Response: None
 
 5. Colocataire
     1. Get All Colocataires
         1. Endpoint : `/api/colocataire`
-        2. method: GET
-        3. status code: 200 (OK)
-        4. data: None
-        5. response: {...[colocataire]}
+        2. Method: GET
+        3. Status code: 200 (OK)
+        4. Data: None
+        5. Response: {...[colocataire]}
 
     2. Get Colocataire by User ID
         1. Endpoint : `/api/colocataire/user/<string:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: {...[colocataire]}
+        2. Method: GET
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: {...[colocataire]}
 
     3. Get Colocataire by Colocation ID
         1. Endpoint : `/api/colocataire/colocation/<string:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: {[colocataire]}
+        2. Method: GET
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: {[colocataire]}
 
     4. Create Colocataire
         1. Endpoint : `/api/colocataire`
-        2. method: POST
-        3. status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            userId: int
-            colocationId: int 
+        2. Method: POST
+        3. Status code: 201 (CREATED) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            userId: int, 
+            colocationId: int  
         }
-        5. response: {"message"}
+        5. Response: {"message"}
 
     5. Update Colocataire
         1. Endpoint : `/api/colocataire/<string:id>`
-        2. method: PUT
-        3. status code: 201 (CREATED))
+        2. Method: PUT
+        3. Status code: 201 (CREATED))
 
     6. Delete Colocataire
         1. Endpoint : `/api/colocataire/<string:id>`
-        2. method: DELETE
-        3. status code: 204 (NO CONTENT)
-        4. data: None
-        5. response: None
+        2. Method: DELETE
+        3. Status code: 204 (NO CONTENT)
+        4. Data: None
+        5. Response: None
 
     7. Update Colocataire
         1. Endpoint : `/api/Colocataire/<string:id>`
-        2. method: PUT
-        3. status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-        4. data: None
-        5. response: {"message"}
+        2. Method: PUT
+        3. Status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: None
+        5. Response: {"message"}
 
 6. Users
     1. Get All Users
         1. Endpoint : `/api/users`
-        2. method: GET
-        3. status code: 200 (OK)
-        4. data: None
-        5. response: {...[User]}
+        2. Method: GET
+        3. Status code: 200 (OK)
+        4. Data: None
+        5. Response: {...[User]}
 
     2. Get User by ID
         1. Endpoint : `/api/users/<int:id>`
-        2. method: GET
-        3. status code: 200 (OK) || 404 (NOT FOUND)
-        4. data: None
-        5. response: {[User]}
+        2. Method: GET
+        3. Status code: 200 (OK) || 404 (NOT FOUND)
+        4. Data: None
+        5. Response: {[User]}
 
     3. Update User
         1. Endpoint : `/api/users/<string:id>`
-        2. method: PUT
-        3. status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
-        4. data: {
-            firstName: str,
-            lastName: str,
-            email: str,
-            password: str,
-            gender: str,
-            phone: str,
-            birthdate: str,
-            picture: str,
+        2. Method: PUT
+        3. Status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
+        4. Data: {
+            firstName: str, 
+            lastName: str, 
+            email: str, 
+            password: str, 
+            gender: str, 
+            phone: str, 
+            birthdate: str, 
+            picture: str, 
             income: int 
         }
-        5. response: {[User]}
+        5. Response: {[User]}
 
     4. Delete User
         1. Endpoint : `/api/users/<int:id>`
-        2. method: DELETE
-        3. status code: 204 (NO CONTENT)
-        4. data: None
-        5. response: None
+        2. Method: DELETE
+        3. Status code: 204 (NO CONTENT)
+        4. Data: None
+        5. Response: None
