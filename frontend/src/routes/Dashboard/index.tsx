@@ -50,25 +50,28 @@ const data = [
   },
 ];
 
-const onInit = async () => {
+const isFirstTime = async () => {
   const user = sessionStorage.getItem("ColocUser");
   if (user) {
     const decoded = decodeJwt(user);
-    const userData = decoded.sub;
-    console.log(userData);
+    return decoded.sub.colocation;
   }
+
 };
 
 export default function Dashboard() {
   const { element } = useParams();
 
   useEffect(() => {
-    onInit();
+    isFirstTime().then((res) => {
+      // if value is null, then it's the first time
+      if (res === null) {
+        window.location.href = "/firstTime";
+      }
+    });
   }, []);
 
   switch (element) {
-    case "firstTime":
-      return <FirstTime />;
     case "summary":
       return <Expenses data={data} type={"view"} />;
     case "graph":

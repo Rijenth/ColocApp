@@ -38,12 +38,8 @@ export async function register(
       // and then we can store it in session storage
       const responseToString = response.text();
       const decodedResponse = JSON.parse(await responseToString);
-      sessionStorage.setItem("ColocUser", decodedResponse.token);
-    })
-    .then(() => {
-      console.log(sessionStorage.getItem("ColocUser"));
-      if (sessionStorage.getItem("ColocUser")) {
-        window.location.href = "/dashboard";
+      if (decodedResponse.token) {
+        window.location.href = "/auth/login";
       }
     })
     .catch((error) => {

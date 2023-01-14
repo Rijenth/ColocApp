@@ -7,13 +7,18 @@ docker-compose up -d --build
 ## Team
 
 | Nom de famille | Prénom  | Github     |
-| -------------- | ------- |------------|
+| -------------- | ------- | ---------- |
 | VIDEAU         | Ethan   | @Setsudan  |
 | HA             | Adrien  | @JinSu77   |
 | ARUMAINATHAN   | Rijenth | @Rijenth   |
 | LEVENEUR       | Louis   | @LFLeveeur |
 | PIVERT         | Fabrice | @Fabpiv    |
 | BAKAYOKO       | Kader   | @gaoubak   |
+
+
+# Pour lancer l'app
+
+`cd frontend` -> `yarn` -> `cd ..` -> `docker-compose up -d --build`
 
 ## Testing Endpoint
 endpoint:```  / ``` 
