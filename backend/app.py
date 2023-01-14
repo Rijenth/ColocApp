@@ -110,10 +110,15 @@ def showExpense(id):
     return ExpenseController.showColocExpense(int(id))
 
 # Create a new expense
-# { "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# { "amount", "colocataireId", "paidFor": 'loyer, electricte, eau, nourriture, autre', "description" ,"colocationId" }
 @app.route('/api/expense', methods=['POST'])
 def createExpense():
     data = request.get_json()
+
+    if not all (k in data for k in ("amount", "colocataireId", "paidFor", "description", "colocationId")):
+        missing = [k for k in ("amount", "colocataireId", "paidFor", "description", "colocationId") if k not in data]
+        return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
+
     return ExpenseController.newExpense(data)
 
 # Update a expense
