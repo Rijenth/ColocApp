@@ -11,6 +11,7 @@ import {
   Title,
   Divider,
   PasswordInput,
+  Space
 } from "@mantine/core";
 
 // Functions
@@ -21,17 +22,17 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async () => {
     setLoading(true);
-    login(email, password);
+    login(email, password)
     setLoading(false);
   };
 
   const { classes } = useStyle();
 
   useEffect(() => {
-    console.log(getUser());
     if (getUser()) {
       window.location.href = "/dashboard";
     }
@@ -54,12 +55,16 @@ export default function Login() {
             onChange={(e) => setEmail(e.currentTarget.value)}
             required
           />
+          <Space my="xl" />
           <PasswordInput
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
             required
           />
+          {
+            error && <p style={{ color: "red" }}>{error}</p>
+          }
         </div>
         <Button type="submit" color="blue" disabled={loading}>
           {loading ? <Loader /> : "Login"}

@@ -69,15 +69,17 @@ export async function login(email: string, password: string) {
     body: JSON.stringify(body),
   })
     .then(async (response) => {
+      if (response.type === "error") {
+        prompt("Login failed");
+        return
+      }
       const responseToString = response.text();
       const decodedResponse = JSON.parse(await responseToString);
       sessionStorage.setItem("ColocUser", decodedResponse.token);
-    })
-    .then(() => {
-      console.log(sessionStorage.getItem("ColocUser"));
-      if (sessionStorage.getItem("ColocUser")) {
-        window.location.href = "/dashboard";
-      }
+      return {
+        type: "LOGIN_SUCCESS",
+        response: decodedResponse,
+      };
     })
     .catch((error) => {
       return {
