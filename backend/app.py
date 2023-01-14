@@ -125,15 +125,23 @@ def createExpense():
     return ExpenseController.newExpense(data)
 
 # Update a expense
-# {"id", "amount", "colocataireId", "paidFord": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
+# {"id", "amount", "colocataireId", "paidFor": 'loyer,eletricte,eau,nourriture,autre',"desccription" ,"colocationId" }
 @app.route('/api/expense/<string:id>', methods=['PUT'])
 def updateExpense(id):
     data = request.get_json()
+    
+    if not all (k in data for k in ("amount", "colocataireId", "paidFor", "description", "colocationId")):
+        missing = [k for k in ("amount", "colocataireId", "paidFor", "description", "colocationId") if k not in data]
+        return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
+
+    if data['paidFor'] not in ('loyer','electricite','eau','nourriture','autres'):
+        return jsonify({"type": "error", "message" : "paidFor has to be one of ('loyer','electricite','eau','nourriture','autres')"}), 422
+
     try:
         int(id)
     except Exception as e:
         return jsonify({"type": "error"}), 422
-    return ExpenseController.updateExpense(int (id), data)
+    return ExpenseController.updateExpense(int(id), data)
 
 # Delete a expense
 @app.route('/api/expense/<string:id>', methods=['DELETE']) 

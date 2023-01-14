@@ -13,7 +13,7 @@ class ExpenseAction(DatabaseActions):
         return result
 
     def post(self, model):
-        query= "INSERT INTO " + self.table + " (amount, colocataireId, paidFor, createdAt, updatedAt , description , colocationId  ) VALUES (%s, %s, %s, %s, %s,%s, %s)"
+        query= "INSERT INTO " + self.table + " (`amount`, `colocataireId`, `paidFor`, `createdAt`, `updatedAt`, `description`, `colocationId`) VALUES (%s, %s, %s, %s, %s,%s, %s)"
         value = (
             model.amount, 
             model.colocataireId, 
@@ -33,7 +33,7 @@ class ExpenseAction(DatabaseActions):
         data = super()._get("colocationId ", (id))   
         return data
 
-    def update(self , model, id):
+    def update(self, model, id):
         query= "UPDATE "+ self.table +" Set amount = %s, colocataireId = %s, paidFor = %s, updatedAt  = %s, description  = %s , colocationId  = %s  WHERE id = %s"
         value = (
             model.amount, 

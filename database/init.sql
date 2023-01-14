@@ -65,8 +65,8 @@ CREATE TABLE `Expense` (
   `amount` int NOT NULL,
   `colocataireId` int NOT NULL,
   `paidFor` enum('loyer','electricite','eau','nourriture','autres') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `createdAt` date NOT NULL,
+  `updatedAt` date NOT NULL,
   `description` text NOT NULL,
   `colocationId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

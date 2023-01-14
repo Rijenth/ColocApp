@@ -19,7 +19,7 @@ class ExpenseController:
             expense = ExpenseAction().getExpenseColoc(id)
         except Exception as e:
             return jsonify({}), 404
-        if len(expense) == 0:
+        if expense is None or len(expense) == 0:
             return jsonify({}), 404
         return jsonify([expense]), 200
 
@@ -28,12 +28,11 @@ class ExpenseController:
             expense = ExpenseAction().getExpenseUser(id)
         except Exception as e:
             return jsonify({}), 404
-        if len(expense) == 0:
+        if expense is None or len(expense) == 0:
             return jsonify({}), 404
         return jsonify([expense]), 200
 
     def newExpense(data):
-       # data['date'] = date.today().strftime("%Y-%m-%d")
         try:
             expense = ExpenseModel(data)
             ExpenseAction().post(expense)
@@ -43,10 +42,9 @@ class ExpenseController:
 
 
     def updateExpense(id, data):
-        # date de mise à jour ?
+        expense = ExpenseModel(data)
         try:
-            expense = ExpenseModel(data)
-            ExpenseAction().update(id, expense)
+            ExpenseAction().update(expense, id)
         except Exception as e:
             return jsonify({"message" :e}), 422
         return jsonify({"message" : "Expense update !"}), 204
