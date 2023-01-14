@@ -18,7 +18,8 @@ import FirstTime from "./routes/Dashboard/components/FirstTime";
 
 export default function AppRouter() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider withGlobalStyles withNormalizeCSS
+    >
       <NotificationsProvider>
         <ModalsProvider>
           <Router>

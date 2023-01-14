@@ -13,6 +13,7 @@ import { openModal, closeAllModals } from "@mantine/modals";
 
 import { createColloc, joinColloc } from "../../../func/colloc.func";
 import { decodeJwt } from "jose";
+import { useToggle } from "@mantine/hooks";
 
 export default function FirstTime() {
   const useStyle = createStyles({
@@ -61,116 +62,142 @@ export default function FirstTime() {
       width: "100%",
       marginBottom: "10px",
     },
+    modal: {
+      width: "40vw",
+      height: "65vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "white",
+      borderRadius: "18px",
+      border: "1px solid #eaeaea",
+      boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)",
+    }
   });
 
-  const [createCollocData, setCreateCollocData] = useState({
-    name: "",
-    code: 0,
-    expense: 0,
-  });
 
-  const [joinCollocData, setJoinCollocData] = useState({
-    code: 0,
-  });
+
 
   const [loading, setLoading] = useState(false);
 
   const { classes } = useStyle();
 
-  const handleJoinColoc = () => {
-    openModal({
-      title: "Rejoindre une collocation",
-      children: (
-        <Container>
-          <NumberInput
-            className={classes.modalInput}
-            placeholder="Code de la collocation"
-            maxLength={4}
-            value={joinCollocData.code}
-            onChange={(e) => setJoinCollocData({ ...joinCollocData, code: e })}
-          />
-          <Button.Group>
-            <Button
-              onClick={() => closeAllModals()}
-              color="red"
-              variant="subtle"
-            >
-              Annuler
-            </Button>
-            <Button
-              onClick={() => {
-                joinColloc({
-                  userUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
-                    .uid as string,
-                  code: joinCollocData.code,
-                });
-                closeAllModals();
-              }}
-              color="blue"
-              variant="light"
-            >
-              Rejoindre
-            </Button>
-          </Button.Group>
-        </Container>
-      ),
+  const HandleJoinColoc = ({ toggle }) => {
+    const [joinCollocData, setJoinCollocData] = useState({
+      code: 0,
     });
+    return (
+      <Container className={classes.modal}>
+        <Title className={classes.title}>Rejoindre une collocation</Title>
+        <NumberInput
+          className={classes.modalInput}
+          placeholder="Code de la collocation"
+          max={9999}
+          value={joinCollocData.code}
+          onChange={(e) => setJoinCollocData({ ...joinCollocData, code: e })}
+        />
+        <Button.Group>
+          <Button
+            onClick={() => toggle(false)}
+            color="red"
+            variant="subtle"
+          >
+            Annuler
+          </Button>
+          <Button
+            onClick={() => {
+              joinColloc({
+                userUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+                  .uid as string,
+                code: joinCollocData.code,
+              });
+              closeAllModals();
+            }}
+            color="blue"
+            variant="light"
+          >
+            Rejoindre
+          </Button>
+        </Button.Group>
+      </Container>
+    );
+
   };
 
-  const handleCreateColoc = () => {
-    openModal({
-      title: "Créer une collocation",
-      children: (
-        <Container>
-          <Input
-            className={classes.modalInput}
-            placeholder="Nom de la collocation"
-            onChange={(e) =>
-              setCreateCollocData({ ...createCollocData, name: e.target.value })
-            }
-          />
-          <NumberInput
-            className={classes.modalInput}
-            placeholder="Code de la collocation"
-            maxLength={6}
-            onChange={(e) =>
-              setCreateCollocData({ ...createCollocData, code: e.target.value })
-            }
-          />
-          <NumberInput
-            className={classes.modalInput}
-            placeholder="Combien devez vous payer chaque mois ?"
-            onChange={(e) =>
-              setCreateCollocData({
-                ...createCollocData,
-                expense: e as number,
+
+
+  const HandleCreateColoc = ({ toggle }) => {
+
+    const [createCollocName, setCreateCollocName] = useState("");
+    const [createCollocCode, setCreateCollocCode] = useState(0);
+    const [createCollocExpectedIncome, setCreateCollocExpectedIncome] = useState(0);
+
+    return (
+      <Container className={classes.modal}>
+        <Title className={classes.title}>Créer une collocation</Title>
+        <Input
+          className={classes.modalInput}
+          placeholder="Nom de la collocation"
+          onChange={(e) => {
+            setCreateCollocName(e.target.value);
+          }
+          }
+        />
+        <NumberInput
+          className={classes.modalInput}
+          placeholder="Code de la collocation"
+          max={9999}
+          onChange={(e) =>
+            setCreateCollocCode(e as number)
+          }
+        />
+        <NumberInput
+          className={classes.modalInput}
+          placeholder="Combien devez vous payer chaque mois ?"
+          onChange={(e) =>
+            setCreateCollocExpectedIncome(e as number)
+          }
+        />
+        <Button.Group>
+          <Button
+            onClick={() => toggle(false)}
+            color="red"
+            variant="subtle"
+          >
+            Annuler
+          </Button>
+          <Button
+            onClick={() => {
+              setLoading(true);
+              console.log({
+                name: createCollocName,
+                code: createCollocCode,
+                expense: createCollocExpectedIncome,
               })
-            }
-          />
-          <Button.Group>
-            <Button
-              onClick={() => closeAllModals()}
-              color="red"
-              variant="subtle"
-            >
-              Annuler
-            </Button>
-            <Button
-              onClick={() => {
-                setLoading(true);
-                createColloc(createCollocData);
-                setLoading(false);
-                closeAllModals();
-              }}
-              variant="light"
-            >
-              Créer
-            </Button>
-          </Button.Group>
-        </Container>
-      ),
-    });
+              createColloc({
+                name: createCollocName,
+                code: createCollocCode,
+                expense: createCollocExpectedIncome,
+              });
+              setLoading(false);
+              closeAllModals();
+            }}
+            variant="light"
+          >
+            Créer
+          </Button>
+        </Button.Group>
+      </Container>
+    );
   };
+
+  const [showCreate, toggleCreate] = useState(false);
+  const [showJoin, toggleJoin] = useState(false);
 
   return (
     <Container className={classes.container}>
@@ -181,15 +208,17 @@ export default function FirstTime() {
         Que voulez-vous faire ?
       </Title>
       <Button.Group className={classes.buttonGroup}>
-        <Button className={classes.button} onClick={handleCreateColoc}>
+        <Button className={classes.button} onClick={() => toggleCreate(true)}>
           <IconPlus size={55} strokeWidth={2} color="#12acee" />
           <Text className={classes.text}>Créer une collocation</Text>
         </Button>
-        <Button className={classes.button} onClick={handleJoinColoc}>
+        <Button className={classes.button} onClick={() => toggleJoin(true)}>
           <IconUsers size={55} strokeWidth={2} color="#12acee" />
           <Text className={classes.text}>Rejoindre une collocation</Text>
         </Button>
       </Button.Group>
+      {showCreate && <HandleCreateColoc toggle={toggleCreate} />}
+      {showJoin && <HandleJoinColoc toggle={toggleJoin} />}
     </Container>
   );
 }

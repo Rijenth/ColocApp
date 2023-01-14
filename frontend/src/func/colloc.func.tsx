@@ -4,7 +4,7 @@ export function createColloc({
   expense,
 }: {
   name: string;
-  code: string;
+  code: number;
   expense: number;
 }) {
   fetch("http://localhost:5000/api/colocation", {
