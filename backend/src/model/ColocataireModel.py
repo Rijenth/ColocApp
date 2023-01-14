@@ -2,6 +2,7 @@ from src.model.BasicModel import BasicModel
 
 class ColocataireModel(BasicModel):
     attributes = {
+        'id': int,
         'userId': int,
         'colocationId': int,
     }
