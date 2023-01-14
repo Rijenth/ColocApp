@@ -110,17 +110,17 @@ docker-compose up -d --build
         4. Data: None
         5. Response: {...[Expense]}
 
-    2. Get Expenses by Colocation ID
+    2. Get all Expenses for colocation by Colocation ID
         1. Endpoint : `/api/expense/colocation/<string:id>`
         2. Method: GET
-        3. Status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
         4. Data: None
         5. Response: {[Expense]}
 
-    3. Get Expenses by User ID
-        1. Endpoint : `/api/expense/user/<string:id>`
+    3. Get all Expenses for a colocation by UID
+        1. Endpoint : `/api/expense/user/<string:uid>`
         2. Method: GET
-        3. Status code: 200 (OK) || 404 (NOT FOUND) || 422 (UNPROCESSABLE ENTITY)
+        3. Status code: 200 (OK) || 422 (UNPROCESSABLE ENTITY)
         4. Data: None
         5. Response: {[Expense]}
 
@@ -186,7 +186,7 @@ docker-compose up -d --build
     5. Update Colocataire
         1. Endpoint : `/api/colocataire/<string:id>`
         2. Method: PUT
-        3. Status code: 201 (CREATED))
+        3. Status code: 201 (CREATED)
 
     6. Delete Colocataire
         1. Endpoint : `/api/colocataire/<string:id>`
@@ -210,15 +210,15 @@ docker-compose up -d --build
         4. Data: None
         5. Response: {...[User]}
 
-    2. Get User by ID
-        1. Endpoint : `/api/users/<int:id>`
+    2. Get User by UID
+        1. Endpoint : `/api/users/<int:uid>`
         2. Method: GET
         3. Status code: 200 (OK) || 404 (NOT FOUND)
         4. Data: None
         5. Response: {[User]}
 
     3. Update User
-        1. Endpoint : `/api/users/<string:id>`
+        1. Endpoint : `/api/users/<string:uid>`
         2. Method: PUT
         3. Status code: 201 (CREATED)) || 422 (UNPROCESSABLE ENTITY)
         4. Data: {
@@ -235,7 +235,7 @@ docker-compose up -d --build
         5. Response: {[User]}
 
     4. Delete User
-        1. Endpoint : `/api/users/<int:id>`
+        1. Endpoint : `/api/users/<int:uid>`
         2. Method: DELETE
         3. Status code: 204 (NO CONTENT)
         4. Data: None

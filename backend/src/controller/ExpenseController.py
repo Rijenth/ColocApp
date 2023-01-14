@@ -1,7 +1,10 @@
 from flask import Flask, jsonify
 from datetime import date
 from src.model.ExpenseModel import ExpenseModel
+from src.model.UsersModel import UsersModel
+from src.action.ColocataireAction import ColocataireAction
 from src.action.ExpenseAction import ExpenseAction
+from src.action.UsersAction import UsersAction
 
 class ExpenseController:
     def __init__(self, request):
@@ -16,20 +19,24 @@ class ExpenseController:
 
     def showColocExpense(id):
         try:
-            expense = ExpenseAction().getExpenseColoc(id)
+            expense = ExpenseAction().getAllExpensesColoc(id)
         except Exception as e:
-            return jsonify({}), 404
+            return jsonify({"type" : "error", "messages" : "SQL Request error"}), 422
         if expense is None or len(expense) == 0:
-            return jsonify({}), 404
+            return jsonify({}), 200
         return jsonify([expense]), 200
 
-    def showUserExpense(id):
+    def showUserExpense(uid):
+        getUserData = UsersAction().show("uid", uid)
+        user = UsersModel(getUserData)
+        colocataire = ColocataireAction().showUser(user.id)
+
         try:
-            expense = ExpenseAction().getExpenseUser(id)
+            expense = ExpenseAction().getAllExpensesFromUser(colocataire['id'], colocataire['colocationId'])
         except Exception as e:
-            return jsonify({}), 404
+            return jsonify({"type" : "error", "messages" : "SQL Request error"}), 422
         if expense is None or len(expense) == 0:
-            return jsonify({}), 404
+            return jsonify({}), 200
         return jsonify([expense]), 200
 
     def newExpense(data):

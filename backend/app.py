@@ -56,10 +56,15 @@ def showColocation(id):
     return ColocationController.showColocation(int(id))
 
 ###     CREATE     ###
-# { "name": "nameCreate", "rentDue": 100, "rentPaid": 0 }
+# { "name": "nameCreate", "rentDue": 100}
 @app.route('/api/colocation', methods=['POST'])
 def postColocation():
     data = request.get_json()
+
+    if not all(key in data for key in ("name", "rentDue")):
+        missing = [key for key in ("name", "rentDue") if key not in data]
+        return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
+    
     return ColocationController.createColocation(data)
 
 ###     UPDATE     ###
@@ -67,6 +72,11 @@ def postColocation():
 @app.route('/api/colocation/<string:id>', methods=['PUT'])
 def updateColocation(id):
     data = request.get_json()
+
+    if not all(key in data for key in ("name", "rentDue", "rentPaid")):
+        missing = [key for key in ("name", "rentDue", "rentPaid") if key not in data]
+        return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
+
     try:
         int(id)
     except Exception as e:
@@ -101,13 +111,13 @@ def showColocExpense(id):
     return ExpenseController.showColocExpense(int(id))
 
 # Get all expense of a user
-@app.route('/api/expense/user/<string:id>', methods=['GET'])
-def showExpense(id):
+@app.route('/api/expense/user/<string:uid>', methods=['GET'])
+def showUserExpense(uid):
     try:
-        int(id)
+        str(uid)
     except Exception as e:
         return jsonify({"type": "error"}), 422
-    return ExpenseController.showColocExpense(int(id))
+    return ExpenseController.showUserExpense(str(uid))
 
 # Create a new expense
 # { "amount", "colocataireId", "paidFor": 'loyer, electricte, eau, nourriture, autre', "description" ,"colocationId" }

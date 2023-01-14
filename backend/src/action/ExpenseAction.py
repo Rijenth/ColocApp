@@ -25,13 +25,13 @@ class ExpenseAction(DatabaseActions):
         )
         super()._execute(query, value)
 
-    def getExpenseUser(self, id):
-        data = super()._get("SELECT * FROM " + self.table + "Where colocataireId = %s  Inner JOIN Users ON Expense.colocataireId = Users.id ", (id))   
-        return data
-    
-    def getExpenseColoc(self, id):
-        data = super()._get("colocationId ", (id))   
-        return data
+    def getAllExpensesFromUser(self, colocataireId, colocationId):
+        query = "SELECT * FROM " + self.table + " WHERE colocataireId= " + str(colocataireId) +" AND colocationId= " + str(colocationId)
+        return super()._index(query)
+
+    def getAllExpensesColoc(self, colocationId):
+        query = "SELECT * FROM " + self.table + " WHERE colocationId= " + str(colocationId)
+        return super()._index(query)
 
     def update(self, model, id):
         query= "UPDATE "+ self.table +" Set amount = %s, colocataireId = %s, paidFor = %s, updatedAt  = %s, description  = %s , colocationId  = %s  WHERE id = %s"
