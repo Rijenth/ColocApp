@@ -119,6 +119,9 @@ def createExpense():
         missing = [k for k in ("amount", "colocataireId", "paidFor", "description", "colocationId") if k not in data]
         return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
 
+    if data['paidFor'] not in ('loyer','electricite','eau','nourriture','autres'):
+        return jsonify({"type": "error", "message" : "paidFor has to be one of ('loyer','electricite','eau','nourriture','autres')"}), 422
+
     return ExpenseController.newExpense(data)
 
 # Update a expense
