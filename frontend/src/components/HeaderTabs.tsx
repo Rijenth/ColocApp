@@ -89,7 +89,12 @@ const useStyles = createStyles((theme) => ({
 
 interface HeaderTabsProps {
     user: { name: string; image: string };
-    tabs: string[];
+    tabs: ITabs[];
+}
+
+interface ITabs {
+    name: string;
+    route: string;
 }
 
 export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
@@ -98,8 +103,12 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
     const [userMenuOpened, setUserMenuOpened] = useState(false);
 
     const items = tabs.map((tab) => (
-        <Tabs.Tab value={tab} key={tab}>
-            {tab}
+        <Tabs.Tab onClick={
+            () => {
+                window.location.href = tab.route
+            }
+        } value={tab.name} key={tab.name}>
+            {tab.name}
         </Tabs.Tab>
     ));
 
@@ -107,7 +116,6 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
         <div className={classes.header}>
             <Container className={classes.mainSection}>
                 <Group position="apart">
-
                     <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
 
                     <Menu
@@ -131,29 +139,19 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
                             </UnstyledButton>
                         </Menu.Target>
                         <Menu.Dropdown>
-                            <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
-                                Liked posts
-                            </Menu.Item>
-                            <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                                Saved posts
-                            </Menu.Item>
-                            <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
-                                Your comments
-                            </Menu.Item>
-
                             <Menu.Label>Settings</Menu.Label>
-                            <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
-                            <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
-                                Change account
-                            </Menu.Item>
-                            <Menu.Item icon={<IconLogout size={14} stroke={1.5} />}>Logout</Menu.Item>
+                            <Menu.Item onClick={
+                                () => {
+                                    window.location.href = '/account'
+                                }
 
+                            } icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
+                            <Menu.Item onClick={() => {
+                                window.location.href = '/account'
+                            }} icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
+                                Modify account
+                            </Menu.Item>
                             <Menu.Divider />
-
-                            <Menu.Label>Danger zone</Menu.Label>
-                            <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
-                                Pause subscription
-                            </Menu.Item>
                             <Menu.Item onClick={() => {
                                 window.location.href = '/auth/logout'
                             }} color="red" icon={<IconLogout size={14} stroke={1.5} />}>

@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 // outer components
 import HeaderTabs from "../../components/HeaderTabs";
@@ -22,8 +23,6 @@ import BigNum from "./components/BigNum";
 // styles
 import "./styles/index.css";
 
-import { useState, useEffect } from "react";
-import FirstTime from "./components/FirstTime";
 import { getExpenses } from "../../func/dashboard.func";
 import { decodeJwt } from "jose";
 
@@ -84,11 +83,43 @@ export default function Dashboard() {
 }
 
 function FullDashboard() {
+
+  const [user, setUser] = useState({
+    firstName: "Kader",
+    lastName: "Boukraa",
+    uid: "1",
+    colocation: "1",
+    picture: "https://i.pravatar.cc/300"
+  })
+
+  useEffect(() => {
+    const user = sessionStorage.getItem("ColocUser");
+    if (user) {
+      const decoded = decodeJwt(user);
+      setUser(decoded.sub)
+    }
+  }, []);
+
   return (
     <>
       <HeaderTabs
-        user={{ name: "John Doe", image: "https://i.pravatar.cc/300" }}
-        tabs={["Dashboard", "Resume", "Settings"]}
+        user={{
+          name: `${user.firstName} ${user.lastName}`, image: `${user.picture}`
+        }}
+        tabs={[{
+          name: "Dashboard",
+          route: "/dashboard",
+        }, {
+          name: "Expenses",
+          route: "/dashboard/summary",
+        }, {
+          name: "Graph",
+          route: "/dashboard/graph",
+        }, {
+          name: "BigNum",
+          route: "/dashboard/bigNum",
+        },
+        ]}
       />
       <Container my="md">
         <SimpleGrid

@@ -32,13 +32,28 @@ import {
   IconUpload,
 } from "@tabler/icons";
 export default function Account() {
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState({
+    email: "jaimelespate@gmail.com",
+    firstName: "Kader",
+    lastName: "Boukraa",
+    gender: "onaimeleshelico",
+    uid: "1",
+    colocation: "1",
+    picture: "https://i.pravatar.cc/300"
+  })
   const [editabled, toggleEditabled] = useToggle([false, true]);
 
   useEffect(() => {
-    const jwt = getUser();
-    console.table(jwt);
+    const storedData = sessionStorage.getItem("ColocUser");
+    if (storedData) {
+      const decoded = decodeJwt(storedData);
+      setUser(decoded.sub)
+    }
   }, []);
+
+  useEffect(() => {
+    console.table(user);
+  }, [user]);
 
   const { classes } = useStyles();
 
@@ -55,6 +70,7 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="Email"
           disabled={!editabled}
+          value={user.email}
           onChange={(e) => {
             setUser({ ...user, email: e.target.value });
           }}
@@ -66,6 +82,7 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="First Name"
           disabled={!editabled}
+          value={user.firstName}
           onChange={(e) => {
             setUser({ ...user, firstName: e.target.value });
           }}
@@ -77,12 +94,15 @@ export default function Account() {
           className={classes.accountFormInput}
           placeholder="Last Name"
           disabled={!editabled}
+          value={user.lastName}
           onChange={(e) => {
             setUser({ ...user, lastName: e.target.value });
           }}
         />
         <Select
           className={classes.accountFormInput}
+          value={user.gender}
+          defaultValue={user.gender}
           data={[
             { label: "Male", value: "Male" },
             { label: "Female", value: "Female" },
@@ -98,13 +118,6 @@ export default function Account() {
         <Text className={classes.text} size="md">
           Birthdate
         </Text>
-        <DatePicker
-          className={classes.accountFormInput}
-          disabled={!editabled}
-          onChange={(e) => {
-            setUser({ ...user, birthdate: e as Date });
-          }}
-        />
         <Text className={classes.text} size="md">
           Avatar
         </Text>
