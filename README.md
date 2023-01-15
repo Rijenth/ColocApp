@@ -5,12 +5,16 @@ git clone https://github.com/Rijenth/ColocApp
 ## To run the app
 
 **cd into frontend and do a yarn install**
-``cd frontend``
-``yarn install``
+``cd frontend && yarn install``
 
-**cd back to root and run docker-compose up -d --build**
-``cd ..``
-``docker-compose up -d --build``
+**cd back to root and build the container**
+``cd .. && docker-compose up -d --build``
+
+**handling error with frontend container**
+The frontend container was created to be launch throught WSL,
+if you have any issue with the `react_frontend` container, or if the application is not working as intended on the client side,
+you have to down the `react_frontend` container and then use the following command : 
+``cd frontend && yarn dev``
 
 ## Team
 
