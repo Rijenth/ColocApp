@@ -197,7 +197,8 @@ def showColocExpenseColoc(id):
 def createColocataire():
     data = request.get_json()
     if not 'code' in data or not 'uid' in data:
-        return jsonify({"type": "error", "message" : "missing attributes 'code:int4' or/and 'uid:str'"}), 422
+        missing = [k for k in ("code", "uid") if k not in data]
+        return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
     return ColocataireController.createColocataire(data)
 
 
@@ -240,10 +241,15 @@ def showUser(uid):
 @app.route('/api/users/<string:uid>', methods=['PUT'])
 def updateUser(uid):
     data = request.get_json()
+   
+    if not all (k in data for k in ("firstname", "lastname", "email", "gender")):
+        missing = [k for k in ("firstname", "lastname", "email", "gender") if k not in data]
+        return jsonify({"type": "error", "message" : "missing one of the following attributes " + str(missing)}), 422
+
     try:
         str(uid)
     except Exception as e:
-        return jsonify({"message": "Bad request"}), 422
+        return jsonify({"type":"error", "message": "Bad request"}), 422
     return UsersController.updateUser(str(uid), data)
 
 # DELETE
@@ -252,7 +258,7 @@ def deleteUser(uid):
     try:
         str(uid)
     except Exception as e:
-        return jsonify({"message": "Bad request"}), 422
+        return jsonify({"type":"error", "message": "Bad request"}), 422
     return UsersController.deleteUser(str(uid))
 
 if __name__ == '__main__':

@@ -16,19 +16,14 @@ class UsersAction(DatabaseActions):
     def show(self, key, value):
         return super()._get(key, value)
 
-    def update(self, id, model):
-        query = "UPDATE " + self.table + " SET firstName = %s, lastName = %s, email = %s, password = %s, phone = %s, gender = %s, birthdate = %s, picture = %s, income = %s WHERE id = %s"
+    def update(self, uid, model):
+        query = "UPDATE " + self.table + " SET firstName = %s, lastName = %s, email = %s, gender = %s WHERE uid = %s"
         value = (
             model.firstName,
             model.lastName,
             model.email,
-            AuthenticationAction().hashPassword(model.password),
-            model.phone,
             model.gender,
-            model.birthdate,
-            model.picture,
-            model.income,
-            id
+            uid
         )
         super()._execute(query, value)
 
