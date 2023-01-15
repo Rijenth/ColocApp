@@ -2,9 +2,15 @@
 
 git clone https://github.com/Rijenth/ColocApp
 
-cd ColocApp/frontend && yarn
+## To run the app
 
-docker-compose up -d --build
+**cd into frontend and do a yarn install**
+``cd frontend``
+``yarn install``
+
+**cd back to root and run docker-compose up -d --build**
+``cd ..``
+``docker-compose up -d --build``
 
 ## Team
 
