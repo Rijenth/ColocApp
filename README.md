@@ -1,5 +1,7 @@
 # ColocApp
 
+git clone https://github.com/Rijenth/ColocApp
+
 cd ColocApp/frontend && yarn
 
 docker-compose up -d --build
