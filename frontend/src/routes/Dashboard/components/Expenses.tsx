@@ -15,11 +15,10 @@ const useStyles = createStyles((theme) => ({
       left: 0,
       right: 0,
       bottom: 0,
-      borderBottom: `1px solid ${
-        theme.colorScheme === "dark"
+      borderBottom: `1px solid ${theme.colorScheme === "dark"
           ? theme.colors.dark[3]
           : theme.colors.gray[2]
-      }`,
+        }`,
     },
   },
 
@@ -61,6 +60,12 @@ export default function Expenses({ data }: ExpensePayload, setOpenModel: any) {
   const [scrolled, setScrolled] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [idRow, setIdRow] = useState(0);
+
+  if (data === undefined) {
+    return <>
+      Une erreur est survenue, veuillez réessayer ultérieurement
+    </>
+  }
 
   const rows = data.map((row) => (
     <>

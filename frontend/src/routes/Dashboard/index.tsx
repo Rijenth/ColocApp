@@ -146,6 +146,7 @@ function FullDashboard() {
           <Graph type={"items"} />
           <BigNum type={"items"} />
         </SimpleGrid>
+
         <Expenses data={tableData} type={"items"} />
         <CreateResume />
       </Container>

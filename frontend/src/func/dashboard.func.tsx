@@ -1,3 +1,4 @@
+import { decodeJwt } from "jose";
 import { ExpensePayload } from "../interfaces/data.interface";
 
 const API_URL = "http://localhost:5500/api";
@@ -16,63 +17,62 @@ export function createExpenses(payload: {
     },
   }).then((response) => response.json())
     .then((data) => {
-        let resId: string;
+      let resId: string;
 
-        resId = data.relationships.Colocataire.id;
+      resId = data.relationships.Colocataire.id;
 
-        let body = {
-          amount: payload.amount,
-          colocataireId: resId,
-          paidFor: payload.paidFor,
-          description: payload.description,
-          colocationId: payload.colocationId,
-        };
+      let body = {
+        amount: payload.amount,
+        colocataireId: resId,
+        paidFor: payload.paidFor,
+        description: payload.description,
+        colocationId: payload.colocationId,
+      };
 
-        return fetch(`${API_URL}/expense`, {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      return fetch(`${API_URL}/expense`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
         })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .catch((error) => {
+          console.log(error);
+        });
     });
 }
 
 export function getExpenses() {
-  console.log("getExpenses");
-    return fetch(`${API_URL}/expense`, {
+  return fetch(`${API_URL}/expense/colocation/${decodeJwt(sessionStorage.getItem("ColocUser")).sub.colocation}`, {
     method: "GET",
     headers: {
-        "Content-Type": "application/json",
+      "Content-Type": "application/json",
     }
   }
-    ).then((response) => response.json())
+  ).then((response) => response.json())
     .then((res) => {
-        let data: ExpensePayload[] = [];
-        res[0].map((item: ExpensePayload) => {
-            const expense: ExpensePayload = {
-                id: item.id,
-                amount: item.amount,
-                colocataireId: item.colocataireId,
-                firstName: item.firstName,
-                createdAt: item.createdAt,
-                paidFor: item.paidFor,
-                description: item.description,
-                colocationId: item.colocationId,
-            };
-            data.push(expense);
-        });
-        return data;
+      let data: ExpensePayload[] = [];
+      res[0].map((item: ExpensePayload) => {
+        const expense: ExpensePayload = {
+          id: item.id,
+          amount: item.amount,
+          colocataireId: item.colocataireId,
+          firstName: item.firstName,
+          createdAt: item.createdAt,
+          paidFor: item.paidFor,
+          description: item.description,
+          colocationId: item.colocationId,
+        };
+        data.push(expense);
+      });
+      return data;
     })
     .catch((error) => {
-        console.log(error);
+      console.log(error);
     }
     );
 }

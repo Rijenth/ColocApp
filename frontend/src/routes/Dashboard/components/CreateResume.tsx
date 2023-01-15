@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { createExpenses } from "../../../func/dashboard.func";
 
 import { decodeJwt } from "jose";
+import { closeAllModals } from "@mantine/modals";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -104,7 +105,10 @@ export default function CreateResume(open: boolean) {
           <Button
             style={{ marginTop: 20 }}
             color="blue"
-            onClick={() => (createExpenses(payload), console.log(payload))}
+            onClick={() => {
+              createExpenses(payload);
+              closeAllModals();
+            }}
           >
             Create
           </Button>

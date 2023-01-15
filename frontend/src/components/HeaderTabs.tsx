@@ -13,12 +13,6 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import {
     IconLogout,
-    IconHeart,
-    IconStar,
-    IconMessage,
-    IconSettings,
-    IconPlayerPause,
-    IconTrash,
     IconSwitchHorizontal,
     IconChevronDown,
 } from '@tabler/icons';
@@ -139,12 +133,6 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
                             </UnstyledButton>
                         </Menu.Target>
                         <Menu.Dropdown>
-                            <Menu.Label>Settings</Menu.Label>
-                            <Menu.Item onClick={() => {
-                                window.location.href = '/account'
-                            }} icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
-                                Modify account
-                            </Menu.Item>
                             <Menu.Divider />
                             <Menu.Item onClick={() => {
                                 window.location.href = '/auth/logout'
@@ -155,19 +143,7 @@ export default function HeaderTabs({ user, tabs }: HeaderTabsProps) {
                     </Menu>
                 </Group>
             </Container>
-            <Container>
-                <Tabs
-                    defaultValue="Dashboard"
-                    variant="outline"
-                    classNames={{
-                        root: classes.tabs,
-                        tabsList: classes.tabsList,
-                        tab: classes.tab,
-                    }}
-                >
-                    <Tabs.List>{items}</Tabs.List>
-                </Tabs>
-            </Container>
+
         </div>
     );
 }
