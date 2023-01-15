@@ -62,6 +62,10 @@ export default function Expenses({ data }: ExpensePayload, setOpenModel: any) {
   const [openModal, setOpenModal] = useState(false);
   const [idRow, setIdRow] = useState(0);
 
+  if (data === undefined) {
+    return <div>loading...</div>;
+  }
+  
   const rows = data.map((row) => (
     <>
       <tr

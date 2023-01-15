@@ -1,3 +1,4 @@
+import { decodeJwt } from "jose";
 import { ExpensePayload } from "../interfaces/data.interface";
 
 const API_URL = "http://localhost:5500/api";
@@ -46,13 +47,14 @@ export function createExpenses(payload: {
 }
 
 export function getExpenses() {
-  console.log("getExpenses");
-    return fetch(`${API_URL}/expense`, {
+    const colocationId = decodeJwt(sessionStorage.getItem("ColocUser")).sub.colocation;
+    let res = []
+    fetch(`${API_URL}/expense/colocation/${colocationId}`, {
     method: "GET",
-    headers: {
-        "Content-Type": "application/json",
+      headers: {
+          "Content-Type": "application/json",
+      }
     }
-  }
     ).then((response) => response.json())
     .then((res) => {
         let data: ExpensePayload[] = [];
@@ -69,7 +71,10 @@ export function getExpenses() {
             };
             data.push(expense);
         });
-        return data;
+        res = data;
+    })
+    .finally(() => {
+        return res;
     })
     .catch((error) => {
         console.log(error);

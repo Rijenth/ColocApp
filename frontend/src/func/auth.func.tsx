@@ -76,10 +76,7 @@ export async function login(email: string, password: string) {
       const responseToString = response.text();
       const decodedResponse = JSON.parse(await responseToString);
       sessionStorage.setItem("ColocUser", decodedResponse.token);
-      return {
-        type: "LOGIN_SUCCESS",
-        response: decodedResponse,
-      };
+      window.location.href = "/dashboard";
     })
     .catch((error) => {
       return {

@@ -104,7 +104,11 @@ export default function CreateResume(open: boolean) {
           <Button
             style={{ marginTop: 20 }}
             color="blue"
-            onClick={() => (createExpenses(payload), console.log(payload))}
+            onClick={() => {
+              createExpenses(payload);
+              setOpened(false);
+            }}
+
           >
             Create
           </Button>

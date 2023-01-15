@@ -49,13 +49,6 @@ const dataSave = [
     colocationId: "1",
   },
 ];
-let tableData: ExpensePayload[] | void = [];
-
-getExpenses().then((data) => {
-  tableData = data;
-});
-
-console.log(tableData);
 
 const isFirstTime = async () => {
   const user = sessionStorage.getItem("ColocUser");
@@ -79,12 +72,12 @@ export default function Dashboard() {
   }, []); */
 
   switch (element) {
-    case "summary":
+/*     case "summary":
       return <Expenses data={data} type={"view"} />;
     case "graph":
       return <Graph type={"view"} />;
     case "bigNum":
-      return <BigNum type={"view"} />;
+      return <BigNum type={"view"} />; */
     default:
       return <FullDashboard />;
   }
@@ -100,7 +93,10 @@ function FullDashboard() {
     picture: "https://i.pravatar.cc/300"
   })
 
+  let tableData: ExpensePayload[] | void = [];
+
   useEffect(() => {
+    tableData = getExpenses();
     const user = sessionStorage.getItem("ColocUser");
     if (user) {
       const decoded = decodeJwt(user);
