@@ -26,10 +26,10 @@ export function createColloc({
 }
 
 export function joinColloc({
-  userUid,
+  uid,
   code,
 }: {
-  userUid: string;
+  uid: string;
   code: string;
 }) {
   fetch(`http://localhost:5500/api/colocataire`, {
@@ -39,7 +39,7 @@ export function joinColloc({
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
-      userUid,
+      uid,
       code,
     }),
   })

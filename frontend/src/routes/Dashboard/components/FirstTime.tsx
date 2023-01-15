@@ -112,7 +112,7 @@ export default function FirstTime() {
           <Button
             onClick={() => {
               joinColloc({
-                userUid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
+                uid: decodeJwt(sessionStorage.getItem("ColocUser")).sub
                   .uid as string,
                 code: joinCollocData.code,
               });
