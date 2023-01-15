@@ -94,6 +94,7 @@ export default function FirstTime() {
     return (
       <Container className={classes.modal}>
         <Title className={classes.title}>Rejoindre une collocation</Title>
+        <Title className={classes.title} order={2}>Vous allez être déconnecter</Title>
         <NumberInput
           className={classes.modalInput}
           placeholder="Code de la collocation"
@@ -116,7 +117,6 @@ export default function FirstTime() {
                   .uid as string,
                 code: joinCollocData.code,
               });
-              closeAllModals();
             }}
             color="blue"
             variant="light"

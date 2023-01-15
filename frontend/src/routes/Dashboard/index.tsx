@@ -25,7 +25,7 @@ import "./styles/index.css";
 
 import { getExpenses } from "../../func/dashboard.func";
 import { decodeJwt } from "jose";
-import {ExpensePayload} from "../../interfaces/data.interface";
+import { ExpensePayload } from "../../interfaces/data.interface";
 
 const dataSave = [
   {
@@ -92,7 +92,7 @@ export default function Dashboard() {
 
 function FullDashboard() {
 
-  const [user, setUser] = useState({
+  const [userData, setUserData] = useState({
     firstName: "Kader",
     lastName: "Boukraa",
     uid: "1",
@@ -104,15 +104,23 @@ function FullDashboard() {
     const user = sessionStorage.getItem("ColocUser");
     if (user) {
       const decoded = decodeJwt(user);
-      setUser(decoded.sub)
+      setUserData(decoded.sub)
     }
+    console.table(userData)
   }, []);
+
+  useEffect(() => {
+    if (userData.colocation === null) {
+      window.location.href = "/firstTime";
+    }
+  }, [userData]);
+
 
   return (
     <>
       <HeaderTabs
         user={{
-          name: `${user.firstName} ${user.lastName}`, image: `${user.picture}`
+          name: `${userData.firstName} ${userData.lastName}`, image: `${userData.picture}`
         }}
         tabs={[{
           name: "Dashboard",
