@@ -211,7 +211,7 @@ docker-compose up -d --build
         5. Response: {...[User]}
 
     2. Get User by UID
-        1. Endpoint : `/api/users/<int:uid>`
+        1. Endpoint : `/api/users/<string:uid>`
         2. Method: GET
         3. Status code: 200 (OK) || 404 (NOT FOUND)
         4. Data: None
