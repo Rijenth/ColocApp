@@ -4,11 +4,11 @@ git clone https://github.com/Rijenth/ColocApp
 
 ## To run the app
 
-1. **cd into frontend and do a yarn install**
+2. **cd into frontend and do a yarn install**
     1. ``cd frontend && yarn install``
 <br>
 
-1. **cd back to root and build the container**
+3. **cd back to root and build the container**
     1. ``cd .. && docker-compose up -d --build``
 <br>
 
