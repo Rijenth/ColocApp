@@ -5,6 +5,9 @@ import { createStyles } from "@mantine/core";
 // Functions
 
 export default function Graph({ type }: { type: string }) {
+
+  // ! N'a pas été fait avec les données du backend
+
   const data01 = [
     {
       name: "Group A",

@@ -1,3 +1,5 @@
+import { decodeJwt } from "jose";
+
 export function createColloc({
   name,
   code,
@@ -22,7 +24,12 @@ export function createColloc({
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-    });
+      joinColloc({
+        uid: decodeJwt(sessionStorage.getItem("ColocUser")).sub.uid,
+        code: code.toString(),
+      });
+    }
+    );
 }
 
 export function joinColloc({

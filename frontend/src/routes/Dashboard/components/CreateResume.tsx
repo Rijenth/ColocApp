@@ -46,7 +46,7 @@ export default function CreateResume(open: boolean) {
       .uid as string,
     paidFor: "",
     description: "",
-    colocationId: 1,
+    colocationId: decodeJwt(sessionStorage.getItem("ColocUser")).sub.colocation,
   });
 
   useEffect(() => {
@@ -108,6 +108,10 @@ export default function CreateResume(open: boolean) {
             onClick={() => {
               createExpenses(payload);
               setOpened(false);
+              setTimeout(() => {
+                window.location.reload();
+              }
+                , 2000);
             }}
 
           >

@@ -50,15 +50,6 @@ const dataSave = [
   },
 ];
 
-const isFirstTime = async () => {
-  const user = sessionStorage.getItem("ColocUser");
-  if (user) {
-    const decoded = decodeJwt(user);
-    return decoded.sub.colocation;
-  }
-
-};
-
 export default function Dashboard() {
   const { element } = useParams();
 
@@ -72,12 +63,12 @@ export default function Dashboard() {
   }, []); */
 
   switch (element) {
-/*     case "summary":
-      return <Expenses data={data} type={"view"} />;
-    case "graph":
-      return <Graph type={"view"} />;
-    case "bigNum":
-      return <BigNum type={"view"} />; */
+    /*     case "summary":
+          return <Expenses data={data} type={"view"} />;
+        case "graph":
+          return <Graph type={"view"} />;
+        case "bigNum":
+          return <BigNum type={"view"} />; */
     default:
       return <FullDashboard />;
   }
@@ -93,16 +84,15 @@ function FullDashboard() {
     picture: "https://i.pravatar.cc/300"
   })
 
-  let tableData: ExpensePayload[] | void = [];
+  const [tableData, setTableData] = useState();
 
   useEffect(() => {
-    tableData = getExpenses();
     const user = sessionStorage.getItem("ColocUser");
     if (user) {
       const decoded = decodeJwt(user);
       setUserData(decoded.sub)
     }
-    console.table(userData)
+    getExpense();
   }, []);
 
   useEffect(() => {
@@ -110,6 +100,38 @@ function FullDashboard() {
       window.location.href = "/firstTime";
     }
   }, [userData]);
+
+  const getExpense = () => {
+    const colocationId = decodeJwt(sessionStorage.getItem("ColocUser")).sub.colocation;
+    fetch(`http://localhost:5500/api/expense/colocation/${colocationId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+    ).then((response) => response.json())
+      .then((res) => {
+        let data: ExpensePayload[] = [];
+        res[0].map((item: ExpensePayload) => {
+          const expense: ExpensePayload = {
+            id: item.id,
+            amount: item.amount,
+            colocataireId: item.colocataireId,
+            firstName: item.firstName,
+            createdAt: item.createdAt,
+            paidFor: item.paidFor,
+            description: item.description,
+            colocationId: item.colocationId,
+          };
+          data.push(expense);
+        });
+        setTableData(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      }
+      );
+  }
 
 
   return (
@@ -144,7 +166,7 @@ function FullDashboard() {
         </SimpleGrid>
 
         <Expenses data={tableData} type={"items"} />
-        <CreateResume />
+        <CreateResume getData={getExpense} />
       </Container>
     </>
   );
