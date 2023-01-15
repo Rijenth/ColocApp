@@ -177,7 +177,7 @@ export default function FirstTime() {
               createColloc({
                 name: createCollocName,
                 code: createCollocCode,
-                expense: createCollocExpectedIncome,
+                rentDue: createCollocExpectedIncome,
               });
               setLoading(false);
               closeAllModals();

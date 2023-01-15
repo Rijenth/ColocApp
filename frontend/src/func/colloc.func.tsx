@@ -1,11 +1,11 @@
 export function createColloc({
   name,
   code,
-  expense,
+  rentDue,
 }: {
   name: string;
   code: number;
-  expense: number;
+  rentDue: number;
 }) {
   fetch("http://localhost:5500/api/colocation", {
     method: "POST",
@@ -16,7 +16,7 @@ export function createColloc({
     body: JSON.stringify({
       name,
       code,
-      expense,
+      rentDue,
     }),
   })
     .then((res) => res.json())
