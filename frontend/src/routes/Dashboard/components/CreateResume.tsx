@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { createExpenses } from "../../../func/dashboard.func";
 
 import { decodeJwt } from "jose";
+import { closeAllModals } from "@mantine/modals";
 
 const useStyles = createStyles((theme) => ({
   root: {

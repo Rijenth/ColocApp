@@ -17,32 +17,32 @@ export function createExpenses(payload: {
     },
   }).then((response) => response.json())
     .then((data) => {
-        let resId: string;
+      let resId: string;
 
-        resId = data.relationships.Colocataire.id;
+      resId = data.relationships.Colocataire.id;
 
-        let body = {
-          amount: payload.amount,
-          colocataireId: resId,
-          paidFor: payload.paidFor,
-          description: payload.description,
-          colocationId: payload.colocationId,
-        };
+      let body = {
+        amount: payload.amount,
+        colocataireId: resId,
+        paidFor: payload.paidFor,
+        description: payload.description,
+        colocationId: payload.colocationId,
+      };
 
-        return fetch(`${API_URL}/expense`, {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      return fetch(`${API_URL}/expense`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
         })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .catch((error) => {
+          console.log(error);
+        });
     });
 }
 
@@ -77,7 +77,7 @@ export function getExpenses() {
         return res;
     })
     .catch((error) => {
-        console.log(error);
+      console.log(error);
     }
     );
 }

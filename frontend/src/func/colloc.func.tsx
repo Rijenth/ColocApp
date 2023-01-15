@@ -45,6 +45,8 @@ export function joinColloc({
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      if (data.type === "success") {
+        window.location.href = "/auth/logout";
+      }
     });
 }
