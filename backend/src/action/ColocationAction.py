@@ -22,7 +22,7 @@ class ColocationAction(DatabaseActions):
             False,
             date.today().strftime("%Y-%m-%d"),
             date.today().strftime("%Y-%m-%d"),
-            random.randint(1000, 9999)
+            model.code
             
         )
         super()._execute(query, value)

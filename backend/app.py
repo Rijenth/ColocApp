@@ -61,7 +61,7 @@ def showColocation(id):
 def postColocation():
     data = request.get_json()
 
-    if not all(key in data for key in ("name", "rentDue")):
+    if not all(key in data for key in ("name", "rentDue", "code")):
         missing = [key for key in ("name", "rentDue") if key not in data]
         return jsonify({"type": "error", "message" : "missing attributes " + str(missing)}), 422
     
