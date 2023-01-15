@@ -1,6 +1,6 @@
 # ColocApp
 
-cd ColocApp/frontend && yarn install
+cd ColocApp/frontend && yarn
 
 docker-compose up -d --build
 
