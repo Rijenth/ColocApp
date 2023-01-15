@@ -83,7 +83,7 @@ export default function CreateResume(open: boolean) {
 
         <Select
           style={{ marginTop: 20, zIndex: 2 }}
-          data={["loyer", "eletricite", "eau", "nourriture", "autre"]}
+          data={["loyer", "electricite", "eau", "nourriture", "autres"]}
           placeholder="Pick one"
           label="Paid ford"
           classNames={classes}
