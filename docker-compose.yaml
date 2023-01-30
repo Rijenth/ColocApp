@@ -12,18 +12,16 @@ services:
         - ./backend:/code
       restart: always
 
-    react_frontend:
-        container_name: react_frontend
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile
-        ports:
-            - '3000:3000'
-        volumes:
-            - ./frontend:/usr/src/app
-            # use npm instead of yarn
-        command: sh -c "npm rebuild esbuild && yarn dev"
-        restart: always
+    react:
+      container_name: react
+      build: 
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./frontend/src:/app/src
+      restart: always
 
     mysql:
       container_name: database

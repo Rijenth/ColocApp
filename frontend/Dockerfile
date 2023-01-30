@@ -1,15 +1,12 @@
-FROM node:14
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# we will use yarn to install dependencies (prevent the copy of node_modules because of esbuild not compatible)
-COPY package.json yarn.lock ./
+COPY package.json .
 
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 COPY . .
-
-RUN yarn global add vite
 
 EXPOSE 3000
 
